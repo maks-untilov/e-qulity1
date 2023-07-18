@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="X-CSRF-TOKEN" content="2a79d44e89f1507bee776ca91a94b0c4" /><title>Quality Work</title>
+  <link rel="icon" href="/assets/images/quality-work-icon-01.svg">
+  <link rel="apple-touch-icon" href="/assets/images/quality-work-icon-01.svg">
+  <base href="https://e-quality.work">
+  <link href="/assets/uikit/css/uikit.min.css" type="text/css" rel="stylesheet" />
+  <link href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" rel="stylesheet"/>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link href="/assets/style/style.css?1687444446" type="text/css" rel="stylesheet" />
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/uikit/js/uikit.min.js"></script>
+  <script src="/assets/uikit/js/uikit-icons.min.js"></script>
+  <script src="/assets/js/inputmask.min.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+  <script src="/assets/js/app.js"></script>
+</head><body>
+<nav id="nav" class="nav-crm close">
+  <ul>
+    <li class="logo-container"><a href="http://localhost:8080/index" class="logo-text">
+      <span>Quality Work</span>In the right place at the right time</a>
+    </li>
+    <li class="divider">Меню</li>
+    <li><a href="http://localhost:8080/index" class=" icon icon-dashboard">Стартова панель</a></li>
+    <li><a href="http://localhost:8080/objects" class=" icon icon-objects">Об'єкти</a></li>
+    <li><a href="http://localhost:8080/orders" class=" icon icon-orders">Замовлення</a></li>
+    <li><a href="http://localhost:8080/users" class=" icon icon-users">Працівникі</a></li>
+    <li><a href="http://localhost:8080/stat" class=" icon icon-stat">Статистика</a></li>
+  </ul>
+  <ul class="nav-crm-bottom">
+    <li class="lang uk-hidden@l">
+      <a href="https://e-quality.work/uk/crm/profile" class="active">Українська</a>
+      <a href="https://e-quality.work/pl/crm/profile" class="">Polski</a>
+    </li>
+    <li class="profile">
+      <a href="http://localhost:8080/profile">
+        <img class="profile-image" src="assets/upload/avatar/avatar.png">
+        <div><p th:text="${user.firstName}"><br><p th:text="${user.lastName}"></div>
+      </a>
+      <div class="profile-number"><p th:text="${user.id}"></div>
+    </li>
+    <li><a th:href="${logout}" class="icon icon-logout">Вийти</a></li>
+  </ul>
+  <a href="#" data-uk-toggle="target: #nav; cls: close" class="nav-crm-close uk-hidden@l"><span data-uk-icon="icon:close;ratio:1"></span></a>
+</nav>
+<header class="header-crm">
+  <div data-uk-grid class="uk-grid-small">
+    <div class="uk-width-auto uk-hidden@l">
+      <a href="https://e-quality.work/uk/crm/" class="logo logo-icon"></a>
+    </div>
+    <div class="uk-width-auto uk-flex uk-flex-middle uk-hidden@l">
+      <a href="#" data-uk-toggle="target: #nav; cls: close" class=""><span data-uk-icon="icon:menu;ratio:1.2"></span></a>
+    </div>
+    <div class="uk-width-expand uk-flex uk-flex-middle">
+      <div class="header-title">Профиль</div>
+    </div>
+    <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
+      <ul class="lang-ul">
+        <li><a href="https://e-quality.work/uk/crm/profile" class="active">Українська</a></li>
+        <li><a href="https://e-quality.work/pl/crm/profile" class="">Polski</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+<main class="main-crm">
+  <div data-uk-grid class="uk-grid-small">
+    <div class="uk-width-1-1">
+      <ul class="tab-ul" data-uk-switcher="animation: uk-animation-fade" hidden>
+        <li><a href="#">Профайл</a></li>
+        <li><a href="#">Анкета працівника</a></li>
+      </ul>
+      <ul class="uk-switcher uk-margin">
+        <li>
+          <div data-uk-grid class="uk-grid-small">
+            <div class="uk-width-small@s">
+              <img src="assets/upload/avatar/avatar.png" class="avatar">
+            </div>
+            <div class="uk-width-expand">
+              <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-xsmall uk-table-justify">
+                  <tr>
+                    <td class="uk-text-bold uk-table-shrink">Номер</td>
+                    <td class="uk-text-bold uk-text-danger"><p th:text="${user.id}"></td>
+                  </tr>
+                  <tr>
+                    <td class="uk-text-bold uk-table-shrink">Група</td>
+                    <td><p th:text="${user.role}"></td>
+                  </tr>
+                  <tr>
+                    <td class="uk-text-bold uk-table-shrink">ПІБ</td>
+                    <td><p th:text="${user.firstName}"> <p th:text="${user.lastName}"></td>
+                  </tr>
+                  <tr>
+                    <td class="uk-text-bold uk-table-shrink">Email</td>
+                    <td><p th:text="${user.email}"></td>
+                  </tr>
+                  <tr>
+                    <td class="uk-text-bold uk-table-shrink">Телефон</td>
+                    <td><p th:text="${user.phoneNumber}"></td>
+                  </tr>
+                  <tr>
+                    <td class="uk-text-bold uk-table-shrink"></td>
+                    <td><a href="#form-edit" class="uk-button uk-button-small" data-uk-toggle>Редагувати</a></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div id="form-edit" class="uk-width-1-1" hidden>
+              <div class="border-box">
+                <div class="border-box-title">Редагувати профайл</div>
+                <form method="POST" action="https://e-quality.work/uk/crm/profile" data-uk-grid class="uk-grid-small" enctype="multipart/form-data">
+                  <div class="uk-width-1-1"><input name="first_name" value="Test" class="uk-input uk-width-1-1" type="text" placeholder="Ім'я" required></div>
+                  <div class="uk-width-1-1"><input name="last_name" value="User" class="uk-input uk-width-1-1" type="text" placeholder="Прізвище" required></div>
+                  <div class="uk-width-1-1"><div class="phone-container"><input name="phone" value="48886804489" class="uk-input uk-width-1-1 phone" type="text" placeholder="Телефон" maxlength="13" required></div></div>
+                  <div class="uk-width-1-1">
+                    <div class="input-desc top">Щоб додати аватар до профілю оберіть його. Дозволені типи файлів: jpg, png</div>
+                    <div class="uk-width-1-1" data-uk-form-custom="target: true">
+                      <input type="file" name="file">
+                      <input class="uk-input uk-width-1-1" type="text" placeholder="Обрати зображення" disabled>
+                    </div>
+                  </div>
+                  <div class="uk-width-1-1">
+                    <input value="1" name="remove-image" class="uk-checkbox uk-margin-small-right" type="checkbox">
+                    Видалити зображення аватара                                </div>
+                  <div class="uk-width-1-1">
+                    <div class="input-desc top">Щоб змінити діючий пароль введіть його двічі. Якщо ця дія не потрібна, то залиште поля пароля порожніми.</div>
+                    <input name="password" value="" class="uk-input uk-width-1-1" type="password" placeholder="Пароль">
+                  </div>
+                  <div class="uk-width-1-1"><input name="confirm_password" value="" class="uk-input uk-width-1-1" type="password" placeholder="Повторити пароль"></div>
+                  <div class="uk-width-auto">
+                    <input type="hidden"/>
+                    <button class="uk-button uk-width-1-1" type="submit" name="submit" value="Submit">Оновити</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
+<footer class="footer-crm">
+  2023 © Quality Work — In the right place At the right time</footer>
+</body>
+</html>

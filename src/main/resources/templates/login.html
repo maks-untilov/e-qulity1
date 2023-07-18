@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Авторизація</title>
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/icons/quality-work-57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/images/icons/quality-work-60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/icons/quality-work-72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/icons/quality-work-76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/icons/quality-work-114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/icons/quality-work-120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/images/icons/quality-work-144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/icons/quality-work-152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icons/quality-work-180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/assets/images/icons/quality-work-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icons/quality-work-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/icons/quality-work-96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icons/quality-work-16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/assets/images/icons/quality-work-144.png">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Quality Work">
+  <meta name="apple-mobile-web-app-title" content="Quality Work">
+  <meta name="msapplication-starturl" content="/">
+
+  <base href="https://e-quality.work">
+  <link href="/assets/uikit/css/uikit.min.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link href="/assets/style/style.css?1684748202" type="text/css" rel="stylesheet" />
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/uikit/js/uikit.min.js"></script>
+  <script src="/assets/uikit/js/uikit-icons.min.js"></script>
+  <script src="/assets/js/inputmask.min.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="/assets/js/app.js"></script>
+</head><body>
+<div class="blank-container">
+  <header class="blank-header">
+    <div data-uk-grid class="uk-grid-small">
+      <div class="uk-width-1-1 uk-flex uk-flex-center">
+        <ul class="lang-ul">
+          <li><a href="https://e-qualiqty.work/uk/" class="active">Українська</a></li>
+          <li><a href="https://e-quality.work/pl/" class="">Polski</a></li>
+        </ul>
+      </div>
+      <div class="uk-width-1-1 uk-flex uk-flex-center">
+        <a href="https://e-quality.work/uk/" class="logo-text"><span>Quality Work</span>In the right place at the right time</a>
+      </div>
+    </div>
+  </header>
+  <main class="blank-main uk-flex uk-flex-middle uk-flex-center"><div class="login-container">
+    <div data-uk-grid class="uk-grid-small">
+      <div class="uk-width-1-1">
+        <div class="login-box round">
+          <div data-uk-grid class="uk-grid-small">
+            <div class="uk-width-1-1 uk-text-center"><h1>Авторизація</h1></div>
+            <div class="uk-width-1-1">
+              <form method="POST" th:action="${login}" data-uk-grid class="uk-grid-small" >
+                <div class="uk-width-1-1">
+                  <input name="username" value="" class="uk-input uk-width-1-1" type="text" placeholder="Email" required></div>
+                <div class="uk-width-1-1">
+                  <input name="password" value="" class="uk-input uk-width-1-1" type="password" placeholder="Пароль" required>
+                  <a href="*" class="forgotpassword">Нагадати пароль</a>
+                </div>
+                <div class="uk-width-1-1">
+                  <button class="uk-button uk-width-1-1" type="submit" name="submit" value="Submit">Увійти</button>
+                </div>
+                <div class="uk-width-1-1 uk-margin-medium-top uk-text-center"><a href="http://localhost:8080/register">Зареєструватись</a></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </main>
+  <footer class="blank-footer">2023 © Quality Work — In the right place At the right time</footer>
+</div>
+</body>
+</html>

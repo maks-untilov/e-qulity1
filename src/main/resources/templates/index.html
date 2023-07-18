@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <meta name="X-CSRF-TOKEN" content="178e6cb9e0f672a2049dde11dce90920"/>
+    <title>Quality Work</title>
+    <link rel="icon" href="quality-work-01.svg">
+    <link rel="apple-touch-icon" href="quality-work-01.svg">
+    <link rel="stylesheet" href="/static/css/uikit.min.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css"/>
+    <script src="jquery.min.js"></script>
+    <script src="uikit.min.js"></script>
+    <script src="uikit-icons.min.js"></script>
+    <script src="inputmask.min.js"></script>
+    <script src="app.js"></script>
+</head><body>
+<nav id="nav" class="nav-crm close">
+    <ul>
+        <li class="logo-container"><a href="http://localhost:8080/index" class="logo-text">
+            <span>Quality Work</span>In the right place at the right time        </a></li>
+        <li class="divider">Menu</li>
+        <li><a href="http://localhost:8080/index" class="active icon icon-dashboard">Стартова панель</a></li>
+        <li><a href="http://localhost:8080/objects" class=" icon icon-objects">Об'єкти</a></li>
+        <li><a href="http://localhost:8080/orders" class=" icon icon-orders">Замовлення</a></li>
+        <li><a href="http://localhost:8080/users" class=" icon icon-users">Працівникі</a></li>
+        <li><a href="http://localhost:8080/stat" class=" icon icon-stat">Статистика</a></li>
+    </ul>
+    <ul class="nav-crm-bottom">
+        <li class="lang uk-hidden@l">
+            <a href="*" class="active">Ukraine</a>
+            <a href="*" class="">Polski</a>
+        </li>
+        <li class="profile">
+            <a href="http://localhost:8080/profile">
+                <img class="profile-image" src="avatar.png">
+                <div><p th:text="${user.firstName + ' ' + user.lastName}"><br></div>
+            </a>
+            <div class="profile-number"><p th:text="${user.id}"></div>
+        </li>
+        <li>
+            <a href="/logout" class="icon icon-logout">Вийти</a>
+        </li>
+    </ul>
+    <a href="#" data-uk-toggle="target: #nav; cls: close" class="nav-crm-close uk-hidden@l"><span data-uk-icon="icon:close;ratio:1">
+    </span></a>
+</nav>
+<header class="header-crm">
+    <div data-uk-grid class="uk-grid-small">
+        <div class="uk-width-auto uk-hidden@l">
+            <a href="https://e-quality.work/uk/crm/" class="logo logo-icon"></a>
+        </div>
+        <div class="uk-width-auto uk-flex uk-flex-middle uk-hidden@l">
+            <a href="#" data-uk-toggle="target: #nav; cls: close" class="">
+                <span data-uk-icon="icon:menu;ratio:1.2"></span></a>
+        </div>
+        <div class="uk-width-expand uk-flex uk-flex-middle">
+            <div class="header-title">Start panel</div>
+        </div>
+        <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
+            <ul class="lang-ul">
+                <li><a href="https://e-quality.work/uk/crm/" class="active">Ukraine</a></li>
+                <li><a href="https://e-quality.work/pl/crm/" class="">Polski</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<main class="main-crm">
+    <div data-uk-grid class="uk-grid-small">
+        <br>
+        <div class="uk-width-1-1"><h3>Мої замовлення цього тижня</h3></div>
+        <div class="uk-width-1-1">
+            <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-responsive" >
+                <thead>
+                <div class="table-container" th:each="date : ${dates}">
+                <tr>
+                    <th class="date-table uk-table-shrink uk-text-center cell-small" th:text="${date}"></th>
+                </tr>
+                    <tr th:each="order : ${orderService.getByDate(date)}">
+                        <th class="uk-table-shrink" data-th="Дата:">
+                            <div class="right">
+                                <p th:text="${order.needWorkers + ' PAX ' + order.startTime.toLocalTime() + '-' + order.finishTime.toLocalTime() + ' ' + order.object.name + ' ' + order.description}"></p>
+                            </div>
+                        </th>
+                        <th data-th="Працівників:" th:each="userOrder : ${orderUserService.getByOrder(order)}">
+                            <span th:if="${userOrder.user} != null">
+                                <p th:text="${userOrder.user.firstName + ' ' + userOrder.user.lastName}" th:style="'color: ' + ${userOrder.user.getRGBColor()}" class="cell-small"></p>
+                            </span>
+                        </th>
+                    </tr>
+                </div>
+                </thead>
+            </table>
+        </div>
+        <div class="uk-width-1-1">
+            <a href="https://e-quality.work/uk/crm/orders/all-list/" target="_blank" class="uk-button uk-button-green uk-button-small">Завантажити List поточного тижня</a>
+        </div>
+    </div>
+</main>
+<footer class="footer-crm">
+    2023 Quality Work - In the right place At the right time</footer>
+</body>
+</html>

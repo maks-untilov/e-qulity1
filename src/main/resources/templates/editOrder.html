@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="X-CSRF-TOKEN" content="0924c2a800702446bd0b68bf1a63d234" /><title>Quality Work</title>
+  <link rel="icon" href="/assets/images/quality-work-icon-01.svg">
+  <link rel="apple-touch-icon" href="/assets/images/quality-work-icon-01.svg">
+  <base href="https://e-quality.work">
+  <link href="/assets/uikit/css/uikit.min.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link href="/assets/style/style.css?1687735396" type="text/css" rel="stylesheet" />
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/uikit/js/uikit.min.js"></script>
+  <script src="/assets/uikit/js/uikit-icons.min.js"></script>
+  <script src="/assets/js/inputmask.min.js"></script>
+  <script src="/assets/js/app.js"></script>
+</head><body>
+<nav id="nav" class="nav-crm close">
+  <ul>
+    <li class="logo-container"><a href="http://localhost:8080/index" class="logo-text">
+      <span>Quality Work</span>In the right place at the right time</a>
+    </li>
+    <li class="divider">Меню</li>
+    <li><a href="http://localhost:8080/index" class=" icon icon-dashboard">Стартова панель</a></li>
+    <li><a href="http://localhost:8080/objects" class=" icon icon-objects">Об'єкти</a></li>
+    <li><a href="http://localhost:8080/orders" class="active icon icon-orders">Замовлення</a></li>
+    <li><a href="http://localhost:8080/users" class=" icon icon-users">Працівникі</a></li>
+    <li><a href="http://localhost:8080/stat" class=" icon icon-stat">Статистика</a></li>
+  </ul>
+  <ul class="nav-crm-bottom">
+    <li class="lang uk-hidden@l">
+      <a href="https://e-quality.work/uk/crm/orders/view/68" class="active">Українська</a>
+      <a href="https://e-quality.work/pl/crm/orders/view/68" class="">Polski</a>
+    </li>
+    <li class="profile">
+      <a href="https://e-quality.work/uk/crm/profile">
+        <img class="profile-image" src="assets/upload/avatar/avatar.png">
+        <div><p th:text="${loggedUser.firstName}"><br><p th:text="${loggedUser.lastName}"></div>
+      </a>
+      <div class="profile-number"><p th:text="${loggedUser.id}"></div>
+    </li>
+    <li><a href="https://e-quality.work/uk/logout" class="icon icon-logout">Вийти</a></li>
+  </ul>
+  <a href="#" data-uk-toggle="target: #nav; cls: close" class="nav-crm-close uk-hidden@l"><span data-uk-icon="icon:close;ratio:1"></span></a>
+</nav>
+<header class="header-crm">
+  <div data-uk-grid class="uk-grid-small">
+    <div class="uk-width-auto uk-hidden@l">
+      <a href="https://e-quality.work/uk/crm/" class="logo logo-icon"></a>
+    </div>
+    <div class="uk-width-auto uk-flex uk-flex-middle uk-hidden@l">
+      <a href="#" data-uk-toggle="target: #nav; cls: close" class=""><span data-uk-icon="icon:menu;ratio:1.2"></span></a>
+    </div>
+    <div class="uk-width-expand uk-flex uk-flex-middle">
+      <div class="header-title">Замовлення</div>
+    </div>
+    <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
+      <ul class="lang-ul">
+        <li><a href="https://e-quality.work/uk/crm/orders/view/68" class="active">Українська</a></li>
+        <li><a href="https://e-quality.work/pl/crm/orders/view/68" class="">Polski</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+<main class="main-crm">
+  <div data-uk-grid class="uk-grid-small">
+    <div class="uk-width-1-1">
+      <a href="http://localhost:8080/orders"><span data-uk-icon="icon:arrow-left" class="uk-margin-small-right"></span>Повернутись до замовлень</a>
+    </div>
+    <div class="uk-width-expand">
+      <div data-uk-grid class="uk-grid-small">
+        <div class="uk-width-auto">
+          <div class="">
+            <a href="http://localhost:8080/orders" class="uk-button uk-button-small">Замовлення</a>
+          </div>
+        </div>
+        <div class="uk-width-auto">
+          <div class="">
+            <a href="http://localhost:8080/orders" class="uk-button uk-button-small">Робочі години</a>
+          </div>
+        </div>
+        <div class="uk-width-auto">
+          <div class="">
+            <a th:href="@{http://localhost:8080/orders/edit/workers/{orderId}(orderId = ${order.id})}" class="uk-button uk-button-small">Працівники</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="uk-width-auto@s">
+      <a href="http://localhost:8080/orders" target="_blank" class="uk-button uk-button-green uk-button-small">Завантажити List</a>
+    </div>
+    <div class="uk-width-1-1"><hr></div>
+    <div class="uk-width-1-1"><h1>Замовлення <p th:text="${order.id}"></h1></div>
+    <div class="uk-width-1-1">
+      <div data-uk-grid class="uk-grid-small">
+        <div class="uk-width-expand@m">
+          <div data-uk-grid class="uk-grid-small">
+            <div class="uk-width-1-1">
+              <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-responsive table-responsive-simple">
+                <tbody>
+                <tr>
+                  <td class="uk-table-shrink uk-text-bold uk-text-nowrap">Дата</td>
+                  <td><p th:text="${order.startTime.toLocalDate()}"></td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-bold uk-text-nowrap">Об'єкт</td>
+                  <td>
+                    <p th:text="${order.object.name}">
+                    <p><b>Адрес</b><p th:text="${order.object.address}"></p>
+                    <p>
+                      <b>Телефон</b><p th:text="${order.object.phoneNumber}">
+                      <b>Email</b><p th:text="${order.object.email}">
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-bold uk-text-nowrap">Робочі години</td>
+                  <td>
+                    <ul class="time-ul">
+                      <p th:text="${order.startTime.toLocalTime().toString() +'-'+ order.finishTime.toLocalTime().toString()}">
+                      <li>
+                        <span class="uk-margin-small-left">Працівників: <p th:text="${orderUserService.getByOrder(order).size()-1}"></span>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr hidden>
+                  <td class="uk-table-shrink uk-text-bold uk-text-nowrap">Зміна</td>
+                  <td>Денна зміна</td>
+                </tr>
+                <tr hidden>
+                  <td class="uk-table-shrink uk-text-bold uk-text-nowrap">Працівники</td>
+                  <td>
+                    <p><b>Прийнято</b>: 0</p>
+                    <p><b>Відмовлено</b>: 0</p>
+                    <p><b>Очікує затвердження</b>: 0</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-bold uk-text-nowrap">Коментар</td>
+                  <td>
+                    <div class="uk-grid-collapse" data-uk-grid>
+                      <div class="uk-width-expand">
+                        <p th:text="${order.description}">
+                      </div>
+                      <div id="description" class="uk-width-1-1 uk-margin-small-top uk-margin-small-bottom" hidden>
+                        <form method="post" th:action="@{http://localhost:8080/orders/edit/{orderId}(orderId = ${order.id})}" data-uk-grid class="uk-grid-small">
+                          <div class="uk-width-1-1">
+                            <textarea class="uk-textarea" name="description" rows="3"></textarea>
+                          </div>
+                          <div class="uk-width-1-1">
+                            <input name="type" value="description" type="text" hidden>
+                            <input name="id" th:value="orderId" type="text" hidden>
+                            <button class="uk-button uk-button-small" type="submit" name="submit">Зберегти</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-bold uk-text-nowrap">Лист охорони</td>
+                  <td>Ні</td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-bold uk-text-nowrap">Хто створив</td>
+                  <td><p th:text="${loggedUser.firstName}"><p th:text="${loggedUser.lastName}"></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="uk-width-1-1 uk-margin-medium-top">
+              <h2>Працівники</h2>
+            </div>
+            <div class="uk-width-1-1">
+              <div class="alert">
+                <span th:each="worker : ${orderUserService.getByOrder(order)}" th:if="${worker.user} != null">
+                  <p th:text="${worker.user.firstName + ' ' + worker.user.lastName}">
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="uk-width-1-3@m">
+          <div data-uk-grid class="uk-grid-small">
+            <div class="uk-width-1-1 uk-hidden@m uk-margin-medium-top">
+              <h4 class="line"><span>Розташування на мапі</span></h4>
+            </div>
+            <div class="uk-width-1-1">
+              <div id="map" class="map"></div>
+            </div>
+            <div class="uk-width-1-1">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="uk-width-1-1 uk-margin-large-top"><hr></div>
+    <div class="uk-width-1-1">
+      <a th:href="@{http://localhost:8080/orders/remove/{orderId}(orderId = ${order.id})}" data-uk-toggle class="">
+        <span data-uk-icon="icon:trash" class="uk-margin-small-right"></span>Видалити замовлення</a>
+      <div id="remove" data-uk-modal="bg-close:false;">
+        <div class="uk-modal-dialog uk-modal-body">
+          <button class="uk-modal-close-default" type="button" data-uk-close></button>
+          <div data-uk-grid class="uk-grid-small uk-flex uk-flex-center">
+            <div class="uk-width-1-1 uk-text-center"><h4>Увага! Видалення замовлення.</h4></div>
+            <div class="uk-width-1-1 uk-text-center"><p>Запит на видалення замовлення <b>#68</b>.<br>Ця дія безповоротна і замовлення буде видалено.<br>Ви підтверджуєте видалення?</p><span class="delete-title-entry"></span></div>
+            <div class="uk-width-expand">
+              <button class="uk-button uk-width-1-1 uk-modal-close">Відміна</button>
+            </div>
+            <div class="uk-width-expand">
+              <form method="post" th:action="@{http://localhost:8080/orders/remove/{orderId}(orderId = ${order.id})}">
+                <input name="_method" value="DELETE" type="text" hidden>
+                <input name="id" th:value="${orderId}" type="text" hidden>
+                <button class="uk-button uk-width-1-1 uk-button-danger" type="submit" name="submit" value="Submit_page_del">Підтвердити</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="uk-width-1-1" hidden></div>
+  </div>
+</main>
+<footer class="footer-crm">
+  2023 © Quality Work — In the right place At the right time</footer>
+</body>
+</html>

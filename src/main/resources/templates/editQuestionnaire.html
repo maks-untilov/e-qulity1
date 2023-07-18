@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="X-CSRF-TOKEN" content="1413a791defb08eab95b1f945a17bbce" /><title>Quality Work</title>
+  <link rel="icon" href="/assets/images/quality-work-icon-01.svg">
+  <link rel="apple-touch-icon" href="/assets/images/quality-work-icon-01.svg">
+  <base href="https://e-quality.work">
+  <link href="/assets/uikit/css/uikit.min.css" type="text/css" rel="stylesheet" />
+  <link href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" rel="stylesheet"/>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link href="/assets/style/style.css?1688918208" type="text/css" rel="stylesheet" />
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/uikit/js/uikit.min.js"></script>
+  <script src="/assets/uikit/js/uikit-icons.min.js"></script>
+  <script src="/assets/js/inputmask.min.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+  <script src="/assets/js/app.js"></script>
+</head><body>
+<nav id="nav" class="nav-crm close">
+  <ul>
+    <li class="logo-container"><a href="http://localhost:8080/index" class="logo-text">
+      <span>Quality Work</span>In the right place at the right time        </a></li>
+    <li class="divider">Menu</li>
+    <li><a href="http://localhost:8080/index" class="active icon icon-dashboard">Стартова панель</a></li>
+    <li><a href="http://localhost:8080/objects" class=" icon icon-objects">Об'єкти</a></li>
+    <li><a href="http://localhost:8080/orders" class=" icon icon-orders">Замовлення</a></li>
+    <li><a href="http://localhost:8080/users" class=" icon icon-users">Працівникі</a></li>
+    <li><a href="http://localhost:8080/stat" class=" icon icon-stat">Статистика</a></li>
+  </ul>
+  <ul class="nav-crm-bottom">
+    <li class="lang uk-hidden@l">
+      <a href="https://e-quality.work/uk/crm/users/application/139" class="active">Українська</a>
+      <a href="https://e-quality.work/pl/crm/users/application/139" class="">Polski</a>
+    </li>
+    <li class="profile">
+      <a href="https://e-quality.work/uk/crm/profile">
+        <img class="profile-image" src="assets/upload/avatar/avatar.png">
+        <div><p th:text="${loggedUser.firstName + ' ' + loggedUser.lastName}"><br></div>
+      </a>
+      <div class="profile-number"><p th:text="${loggedUser.id}"></div>
+    </li>
+    <li><a href="https://e-quality.work/uk/logout" class="icon icon-logout">Вийти</a></li>
+  </ul>
+  <a href="#" data-uk-toggle="target: #nav; cls: close" class="nav-crm-close uk-hidden@l"><span data-uk-icon="icon:close;ratio:1"></span></a>
+</nav>
+<header class="header-crm">
+  <div data-uk-grid class="uk-grid-small">
+    <div class="uk-width-auto uk-hidden@l">
+      <a href="https://e-quality.work/uk/crm/" class="logo logo-icon"></a>
+    </div>
+    <div class="uk-width-auto uk-flex uk-flex-middle uk-hidden@l">
+      <a href="#" data-uk-toggle="target: #nav; cls: close" class=""><span data-uk-icon="icon:menu;ratio:1.2"></span></a>
+    </div>
+    <div class="uk-width-expand uk-flex uk-flex-middle">
+      <div class="header-title">Працівник</div>
+    </div>
+    <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
+      <ul class="lang-ul">
+        <li><a href="https://e-quality.work/uk/crm/users/application/139" class="active">Українська</a></li>
+        <li><a href="https://e-quality.work/pl/crm/users/application/139" class="">Polski</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+<main class="main-crm">
+  <div data-uk-grid class="uk-grid-small">
+    <div class="uk-width-1-1">
+      <a href="http://localhost:8080/users"><span data-uk-icon="icon:arrow-left" class="uk-margin-small-right"></span>Повернутись до переліку працівників</a>
+    </div>
+    <div class="uk-width-1-1">
+      <div data-uk-grid class="uk-grid-small">
+        <div class="uk-width-auto">
+          <span th:if="${user.isAllowed()== false}">
+             <form method="POST" th:action="@{http://localhost:8080/users/{userId}(userId = ${user.id})}">
+            <input hidden name="id" th:value="${user.id}" class="uk-input uk-width-1-1" type="number">
+            <button type="submit" class="uk-button uk-button-small uk-button-green">Активувати</button>
+          </form>
+          </span>
+        </div>
+        <div class="uk-width-auto">
+          <div class="">
+            <a href="https://e-quality.work/uk/crm/users/profile/139" class="uk-button uk-button-small">Профайл</a>
+          </div>
+        </div>
+        <div class="uk-width-auto">
+          <div class="">
+            <a href="https://e-quality.work/uk/crm/users/calendar/139" class="uk-button uk-button-small">Календар</a>
+          </div>
+        </div>
+        <div class="uk-width-expand">
+          <div class="">
+            <a href="https://e-quality.work/uk/crm/users/application/139" class="uk-button uk-button-small">Анкета</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="uk-width-1-1"><hr></div>
+    <div class="uk-width-1-1"><h1>Профайл / <p th:text="${user.firstName + user.lastName}"></h1></div>
+    <div class="uk-width-1-1">
+      <div data-uk-grid class="uk-grid-small">
+        <div class="uk-width-1-1">
+          <label>Data urodzenia</label>
+          <div><p th:text="${userDetail.birthDate}"></div>
+        </div>
+        <div class="uk-width-1-1">
+          <label>Dane kontaktowe</label>
+          <div><p th:text="${userDetail.contactData}"></div>
+        </div>
+        <div class="uk-width-1-1">
+          <label>Wyksztalcenie</label>
+          <div><p th:text="${userDetail.education}"></div>
+        </div>
+        <div class="uk-width-1-1">
+          <label>Płeć</label>
+          <div><p th:text="${userDetail.sex}"></div>
+        </div>
+        <div class="uk-width-1-1">
+          <label>Miejsce zamieszkania</label>
+          <div><p th:text="${userDetail.location}"></div>
+        </div>
+        <div class="uk-width-1-1">
+          <label>Osoba, którą należy zawiadomić w razie wypadku
+            Osoba, którą należy zawiadomić w razie wypadku</label>
+          <div><p th:text="${userDetail.osoba}"></div>
+        </div>
+        <div class="uk-width-1-1">
+          <label>PESEL</label>
+          <div><p th:text="${userDetail.pesel}"></div>
+        </div>
+      </div>
+    </div>
+    <div class="uk-width-1-1">
+      <a href="#form-edit" class="uk-button uk-button-small" data-uk-toggle>Редагувати</a>
+    </div>
+    <div id="form-edit" class="uk-width-1-1 uk-margin-medium-top" hidden>
+      <div class="border-box">
+        <div class="border-box-title">Редагувати анкету</div>
+
+        <form method="POST" action="https://e-quality.work/uk/crm/users/application/139" data-uk-grid class="uk-grid-small" >
+
+          <div class="uk-width-1-1">
+            <label>Data urodzenia</label>
+            <input name="field-1" value="asdasd" type="text" class="uk-input uk-width-1-1" required>
+            <div class="application-form-desc"></div>
+          </div>
+          <div class="uk-width-1-1">
+            <label>Dane kontaktowe</label>
+            <textarea name="field-3" class="uk-textarea" rows="2" required>asdasda</textarea>
+            <div class="application-form-desc">wskazane przez ocobe ubiegajaca sie o zatrudnienie</div>
+          </div>
+          <div class="uk-width-1-1">
+            <label>Wyksztalcenie</label>
+            <textarea name="field-7" class="uk-textarea" rows="2" required>asdasd</textarea>
+            <div class="application-form-desc">nazwa szkoly i rok jej ukonczenia</div>
+          </div>
+          <div class="uk-width-1-1">
+            <input type="hidden" name="csrf" value="1413a791defb08eab95b1f945a17bbce" />
+            <input hidden name="id" value="139" type="text" class="uk-input uk-width-1-1" required>
+            <button class="uk-button" type="submit" name="submit" value="Submit">Оновити</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="footer-crm">
+  2023 © Quality Work — In the right place At the right time</footer>
+</body>
+</html>
