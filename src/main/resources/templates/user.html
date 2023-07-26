@@ -71,8 +71,7 @@
     <div class="uk-width-1-1 uk-margin-small-top uk-margin-medium-bottom" id="add" hidden>
       <div class="border-box">
         <div class="border-box-title">Додати користувача</div>
-
-        <form method="POST" action="http://localhost:8080/users/add" data-uk-grid class="uk-grid-small">
+        <form method="POST" th:action="@{http://localhost:8080/users/add}" data-uk-grid class="uk-grid-small">
           <div class="uk-width-1-2@s">
             <label>Ім'я</label>
             <input name="first_name" value="" class="uk-input uk-width-1-1" type="text" required></div>
@@ -82,7 +81,8 @@
           </div>
           <div class="uk-width-1-2@s">
             <label>Телефон</label>
-            <div class="phone-container"><input name="phone" value="" class="uk-input uk-width-1-1 phone" type="text" maxlength="13" required></div>
+            <div class="phone-container">
+              <input name="phone" value="" class="uk-input uk-width-1-1 phone" type="text" maxlength="13" required></div>
           </div>
           <div class="uk-width-1-2@s">
             <label>Email</label>
@@ -91,7 +91,7 @@
           <div class="uk-width-expand@s">
             <label>Група</label>
             <select class="uk-select" name="group">
-              <option value="5">Працівник</option>
+              <option value="USER">Працівник</option>
             </select>
           </div>
           <div class="uk-width-small@s">
@@ -112,15 +112,13 @@
               </div>
             </div>
           </div>
-
           <div class="uk-width-1-1">
             <div data-uk-grid class="uk-grid-small">
               <div class="uk-width-auto">
-                <input type="hidden" name="csrf" value="a042fcee5bedf8ac79902638aca36fde" />
                 <button class="uk-button uk-width-1-1" type="submit" name="submit" value="Submit">Додати</button>
               </div>
               <div class="uk-width-auto">
-                <a href="#add" class="uk-button uk-button-grey uk-width-1-1" data-uk-toggle>Відміна</a>
+                <a href="http://localhost:8080/users" class="uk-button uk-button-grey uk-width-1-1" data-uk-toggle>Відміна</a>
               </div>
             </div>
           </div>

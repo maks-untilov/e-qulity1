@@ -117,7 +117,7 @@
         <tr th:each="user : ${users}">
           <td data-th="Працівник" class="uk-text-bold">
             <div class="right">
-              <a href="">
+              <a th:href="@{http://localhost:8080/stat/{userId}(userId = ${user.id})}">
                 <p th:text="${user.firstName}"></p>
                 <p th:text="${user.lastName}"></p>
               </a>
@@ -125,22 +125,22 @@
           </td>
           <td th:each="date : ${dates}" class="">
             <div class="right" th:with="workDetails=${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59))}">
-      <span th:if="${workDetails != null}">
-        <span th:each="workDetail : ${workDetails}">
-          <span th:text="${workDetail.finishDateTime.minusHours(workDetail.startDateTime.hour).hour + ' год ' + workDetail.finishDateTime.minusMinutes(workDetail.startDateTime.minute).minute + ' хв '}"></span>
-        </span>
-      </span>
+              <span th:if="${workDetails != null}">
+                <span th:each="workDetail : ${workDetails}">
+                  <span th:text="${workDetail.finishDateTime.minusHours(workDetail.startDateTime.hour).hour + ' год ' + workDetail.finishDateTime.minusMinutes(workDetail.startDateTime.minute).minute + ' хв '}"></span>
+                </span>
+              </span>
               <span th:unless="${workDetails != null}">
-        <span>-</span>
-      </span>
+                <span>-</span>
+              </span>
             </div>
           </td>
           <td data-th="Разом" class="">
             <div class="right">
-      <span th:if="${workDetails != null}">
-        <span th:text="${userWorkDetailsService.getTotalHoursByUserBetween(user, dates.get(0), dates.get(dates.size()-1))}"></span>
-        <span th:text="год"></span>
-      </span>
+            <span th:if="${workDetails != null}">
+              <span th:text="${userWorkDetailsService.getTotalHoursByUserBetween(user, dates.get(0), dates.get(dates.size()-1))}"></span>
+              <span th:text="год"></span>
+            </span>
             </div>
           </td>
         </tr>
@@ -155,7 +155,6 @@
         </tbody>
       </table>
     </div>
-
     <div class="uk-width-1-1">
       <h3>Загальна статистика</h3>
     </div>
@@ -163,15 +162,14 @@
       <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-border">
         <tr>
           <td>Координаторів</td>
-          <td>7</td>
+          <td></td>
         </tr>
         <tr>
           <td>Працівників</td>
-          <td>11</td>
+          <td></td>
         </tr>
       </table>
     </div>
-
     <div class="uk-width-1-1" hidden>
     </div>
   </div>

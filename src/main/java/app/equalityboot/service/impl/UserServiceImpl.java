@@ -41,4 +41,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User getByFirstNameAndLastName(String firstName, String lastName) {
         return userDao.getUserByFirstNameAndLastName(firstName, lastName);
     }
+
+    @Override
+    public List<User> getByCoordinator(User coordinator) {
+        return userDao.getUsersByCoordinator(coordinator);
+    }
 }

@@ -10,4 +10,5 @@ public interface UserService extends UserDetailsService {
     List<User> getAll();
     User get(Long id);
     User getByFirstNameAndLastName(String firstName, String lastName);
+    List<User> getByCoordinator(User user);
 }

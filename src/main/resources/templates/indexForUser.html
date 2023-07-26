@@ -83,17 +83,27 @@
                             <div class="calendar-padding">
                                 <div data-uk-grid class="uk-grid-small">
                                     <div class="uk-width-auto uk-flex uk-flex-middle">
-                                        <p class="date"><span><p th:text="${date.dayOfWeek.toString() + ' ' + date.dayOfMonth + ' ' + date.month.toString()}"></span></p>
+                                        <p class="date"><p th:text="${date.dayOfWeek.toString() + ' ' + date.dayOfMonth + ' ' + date.month.toString()}"></p>
                                     </div>
                                     <div class="uk-width-auto uk-flex uk-flex-middle">
-                                        <p class="zmina zmina-0">
-                                            <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) == null}">
-                                                <p class="zmina zmina-0"> Не Працюю </p>
-                                            </span>
+                                <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) == null}">
+                                    <p class="zmina zmina-0">Не Працюю</p>
+                                </span>
                                         <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) != null}">
-                                            <p th:text="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).shift.toString()}"></p>
-                                        </span>
-                                        </p>
+                                    <p class="zmina zmina-0" th:text="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).shift.toString()}">Рабочая смена</p>
+                                </span>
+                                    </div>
+                                    <div class="uk-width-auto">
+                                        <p class="need-approve">
+                                            <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) == null}">
+                                                <p class="zmina zmina-0">  </p>
+                                            </span>
+                                            <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) != null}">
+                                                <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).accepted == false}">
+                                                    Дані вступлять в силу після підтвердження Супервайзером.</span>
+                                                <p th:text="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).shift.toString()}"></p>
+                                            </span>
+                                            <br>
                                     </div>
                                     <div class="uk-width-expand@m uk-flex uk-flex-middle">
                                         <div class="full">

@@ -25,7 +25,8 @@ public class User implements UserDetails {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Role role;
     private boolean isAllowed;
-    private Integer coordinatorNumber;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private User coordinator;
     private String randomColor;
 
     @Override

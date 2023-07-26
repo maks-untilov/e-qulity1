@@ -153,7 +153,6 @@
         </div>
         <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-responsive">
         <div class="uk-width-1-1">
-          <div class="alert">
             <tr th:each="worker : ${workers}">
               <td data-th="Працівник:" class="uk-text-bold"><p th:text="${worker.firstName}"><p th:text="${worker.lastName}"><div class="right">
                 <span class="code code-green"><p th:text="${worker.id}"></span>
@@ -166,7 +165,6 @@
                 <a th:href="@{'http://localhost:8080/orders/add/' + ${order.id} + '/' + ${worker.id}}" class="uk-button uk-button-xsmall">Додати до замовлення</a></div></td>
             </tr>
           </div>
-        </div>
         </table>
       </div>
     </div>
@@ -183,7 +181,7 @@
         <div class="uk-width-expand">
           <form method="post" action="https://e-quality.work/uk/crm/orders/workers/69">
             <input name="user_id" value="" type="hidden" class="delete-id-users">
-            <input name="id" value="69" type="hidden">
+            <input name="id" th:value="userId" type="hidden">
             <input name="type" type="hidden" value="remove">
             <button class="uk-button uk-width-1-1 uk-button-danger" type="submit" name="submit" value="Submit_page_del">Підтвердити</button>
           </form>
