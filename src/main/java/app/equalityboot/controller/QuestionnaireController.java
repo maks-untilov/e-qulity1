@@ -33,10 +33,10 @@ public class QuestionnaireController {
                        @RequestParam String number_id, @RequestParam String sex,
                        @RequestParam String birth_date, @RequestParam String dane_kontaktowe,
                        @RequestParam String education, @RequestParam String pesel,
-                       @RequestParam String osoba, @RequestParam String location,
-                       @AuthenticationPrincipal User user) {
+                       @RequestParam String osoba, @RequestParam String location) {
         UserDetails userDetails = new UserDetails();
-        user.setCoordinatorNumber(Integer.parseInt(number_id));
+        User user = userService.getByFirstNameAndLastName(first_name, last_name);
+        user.setCoordinator(userService.get(Long.parseLong(number_id)));
         userDetails.setUser(user);
         userDetails.setSex(sex);
         userDetails.setBirthDate(birth_date);
@@ -46,6 +46,6 @@ public class QuestionnaireController {
         userDetails.setOsoba(osoba);
         userDetails.setLocation(location);
         userDetailService.save(userDetails);
-        return "login";
+        return "redirect:/login";
     }
 }

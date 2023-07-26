@@ -61,7 +61,7 @@
             <div class="uk-width-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dapibus dapibus justo, eget accumsan ipsum maximus quis. Praesent sit amet convallis ligula, ut rutrum justo. Maecenas vel velit ut massa eleifend sodales a cursus dui. Curabitur tincidunt sapien nec sollicitudin tristique.</div>
             <div class="uk-width-1-1">
               <div class="application-form">
-                <form method="POST" action="http://localhost:8080/questionnaire" data-uk-grid class="uk-grid-small" >
+                <form method="POST" th:action="${questionnaire}" data-uk-grid class="uk-grid-small" >
                   <div class="uk-width-expand@s">
                     <label>Imię</label>
                     <input name="first_name" value="" type="text" class="uk-input uk-width-1-1" required>
@@ -72,7 +72,7 @@
                   </div>
                   <div class="uk-width-small@s" >
                     <label>ID koordynator</label>
-                    <input name="number_id" value="" type="text" class="uk-input uk-width-1-1 phone" required>
+                    <input name="number_id" value="" type="text" class="uk-input uk-width-1-1 phone">
                   </div>
                   <div class="uk-width-small@s">
                     <label>Pan/Pani</label>
@@ -109,7 +109,7 @@
                     <div class="application-form-desc"></div>
                   </div>
                   <div class="uk-width-1-1">
-                    <button class="uk-button uk-width-1-1" type="submit" name="submit" value="Submit">Продовжити</button>
+                    <button class="uk-button uk-width-1-1" type="submit" name="submit" value="Submit">Підтвердити та надіслати</button>
                   </div>
                 </form>
               </div>

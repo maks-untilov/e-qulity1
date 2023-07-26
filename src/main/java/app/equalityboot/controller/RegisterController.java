@@ -34,7 +34,7 @@ public class RegisterController {
         if (!password.equals(confirm_password)) {
             throw new RuntimeException("password are not equal");
         }
-        registerService.register(first_name, last_name, phone, email, password);
-        return "questionnaire";
+        registerService.register(first_name, last_name, phone, email, password, "USER");
+        return "redirect:/questionnaire";
     }
 }

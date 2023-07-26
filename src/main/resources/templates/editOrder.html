@@ -73,12 +73,7 @@
       <div data-uk-grid class="uk-grid-small">
         <div class="uk-width-auto">
           <div class="">
-            <a href="http://localhost:8080/orders" class="uk-button uk-button-small">Замовлення</a>
-          </div>
-        </div>
-        <div class="uk-width-auto">
-          <div class="">
-            <a href="http://localhost:8080/orders" class="uk-button uk-button-small">Робочі години</a>
+            <a th:href="@{http://localhost:8080/orders/edit/{orderId}(orderId = ${order.id})}" class="uk-button uk-button-small">Замовлення</a>
           </div>
         </div>
         <div class="uk-width-auto">

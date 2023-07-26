@@ -40,11 +40,11 @@
     <li class="profile">
       <a href="http://localhost:8080/profile">
         <img class="profile-image" src="assets/upload/avatar/avatar.png">
-        <div><p th:text="${user.firstName}"><br><p th:text="${user.lastName}"></div>
+        <div><p th:text="${loggedUser.firstName}"><br><p th:text="${loggedUser.lastName}"></div>
       </a>
-      <div class="profile-number"><p th:text="${user.id}"></div>
+      <div class="profile-number"><p th:text="${loggedUser.id}"></div>
     </li>
-    <li><a th:href="${logout}" class="icon icon-logout">Вийти</a></li>
+    <li><a href="http://localhost:8080/logout" class="icon icon-logout">Вийти</a></li>
   </ul>
   <a href="#" data-uk-toggle="target: #nav; cls: close" class="nav-crm-close uk-hidden@l"><span data-uk-icon="icon:close;ratio:1"></span></a>
 </nav>
@@ -113,10 +113,9 @@
             <div id="form-edit" class="uk-width-1-1" hidden>
               <div class="border-box">
                 <div class="border-box-title">Редагувати профайл</div>
-                <form method="POST" action="https://e-quality.work/uk/crm/profile" data-uk-grid class="uk-grid-small" enctype="multipart/form-data">
-                  <div class="uk-width-1-1"><input name="first_name" value="Test" class="uk-input uk-width-1-1" type="text" placeholder="Ім'я" required></div>
-                  <div class="uk-width-1-1"><input name="last_name" value="User" class="uk-input uk-width-1-1" type="text" placeholder="Прізвище" required></div>
-                  <div class="uk-width-1-1"><div class="phone-container"><input name="phone" value="48886804489" class="uk-input uk-width-1-1 phone" type="text" placeholder="Телефон" maxlength="13" required></div></div>
+                <form method="POST" th:action="@{http://localhost:8080/profile/edit}" data-uk-grid class="uk-grid-small" enctype="multipart/form-data">
+                  <div class="uk-width-1-1"><div class="phone-container">
+                    <input name="phone" value="48886804489" class="uk-input uk-width-1-1 phone" type="text" placeholder="Телефон" required></div></div>
                   <div class="uk-width-1-1">
                     <div class="input-desc top">Щоб додати аватар до профілю оберіть його. Дозволені типи файлів: jpg, png</div>
                     <div class="uk-width-1-1" data-uk-form-custom="target: true">
@@ -126,7 +125,8 @@
                   </div>
                   <div class="uk-width-1-1">
                     <input value="1" name="remove-image" class="uk-checkbox uk-margin-small-right" type="checkbox">
-                    Видалити зображення аватара                                </div>
+                    Видалити зображення аватара
+                  </div>
                   <div class="uk-width-1-1">
                     <div class="input-desc top">Щоб змінити діючий пароль введіть його двічі. Якщо ця дія не потрібна, то залиште поля пароля порожніми.</div>
                     <input name="password" value="" class="uk-input uk-width-1-1" type="password" placeholder="Пароль">

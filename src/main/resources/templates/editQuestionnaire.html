@@ -105,32 +105,67 @@
       <div data-uk-grid class="uk-grid-small">
         <div class="uk-width-1-1">
           <label>Data urodzenia</label>
-          <div><p th:text="${userDetail.birthDate}"></div>
+          <span th:if="${userDetail != null}">
+            <p th:text="${userDetail.birthDate}">
+          </span>
+          <span th:if="${userDetail == null}" class="uk-text-danger">
+            Не зазначенo
+          </span>
         </div>
         <div class="uk-width-1-1">
           <label>Dane kontaktowe</label>
+          <span th:if="${userDetail != null}">
           <div><p th:text="${userDetail.contactData}"></div>
+          </span>
+          <span th:if="${userDetail == null}" class="uk-text-danger">
+            Не зазначенo
+          </span>
         </div>
         <div class="uk-width-1-1">
           <label>Wyksztalcenie</label>
+          <span th:if="${userDetail != null}">
           <div><p th:text="${userDetail.education}"></div>
+          </span>
+          <span th:if="${userDetail == null}" class="uk-text-danger">
+            Не зазначенo
+          </span>
         </div>
         <div class="uk-width-1-1">
           <label>Płeć</label>
+          <span th:if="${userDetail != null}">
           <div><p th:text="${userDetail.sex}"></div>
+          </span>
+          <span th:if="${userDetail == null}" class="uk-text-danger">
+            Не зазначенo
+          </span>
         </div>
         <div class="uk-width-1-1">
           <label>Miejsce zamieszkania</label>
+          <span th:if="${userDetail != null}">
           <div><p th:text="${userDetail.location}"></div>
+          </span>
+          <span th:if="${userDetail == null}" class="uk-text-danger">
+            Не зазначенo
+          </span>
         </div>
         <div class="uk-width-1-1">
           <label>Osoba, którą należy zawiadomić w razie wypadku
             Osoba, którą należy zawiadomić w razie wypadku</label>
+          <span th:if="${userDetail != null}">
           <div><p th:text="${userDetail.osoba}"></div>
+          </span>
+          <span th:if="${userDetail == null}" class="uk-text-danger">
+            Не зазначенo
+          </span>
         </div>
         <div class="uk-width-1-1">
           <label>PESEL</label>
+          <span th:if="${userDetail != null}">
           <div><p th:text="${userDetail.pesel}"></div>
+          </span>
+          <span th:if="${userDetail == null}" class="uk-text-danger">
+            Не зазначенo
+          </span>
         </div>
       </div>
     </div>
@@ -140,9 +175,7 @@
     <div id="form-edit" class="uk-width-1-1 uk-margin-medium-top" hidden>
       <div class="border-box">
         <div class="border-box-title">Редагувати анкету</div>
-
         <form method="POST" action="https://e-quality.work/uk/crm/users/application/139" data-uk-grid class="uk-grid-small" >
-
           <div class="uk-width-1-1">
             <label>Data urodzenia</label>
             <input name="field-1" value="asdasd" type="text" class="uk-input uk-width-1-1" required>

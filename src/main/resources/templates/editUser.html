@@ -86,12 +86,12 @@
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a href="http://localhost:8080/profile/" class="uk-button uk-button-small">Профайл</a>
+            <a th:href="@{http://localhost:8080/profile/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Профайл</a>
           </div>
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a href="#" class="uk-button uk-button-small">Календар</a>
+            <a th:href="@{http://localhost:8080/calendar/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Календар</a>
           </div>
         </div>
         <div class="uk-width-expand">
@@ -124,7 +124,14 @@
               </tr>
               <tr>
                 <td class="uk-text-bold uk-table-shrink">Координатор</td>
-                <td class="uk-text-bold uk-text-danger"><p th:text="${user.coordinatorNumber}"></td>
+                <td class="uk-text-bold uk-text-danger">
+                  <span th:if="${user.coordinator != null}">
+                    <p th:text="${user.coordinator.id}">
+                  </span>
+                  <span class="uk-text-danger" th:if="${user.coordinator == null}">
+                    Не зазначений
+                  </span>
+                </td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-table-shrink">Група</td>

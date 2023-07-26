@@ -14,4 +14,5 @@ public interface UserWorkDetailsService {
     List<UserWorkDetails> getAll();
     UserWorkDetails getByUserBetweenTime(User user, LocalDateTime start, LocalDateTime finish);
     UserWorkDetails getTotalHoursByUserBetween(User user, LocalDate start, LocalDate finish);
+    List<UserWorkDetails> getUserWorkDetailByCoordinator(User coordinator);
 }

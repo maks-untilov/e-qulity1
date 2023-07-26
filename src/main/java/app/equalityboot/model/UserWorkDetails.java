@@ -13,11 +13,11 @@ public class UserWorkDetails {
     private Long id;
     private LocalDateTime startDateTime;
     private LocalDateTime finishDateTime;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private User user;
     private boolean isAccepted;
     private Shift shift;
-
+    private boolean isPaid;
     public enum Shift {
         DAY, NIGHT, NOT_WORKING;
     }

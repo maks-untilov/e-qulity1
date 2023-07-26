@@ -22,8 +22,8 @@
         <li class="logo-container"><a href="http://localhost:8080/panel/worker" class="logo-text">
             <span>Quality Work</span>In the right place at the right time        </a></li>
         <li class="divider">Menu</li>
-        <li><a href="http://localhost:8080/panel/worker" class="active icon icon-dashboard">Стартова панель</a></li>
-        <li><a href="http://localhost:8080/calendar" class=" icon icon-objects">Календар</a></li>
+        <li><a href="http://localhost:8080/panel/worker" class="icon icon-dashboard">Стартова панель</a></li>
+        <li><a href="http://localhost:8080/calendar" class="active icon icon-objects">Календар</a></li>
         <li><a th:href="@{http://localhost:8080/stat/{userId}(userId = ${loggedUser.id})}" class=" icon icon-stat">Статистика</a></li>
     </ul>
     <ul class="nav-crm-bottom">
@@ -83,14 +83,12 @@
                                 <p class="date"><p th:text="${date.dayOfWeek.toString() + ' ' + date.dayOfMonth + ' ' + date.month.toString()}"></p>
                             </div>
                             <div class="uk-width-auto uk-flex uk-flex-middle">
-                                <p class="zmina zmina-0">
-                                    <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) == null}">
-                                                <p class="zmina zmina-0"> Не Працюю </p>
-                                            </span>
-                                    <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) != null}">
-                                            <p th:text="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).shift.toString()}"></p>
-                                        </span>
-                                </p>
+                                <span th:if="${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)) == null}">
+                                    <p class="zmina zmina-0">Не Працюю</p>
+                                </span>
+                                <span th:if="${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)) != null}">
+                                    <p class="zmina zmina-0" th:text="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).shift.toString()}">Рабочая смена</p>
+                                </span>
                             </div>
                             <div class="uk-width-expand@m uk-flex uk-flex-middle">
                                 <div class="full">
@@ -99,15 +97,16 @@
                                             <div data-uk-grid class="uk-grid-small">
                                                 <div class="uk-width-auto">
                                                     <p class="need-approve">
-                                                        Подано запит зміни робочого дня на
                                                         <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) == null}">
-                                                            <p class="zmina zmina-0"> Не Працюю </p>
+                                                            <p class="zmina zmina-0">  </p>
                                                         </span>
                                                         <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) != null}">
+                                                            <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).accepted == false}">
+                                                                Дані вступлять в силу після підтвердження Супервайзером.
+                                                            </span>
                                                             <p th:text="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).shift.toString()}"></p>
                                                         </span>
                                                         <br>
-                                                        Дані вступлять в силу після підтвердження Супервайзером.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -127,49 +126,10 @@
             </ul>
         </div>
         <div class="uk-width-1-1">
-            <a href="#" data-uk-toggle="target:.edit">Редагувати зміни роботи</a>
+            <a href="http://localhost:8080/calendar/edit" data-uk-toggle="target:.edit">Редагувати зміни роботи</a>
             <div id="modal-container" class="edit uk-modal-container" data-uk-modal="bg-close:false;">
                 <div class="uk-modal-dialog uk-modal-body">
                     <button class="uk-modal-close-default" type="button" data-uk-close></button>
-                    <form method="POST" action="http://localhost:8080/calendar" data-uk-grid class="uk-grid-small">
-                        <div class="uk-width-1-1"><h3>Редагувати зміни роботи</h3></div>
-                        <div class="uk-width-1-1">
-                            <ul class="calendar calendar-2col">
-                                <li>
-                                    <div class="calendar-padding" th:each="date : ${dates}">
-                                        <div data-uk-grid class="uk-grid-small uk-flex uk-flex-middle">
-                                            <div class="uk-width-auto">
-                                                <p class="date"><p th:text="${date.dayOfWeek.toString() + ' ' + date.dayOfMonth + ' ' + date.month.toString()}"></p>
-                                            </div>
-                                            <div class="uk-width-auto">
-                                                <label class="input block">
-                                                    <input th:name="zmina + ${String.valueOf(date.year) + String.valueOf(date.monthValue) + String.valueOf(date.dayOfMonth) + notWorking}" value="0" class="uk-radio" type="radio" checked>
-                                                    Не працюю
-                                                </label>
-                                                <label class="input block">
-                                                    <input th:name="zmina + ${String.valueOf(date.year) + String.valueOf(date.monthValue) + String.valueOf(date.dayOfMonth) + dayWorking}" value="1" class="uk-radio" type="radio" >
-                                                    Денна зміна
-                                                </label>
-                                                <label class="input block">
-                                                    <input th:name="zmina + ${String.valueOf(date.year) + String.valueOf(date.monthValue) + String.valueOf(date.dayOfMonth) + nightWorking}" value="2" class="uk-radio" type="radio" >
-                                                    Нічна зміна
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="uk-width-auto@s">
-                            <input name="id" th:value="${loggedUser.id}" type="text" hidden>
-                            <input name="week" value="this" type="input" hidden>
-                            <input name="type" value="edit" type="input" hidden>
-                            <button class="uk-button uk-button-small uk-width-1-1 uk-width-auto@s" type="submit" name="submit" value="Submit">Оновити</button>
-                        </div>
-                        <div class="uk-width-auto@s">
-                            <a href="#" data-uk-toggle="target:.edit" class="uk-button uk-button-small uk-button-grey uk-width-1-1 uk-width-auto@s" value="Submit">Відміна</a>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

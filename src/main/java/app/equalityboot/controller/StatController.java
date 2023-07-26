@@ -64,4 +64,25 @@ public class StatController {
         model.addAttribute("workDetails", userWorkDetails);
         return "statForUser";
     }
+
+    @GetMapping("/stat/coordinator")
+    public String getCoordinator(Model model, @AuthenticationPrincipal User loggedUser) {
+        List<UserWorkDetails> userWorkDetailsByCoordinator = userWorkDetailsService.getUserWorkDetailByCoordinator(loggedUser);
+        LocalDateTime timeNow = LocalDateTime.now();
+        // Проверяем, является ли startDate понедельником (DayOfWeek.MONDAY - 1)
+        if (timeNow.getDayOfWeek().getValue() != DayOfWeek.MONDAY.getValue()) {
+            // Если нет, вычитаем соответствующее количество дней для получения предыдущего понедельника
+            int daysUntilPreviousMonday = timeNow.getDayOfWeek().getValue() - DayOfWeek.MONDAY.getValue();
+            timeNow = timeNow.minusDays(daysUntilPreviousMonday);
+        }
+        List<User> users = userService.getByCoordinator(loggedUser);
+        List<LocalDate> dates = timeNow.toLocalDate().datesUntil(timeNow.toLocalDate().plusDays(7)).toList();
+        model.addAttribute("user", loggedUser);
+        model.addAttribute("dates", dates);
+        model.addAttribute("users", users);
+        model.addAttribute("loggedUser", loggedUser);
+        model.addAttribute("userWorkDetailsService", userWorkDetailsService);
+        model.addAttribute("workDetails", userWorkDetailsByCoordinator);
+        return "stat";
+    }
 }

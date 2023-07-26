@@ -26,9 +26,9 @@ public class RegisterService {
     }
 
     public User register(String first_name, String last_name, String phone,
-                         String email, String password) {
+                         String email, String password, String role) {
         User user = new User();
-        user.setRole(roleService.getByRoleName("USER"));
+        user.setRole(roleService.getByRoleName(role));
         user.setAllowed(false);
         user.setPhoneNumber(phone);
         user.setEmail(email);

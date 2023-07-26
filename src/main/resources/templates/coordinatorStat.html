@@ -22,22 +22,24 @@
 </head><body>
 <nav id="nav" class="nav-crm close">
     <ul>
-        <li class="logo-container"><a href="http://localhost:8080/panel/worker" class="logo-text">
+        <li class="logo-container"><a href="http://localhost:8080/index" class="logo-text">
             <span>Quality Work</span>In the right place at the right time        </a></li>
-        <li class="divider">Menu</li>
-        <li><a href="http://localhost:8080/panel/worker" class="icon icon-dashboard">Стартова панель</a></li>
-        <li><a href="http://localhost:8080/calendar" class=" icon icon-objects">Календар</a></li>
-        <li><a th:href="@{http://localhost:8080/stat/{userId}(userId = ${loggedUser.id})}" class="active icon icon-stat">Статистика</a></li>
+        <li class="divider">Меню</li>
+        <li><a href="http://localhost:8080/index" class=" icon icon-dashboard">Стартова панель</a></li>
+        <li><a href="http://localhost:8080/objects" class=" icon icon-objects">Об'єкти</a></li>
+        <li><a href="http://localhost:8080/orders" class=" icon icon-orders">Замовлення</a></li>
+        <li><a href="http://localhost:8080/users" class=" icon icon-users">Працівникі</a></li>
+        <li><a href="http://localhost:8080/stat" class="active icon icon-stat">Статистика</a></li>
     </ul>
     <ul class="nav-crm-bottom">
         <li class="lang uk-hidden@l">
-            <a href="https://e-quality.work/uk/crm/calendar" class="active">Українська</a>
-            <a href="https://e-quality.work/pl/crm/calendar" class="">Polski</a>
+            <a href="https://e-quality.work/uk/crm/stat" class="active">Українська</a>
+            <a href="https://e-quality.work/pl/crm/stat" class="">Polski</a>
         </li>
         <li class="profile">
             <a href="http://localhost:8080/profile">
-                <img class="profile-image" src="static/images/avatar.png">
-                <div><p th:text="${loggedUser.firstName + ' ' + loggedUser.lastName}"></div>
+                <img class="profile-image" src="assets/upload/avatar/avatar.png">
+                <div><p th:text="${loggedUser.firstName}"><br><p th:text="${loggedUser.lastName}"></div>
             </a>
             <div class="profile-number"><p th:text="${loggedUser.id}"></div>
         </li>
@@ -86,6 +88,9 @@
             </div>
         </div>
         <div class="uk-width-expand"><h3>Статистика відпрацьованих годин</h3></div>
+        <div class="uk-width-auto@s">
+            <a href="https://e-quality.work/uk/crm/stat/export-xls" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel</a>
+        </div>
         <div class="uk-width-1-1">
             <div data-uk-grid class="uk-grid-small uk-flex">
                 <div class="uk-width-auto">
@@ -109,10 +114,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr th:each="user : ${users}">
                     <td data-th="Працівник" class="uk-text-bold">
                         <div class="right">
-                            <a href="">
+                            <a th:href="@{http://localhost:8080/stat/{userId}(userId = ${user.id})}">
                                 <p th:text="${user.firstName}"></p>
                                 <p th:text="${user.lastName}"></p>
                             </a>
@@ -120,22 +125,22 @@
                     </td>
                     <td th:each="date : ${dates}" class="">
                         <div class="right" th:with="workDetails=${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59))}">
-                            <span th:if="${workDetails != null}">
-                                <span th:each="workDetail : ${workDetails}">
-                                    <span th:text="${workDetail.finishDateTime.minusHours(workDetail.startDateTime.hour).hour + ' год ' + workDetail.finishDateTime.minusMinutes(workDetail.startDateTime.minute).minute + ' хв '}"></span>
-                                </span>
-                            </span>
+              <span th:if="${workDetails != null}">
+                <span th:each="workDetail : ${workDetails}">
+                  <span th:text="${workDetail.finishDateTime.minusHours(workDetail.startDateTime.hour).hour + ' год ' + workDetail.finishDateTime.minusMinutes(workDetail.startDateTime.minute).minute + ' хв '}"></span>
+                </span>
+              </span>
                             <span th:unless="${workDetails != null}">
-                                <span>-</span>
-                            </span>
+                <span>-</span>
+              </span>
                         </div>
                     </td>
                     <td data-th="Разом" class="">
                         <div class="right">
-                            <span th:if="${workDetails != null}">
-                                <span th:text="${userWorkDetailsService.getTotalHoursByUserBetween(user, dates.get(0), dates.get(dates.size()-1))}"></span>
-                                <span th:text="год"></span>
-                            </span>
+            <span th:if="${workDetails != null}">
+              <span th:text="${userWorkDetailsService.getTotalHoursByUserBetween(user, dates.get(0), dates.get(dates.size()-1))}"></span>
+              <span th:text="год"></span>
+            </span>
                         </div>
                     </td>
                 </tr>
@@ -148,6 +153,21 @@
                     </td>
                 </tr>
                 </tbody>
+            </table>
+        </div>
+        <div class="uk-width-1-1">
+            <h3>Загальна статистика</h3>
+        </div>
+        <div class="uk-width-1-1">
+            <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-border">
+                <tr>
+                    <td>Координаторів</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Працівників</td>
+                    <td></td>
+                </tr>
             </table>
         </div>
         <div class="uk-width-1-1" hidden>

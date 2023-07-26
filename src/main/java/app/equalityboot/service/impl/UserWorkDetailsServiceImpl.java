@@ -40,11 +40,19 @@ public class UserWorkDetailsServiceImpl implements UserWorkDetailsService {
 
     @Override
     public UserWorkDetails getByUserBetweenTime(User user, LocalDateTime start, LocalDateTime finish) {
-        return userWorkDetailsDao.getUserWorkDetailsByUserAndStartDateTimeBetween(user, start, finish);
+        return userWorkDetailsDao.getUserWorkDetailsByUserBetweenTime(user, start, finish);
     }
 
     @Override
     public UserWorkDetails getTotalHoursByUserBetween(User user, LocalDate start, LocalDate finish) {
         return null;
+    }
+
+    @Override
+    public List<UserWorkDetails> getUserWorkDetailByCoordinator(User coordinator) {
+        return userWorkDetailsDao.findAll().stream()
+                .filter(userWorkDetails -> userWorkDetails.getUser().getCoordinator() != null)
+                .filter(userWorkDetails -> userWorkDetails.getUser().getCoordinator().equals(coordinator))
+                .toList();
     }
 }

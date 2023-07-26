@@ -66,10 +66,18 @@ public class OrderController {
                 DateTimeFormatter.ofPattern("MM d yyyy HH':'mm", Locale.GERMANY));
         Order order = reservationService.reserve(objectName, startDate, finishDate, workers, List.of(), description);
         LocalDateTime timeNow = LocalDateTime.now();
+        // Проверяем, является ли startDate понедельником (DayOfWeek.MONDAY - 1)
+        if (timeNow.getDayOfWeek().getValue() != DayOfWeek.MONDAY.getValue()) {
+            // Если нет, вычитаем соответствующее количество дней для получения предыдущего понедельника
+            int daysUntilPreviousMonday = timeNow.getDayOfWeek().getValue() - DayOfWeek.MONDAY.getValue();
+            timeNow = timeNow.minusDays(daysUntilPreviousMonday);
+        }
+        List<LocalDate> dates = timeNow.toLocalDate().datesUntil(timeNow.toLocalDate().plusDays(7)).toList();
         List<Order> allWeekOrders = orderService.getByDateGreaterThan(timeNow.minusWeeks(1));
         model.addAttribute("orderUserService", orderUserService);
         model.addAttribute("location", allWeekOrders);
         model.addAttribute("user", user);
+        model.addAttribute("dates", dates);
         return "orders";
     }
 

@@ -26,12 +26,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/login", "/register", "/logout").permitAll()
+                        .requestMatchers("/", "/login", "/register", "/logout", "/questionnaire").permitAll()
                         .anyRequest().authenticated())
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll())
-                .logout(LogoutConfigurer::permitAll)
+                .logout((logout) -> logout.logoutUrl("/logout").permitAll())
                 .authenticationProvider(daoAuthenticationProvider());
         return http.build();
     }
