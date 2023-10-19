@@ -26,8 +26,8 @@
             <span>Quality Work</span>In the right place at the right time        </a></li>
         <li class="divider">Menu</li>
         <li><a href="http://localhost:8080/panel/worker" class="icon icon-dashboard">Стартова панель</a></li>
-        <li><a href="http://localhost:8080/calendar" class=" icon icon-objects">Календар</a></li>
-        <li><a th:href="@{http://localhost:8080/stat/{userId}(userId = ${loggedUser.id})}" class="active icon icon-stat">Статистика</a></li>
+        <li><a href="http://localhost:8080/calendar/user" class=" icon icon-objects">Календар</a></li>
+        <li><a href="http://localhost:8080/stat/user" class="active icon icon-stat">Статистика</a></li>
     </ul>
     <ul class="nav-crm-bottom">
         <li class="lang uk-hidden@l">
@@ -69,23 +69,27 @@
         <div class="uk-width-1-1">
             <div data-uk-grid class="uk-grid-small">
                 <div class="uk-width-auto">
-                    <div class="">
-                        <a href="https://e-quality.work/uk/crm/stat" class="uk-button uk-button-small">Робочі дні</a>
+                    <div class="uk-width-auto">
+                        <div class="">
+                            <a href="http://localhost:8080/stat" class="uk-button uk-button-small">Робочі дні</a>
+                        </div>
                     </div>
-                </div>
-                <div class="uk-width-auto">
-                    <div class="">
-                        <a href="https://e-quality.work/uk/crm/stat?type=passesdays" class="uk-button uk-button-small">Пропуски</a>
+                    <div class="uk-width-auto">
+                        <div class="">
+                            <a href="http://localhost:8080/passedDays" class="uk-button uk-button-small">Пропуски</a>
+                        </div>
                     </div>
-                </div>
-                <div class="uk-width-auto">
-                    <div class="">
-                        <a href="https://e-quality.work/uk/crm/stat?type=objects" class="uk-button uk-button-small">Об'єкти</a>
+                    <div class="uk-width-auto">
+                        <div class="">
+                            <a href="http://localhost:8080/stat/objects" class="uk-button uk-button-small">Об'єкти</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="uk-width-expand"><h3>Статистика відпрацьованих годин</h3></div>
+            <div class="uk-width-expand"><h3>Статистика відпрацьованих годин</h3></div>
+            <div class="uk-width-auto@s">
+                <a th:href="'http://localhost:8080/excel/' + ${user.id} + '/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel</a>
+            </div>
         <div class="uk-width-1-1">
             <div data-uk-grid class="uk-grid-small uk-flex">
                 <div class="uk-width-auto">
@@ -122,7 +126,12 @@
                         <div class="right" th:with="workDetails=${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59))}">
                             <span th:if="${workDetails != null}">
                                 <span th:each="workDetail : ${workDetails}">
+                                    <span th:if="${workDetail.finishDateTime.minusHours(workDetail.startDateTime.hour).hour==0}">
+                                        <span>-</span>
+                                    </span>
+                                    <span th:if="${workDetail.finishDateTime.minusHours(workDetail.startDateTime.hour).hour!=0}">
                                     <span th:text="${workDetail.finishDateTime.minusHours(workDetail.startDateTime.hour).hour + ' год ' + workDetail.finishDateTime.minusMinutes(workDetail.startDateTime.minute).minute + ' хв '}"></span>
+                                    </span>
                                 </span>
                             </span>
                             <span th:unless="${workDetails != null}">

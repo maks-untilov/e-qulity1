@@ -22,14 +22,13 @@
 </head><body>
 <nav id="nav" class="nav-crm close">
     <ul>
-        <li class="logo-container"><a href="http://localhost:8080/index" class="logo-text">
+        <li class="logo-container"><a href="http://localhost:8080/panel/coordinator" class="logo-text">
             <span>Quality Work</span>In the right place at the right time        </a></li>
-        <li class="divider">Меню</li>
-        <li><a href="http://localhost:8080/index" class=" icon icon-dashboard">Стартова панель</a></li>
-        <li><a href="http://localhost:8080/objects" class=" icon icon-objects">Об'єкти</a></li>
-        <li><a href="http://localhost:8080/orders" class=" icon icon-orders">Замовлення</a></li>
-        <li><a href="http://localhost:8080/users" class=" icon icon-users">Працівникі</a></li>
-        <li><a href="http://localhost:8080/stat" class="active icon icon-stat">Статистика</a></li>
+        <li class="divider">Menu</li>
+        <li><a href="http://localhost:8080/panel/coordinator" class=" active icon icon-dashboard">Стартова панель</a></li>
+        <li><a href="http://localhost:8080/calendar/coordinator" class=" icon icon-objects">Календар</a></li>
+        <li><a href="http://localhost:8080/users/byCoordinator" class="icon icon-users"><i class="fa-solid fa-fire"></i><span>Працівники</span></a></li>
+        <li><a th:href="@{http://localhost:8080/stat/{userId}(userId = ${user.id})}" class=" icon icon-stat">Статистика</a></li>
     </ul>
     <ul class="nav-crm-bottom">
         <li class="lang uk-hidden@l">

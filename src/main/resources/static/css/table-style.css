@@ -9,12 +9,13 @@
 :root {
   --clr-dark-green: #066450;
   --clr-orange: #ffbf00;
-  --clr-dark-blue: #002060;
+  --clr-purple: #6d02f6;
   --clr-light-blue: #bdd6ee;
   --clr-brown: #833c0b;
   --clr-green: #92d04f;
   --clr-gray: #a5a5a5;
   --clr-yellow: #ffff00;
+  --clr-beige: #f4cd8a;
   --clr-red: #ff0000;
 
   --clr-row-title-bg: #ffbf00;
@@ -87,8 +88,8 @@ body {
   background-color: var(--clr-gray);
 }
 
-.bg-dark-blue {
-  background-color: var(--clr-dark-blue);
+.bg-purple {
+  background-color: var(--clr-purple);
   color: white;
 }
 
@@ -102,6 +103,10 @@ body {
 }
 
 .bg-yellow {
+  background-color: var(--clr-yellow);
+}
+
+.bg-beige {
   background-color: var(--clr-yellow);
 }
 

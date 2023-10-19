@@ -4,6 +4,9 @@ import app.equalityboot.model.User;
 import app.equalityboot.model.UserDetails;
 import app.equalityboot.service.UserDetailService;
 import app.equalityboot.service.UserService;
+import app.equalityboot.service.ValidationService;
+import app.equalityboot.service.impl.EmailSenderServiceImpl;
+import jakarta.mail.MessagingException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +20,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class QuestionnaireController {
     private final UserService userService;
     private final UserDetailService userDetailService;
+    private final ValidationService validationService;
+    private final EmailSenderServiceImpl emailSenderService;
 
-    public QuestionnaireController(UserService userService, UserDetailService userDetailService) {
+    public QuestionnaireController(UserService userService, UserDetailService userDetailService,
+                                   ValidationService validationService, EmailSenderServiceImpl emailSenderService) {
         this.userService = userService;
         this.userDetailService = userDetailService;
+        this.validationService = validationService;
+        this.emailSenderService = emailSenderService;
     }
 
     @GetMapping
@@ -37,15 +45,32 @@ public class QuestionnaireController {
         UserDetails userDetails = new UserDetails();
         User user = userService.getByFirstNameAndLastName(first_name, last_name);
         user.setCoordinator(userService.get(Long.parseLong(number_id)));
-        userDetails.setUser(user);
-        userDetails.setSex(sex);
-        userDetails.setBirthDate(birth_date);
-        userDetails.setContactData(dane_kontaktowe);
-        userDetails.setEducation(education);
-        userDetails.setPesel(pesel);
-        userDetails.setOsoba(osoba);
-        userDetails.setLocation(location);
-        userDetailService.save(userDetails);
-        return "redirect:/login";
+        String errorMsg = new String();
+        String word = validationService.validateAllLatin(first_name, last_name, number_id, sex, birth_date,
+                dane_kontaktowe, education, pesel, osoba, location);
+        if (word.equals("")) {
+            errorMsg = "Please write the data in the columns only Latin characters";
+            model.addAttribute("errorMsg", errorMsg);
+            return "questionnaire";
+        } else {
+            userDetails.setUser(user);
+            userDetails.setSex(sex);
+            userDetails.setBirthDate(birth_date);
+            userDetails.setContactData(dane_kontaktowe);
+            userDetails.setEducation(education);
+            userDetails.setPesel(pesel);
+            userDetails.setOsoba(osoba);
+            userDetails.setLocation(location);
+            userDetailService.save(userDetails);
+        }
+        model.addAttribute("errorMsg", errorMsg);
+        String subject = emailSenderService.getSubjectToAcceptationEmail(user.getFirstName());
+        String body = emailSenderService.getBodyToAcceptationEmail(user);
+        try {
+            emailSenderService.sendEmail(user.getEmail(), subject, body);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+        return "redirect:/confirm" + user.getConfirmationToken();
     }
 }

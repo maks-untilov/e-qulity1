@@ -1,11 +1,8 @@
 package app.equalityboot.controller;
 
 import app.equalityboot.model.*;
-import app.equalityboot.service.ObjectsService;
-import app.equalityboot.service.OrderUserService;
-import app.equalityboot.service.UserService;
+import app.equalityboot.service.*;
 import app.equalityboot.service.impl.OrderReservationService;
-import app.equalityboot.service.OrderService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -22,20 +19,23 @@ import java.util.Locale;
 @Controller
 @RequestMapping("/orders")
 public class OrderController {
+    private UserWorkDetails.Shift notWorking = UserWorkDetails.Shift.NOT_WORKING;
     private OrderService orderService;
     private ObjectsService objectsService;
     private OrderReservationService reservationService;
     private UserService userService;
     private OrderUserService orderUserService;
+    private UserWorkDetailsService userWorkDetailsService;
 
-    public OrderController(OrderService orderService, ObjectsService objectsService, 
-                           OrderReservationService reservationService, 
-                           UserService userService, OrderUserService orderUserService) {
+    public OrderController(OrderService orderService, ObjectsService objectsService,
+                           OrderReservationService reservationService, UserService userService,
+                           OrderUserService orderUserService, UserWorkDetailsService userWorkDetailsService) {
         this.orderService = orderService;
         this.objectsService = objectsService;
         this.reservationService = reservationService;
         this.userService = userService;
         this.orderUserService = orderUserService;
+        this.userWorkDetailsService = userWorkDetailsService;
     }
 
     @GetMapping
@@ -48,7 +48,28 @@ public class OrderController {
             timeNow = timeNow.minusDays(daysUntilPreviousMonday);
         }
         List<LocalDate> dates = timeNow.toLocalDate().datesUntil(timeNow.toLocalDate().plusDays(7)).toList();
-        List<Order> allWeekOrders = orderService.getByDateGreaterThan(timeNow.minusWeeks(1));
+        List<Order> allWeekOrders = orderService.getOrderByDateBetween(dates.get(0), dates.get(6));
+        model.addAttribute("timeNow", timeNow);
+        model.addAttribute("orderUserService", orderUserService);
+        model.addAttribute("location", allWeekOrders);
+        model.addAttribute("user", user);
+        model.addAttribute("dates", dates);
+        return "orders";
+    }
+
+    @GetMapping("/{date}")
+    public String getWithDate(Model model, @AuthenticationPrincipal User user, @PathVariable String date) {
+        LocalDateTime timeNow = LocalDateTime.now();
+        LocalDate dateFromUrl = LocalDate.parse(date);
+        // Проверяем, является ли startDate понедельником (DayOfWeek.MONDAY - 1)
+        if (dateFromUrl.getDayOfWeek().getValue() != DayOfWeek.MONDAY.getValue()) {
+            // Если нет, вычитаем соответствующее количество дней для получения предыдущего понедельника
+            int daysUntilPreviousMonday = dateFromUrl.getDayOfWeek().getValue() - DayOfWeek.MONDAY.getValue();
+            dateFromUrl = dateFromUrl.minusDays(daysUntilPreviousMonday);
+        }
+        List<LocalDate> dates = dateFromUrl.datesUntil(dateFromUrl.plusDays(7)).toList();
+        List<Order> allWeekOrders = orderService.getOrderByDateBetween(dates.get(0), dates.get(6));
+        model.addAttribute("timeNow", timeNow);
         model.addAttribute("orderUserService", orderUserService);
         model.addAttribute("location", allWeekOrders);
         model.addAttribute("user", user);
@@ -103,6 +124,21 @@ public class OrderController {
     }
     @GetMapping("/edit/workers/{orderId}")
     public String getWorkers(Model model, @PathVariable("orderId") String orderId, @AuthenticationPrincipal User user) {
+        Order order = orderService.getById(Long.parseLong(orderId));
+        List<UserWorkDetails> workers = userWorkDetailsService.getAll().stream()
+                .filter(userWorkDetails -> userWorkDetails.getStartDateTime().toLocalDate().equals(order.getDate()))
+                .filter(userWorkDetails -> !userWorkDetails.getShift().equals(notWorking))
+                .toList();
+        model.addAttribute("workers", workers);
+        model.addAttribute("order", order);
+        model.addAttribute("loggedUser", user);
+        model.addAttribute("orderUserService", orderUserService);
+        return "orderWorkers";
+    }
+
+    @GetMapping("/add/{orderId}/{userId}")
+    public String getAddWorkers(Model model, @PathVariable("orderId") String orderId,
+                                @PathVariable("userId") String userId, @AuthenticationPrincipal User user) {
         List<User> workers = userService.getAll().stream()
                 .filter(u -> u.getRole().getRoleName().equals(Role.RoleName.USER) && u.isAllowed())
                 .toList();
@@ -114,23 +150,9 @@ public class OrderController {
         return "orderWorkers";
     }
 
-    @PostMapping("/edit/workers/{orderId}/workerId")
-    public String postWorkers(Model model, @PathVariable("orderId") String orderId,
-                        @AuthenticationPrincipal User user) {
-        List<User> workers = userService.getAll().stream()
-                .filter(u -> u.getRole().getRoleName().equals(Role.RoleName.USER))
-                .toList();
-        Order order = orderService.getById(Long.parseLong(orderId));
-        model.addAttribute("workers", workers);
-        model.addAttribute("order", order);
-        model.addAttribute("orderUserService", orderUserService);
-        model.addAttribute("loggedUser", user);
-        return "orderWorkers";
-    }
-
-    @GetMapping("/add/{orderId}/{userId}")
-    public String getAddWorkers(Model model, @PathVariable("orderId") String orderId,
-                                @PathVariable("userId") String userId, @AuthenticationPrincipal User user) {
+    @PostMapping("/add/{orderId}/{userId}")
+    public String postAddWorkers(Model model, @PathVariable("orderId") String orderId,
+                                 @PathVariable("userId") String userId, @AuthenticationPrincipal User user) {
         List<User> workers = userService.getAll().stream()
                 .filter(u -> u.getRole().getRoleName().equals(Role.RoleName.USER) && u.isAllowed())
                 .toList();
@@ -148,6 +170,30 @@ public class OrderController {
         model.addAttribute("order", order);
         model.addAttribute("loggedUser", user);
         model.addAttribute("orderUserService", orderUserService);
-        return "orderWorkers";
+        return "redirect:/orders/edit/workers/" + orderId;
+    }
+
+    @GetMapping("/delete/{orderId}/{userId}")
+    public String getDeleteWorkers(Model model, @PathVariable("orderId") String orderId,
+                                @PathVariable("userId") String userId, @AuthenticationPrincipal User user) {
+        return "redirect:/orders/edit/workers/" + orderId;
+    }
+
+    @PostMapping("/delete/{orderId}/{userId}")
+    public String postDeleteWorkers(Model model, @PathVariable("orderId") String orderId,
+                                 @PathVariable("userId") String userId, @AuthenticationPrincipal User user) {
+        List<User> workers = userService.getAll().stream()
+                .filter(u -> u.getRole().getRoleName().equals(Role.RoleName.USER) && u.isAllowed())
+                .toList();
+        User worker = userService.get(Long.parseLong(userId));
+        Order order = orderService.getById(Long.parseLong(orderId));
+        OrderUser byOrderAndUser = orderUserService.getByOrderAndUser(order, worker);
+        try {
+            orderUserService.delete(byOrderAndUser);
+        } catch (Exception e) {
+            byOrderAndUser.setUser(null);
+            orderUserService.save(byOrderAndUser);
+        }
+        return "redirect:/orders/edit/workers/" + orderId;
     }
 }

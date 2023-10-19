@@ -1,5 +1,7 @@
 package app.equalityboot.dao;
 
+import app.equalityboot.model.Objects;
+import app.equalityboot.model.Order;
 import app.equalityboot.model.User;
 import app.equalityboot.model.UserWorkDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +20,17 @@ public interface UserWorkDetailsDao extends JpaRepository<UserWorkDetails, Long>
     UserWorkDetails getUserWorkDetailsByUserBetweenTime(@Param("user")User user,
                                                         @Param("startDate") LocalDateTime start,
                                                         @Param("endDate")LocalDateTime finish);
+
+    @Query(value = "from UserWorkDetails u where u.startDateTime BETWEEN :startDate AND :endDate")
+    List<UserWorkDetails> getAllGreaterThan(@Param("startDate") LocalDateTime start,
+                                            @Param("endDate")LocalDateTime finish);
+
+    @Query(value = "from UserWorkDetails u where u.user = :user AND u.startDateTime BETWEEN :startDate AND :endDate")
+    List<UserWorkDetails> getListByUserBetweenTime(@Param("user")User user,
+                                                        @Param("startDate") LocalDateTime start,
+                                                        @Param("endDate")LocalDateTime finish);
+
+    @Query(value = "from UserWorkDetails u where u.order = :order AND u.startDateTime BETWEEN :startDate AND :endDate")
+    List<UserWorkDetails> getUserWorkDetailsByOrderAnd(@Param("order") Order order, @Param("startDate") LocalDateTime start,
+                                                       @Param("endDate") LocalDateTime finish);
 }

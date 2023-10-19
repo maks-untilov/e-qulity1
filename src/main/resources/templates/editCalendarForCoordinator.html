@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Report Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Calistoga&family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/static/css/edit-calendar.css" />
+  </head>
+  <body>
+    <div id="app">
+      <aside class="sidebar">
+        <div class="sidebar__content">
+          <div class="sidebar-top">
+            <div href="#" class="sidebar__logo">
+              <a href="#">
+                <h1 class="sidebar__title">Quality Work</h1>
+                <p class="sidebar__desc">
+                  In the right place at the right time
+                </p>
+              </a>
+              <button class="sidebar__close">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <nav class="sidenav">
+              <h4 class="sidenav__title">меню</h4>
+              <ul class="sidenav__list">
+                <li>
+                  <a href="http://localhost:8080/panel/worker" class="sidenav__item sidenav__item--accent">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Стартова панель</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://localhost:8080/calendar/user" class="sidenav__item">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span>Календар</span></a
+                  >
+                </li>
+
+                <li>
+                  <a th:href="@{http://localhost:8080/stat/{userId}(userId = ${loggedUser.id})}" class="sidenav__item">
+                    <i class="fa-solid fa-fire"></i><span> Статистика</span></a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="sidebar-bottom">
+            <div class="sidebar__lang">
+              <button class="sidebar__lang-btn">Українська</button>
+              <button class="sidebar__lang-btn">Polski</button>
+            </div>
+
+            <div class="sidebar__user">
+              <img
+                class="sidebar__user-img"
+                src="https://e-quality.work/assets/upload/avatar/avatar.png"
+                alt="user icon"
+              />
+
+              <div>
+                <h5 class="sidebar__user-title" th:text="${loggedUser.firstName}"></h5>
+                <p class="sidebar__user-desc" th:text="${loggedUser.lastName}"></p>
+              </div>
+
+              <span class="sidebar__user-number" th:text="${loggedUser.id}"></span>
+            </div>
+
+            <button class="sidebar__exit"
+              ><a href="http://localhost:8080/logout" class="fa-solid fa-arrow-left"></a><span>Вийти</span></button
+            >
+          </div>
+        </div>
+        <i class="fa-solid fa-house"></i>
+      </aside>
+      <main class="main">
+        <header class="main__header">
+          <div class="header__left">
+            <a href="#" class="header__logo-icon">Q</a>
+
+            <button class="sidebar__open">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <h2 class="header__title">Стартова панель</h2>
+          </div>
+
+          <div class="header__right">
+            <button class="header__lang-btn header__lang-btn--accent"
+              >Українська</button
+            >
+            <button class="header__lang-btn">Polski</button>
+          </div>
+        </header>
+
+        <div class="main__content">
+          <div class="schedule-change">
+            <div class="schedule-change__top">
+              <h2>Редагувати зміни роботи</h2>
+            </div>
+
+            <form
+              class="form"
+              method="post"
+              th:action="@{http://localhost:8080/calendar/edit}"
+            >
+              <div class="form__input">
+                <div class="form__input--left">
+                  <h3 class="form__input-title">ПОНЕДІЛОК</h3>
+                  <p
+                    class="form__input-date"
+                    th:text="${dates.get(0).dayOfWeek.toString() + ' ' + dates.get(0).dayOfMonth + ' ' + dates.get(0).month.toString()}"
+                  >
+                    12 серпня
+                  </p>
+                </div>
+
+                <div class="form__input--right">
+                  <input
+                    id="monday-option1"
+                    name="zmina_0"
+                    th:value="${dates.get(0).toString() + '_0'}"
+                    class="uk-radio"
+                    type="radio"
+                    checked
+                  />
+                  <label class="input block" for="monday-option1">
+                    Не працюю
+                  </label>
+
+                  <input
+                    name="zmina_0"
+                    id="monday-option2"
+                    th:value="${dates.get(0).toString() + '_1'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="monday-option2">
+                    Денна зміна
+                  </label>
+
+                  <input
+                    id="monday-option3"
+                    name="zmina_0"
+                    th:value="${dates.get(0).toString() + '_2'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="monday-option3">
+                    Нічна зміна
+                  </label>
+                </div>
+              </div>
+              <div class="form__input">
+                <div class="form__input--left">
+                  <h3 class="form__input-title">Вівторок</h3>
+                  <p
+                    class="form__input-date"
+                    th:text="${dates.get(1).dayOfWeek.toString() + ' ' + dates.get(1).dayOfMonth + ' ' + dates.get(1).month.toString()}"
+                  >
+                    14 серпня
+                  </p>
+                </div>
+
+                <div class="form__input--right">
+                  <input
+                    id="tuesday-option1"
+                    name="zmina_1"
+                    th:value="${dates.get(1).toString() + '_0'}"
+                    class="uk-radio"
+                    type="radio"
+                    checked
+                  />
+                  <label for="tuesday-option1"> Не працюю </label>
+
+                  <input
+                    name="zmina_1"
+                    id="tuesday-option2"
+                    th:value="${dates.get(1).toString() + '_1'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="tuesday-option2">
+                    Денна зміна
+                  </label>
+
+                  <input
+                    id="tuesday-option3"
+                    name="zmina_1"
+                    th:value="${dates.get(1).toString() + '_2'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="tuesday-option3">
+                    Нічна зміна
+                  </label>
+                </div>
+              </div>
+              <div class="form__input">
+                <div class="form__input--left">
+                  <h3 class="form__input-title">Середа</h3>
+                  <p
+                    class="form__input-date"
+                    th:text="${dates.get(2).dayOfWeek.toString() + ' ' + dates.get(2).dayOfMonth + ' ' + dates.get(2).month.toString()}"
+                  >
+                    16 серпня
+                  </p>
+                </div>
+
+                <div class="form__input--right">
+                  <input
+                    id="wednesday-option1"
+                    name="zmina_2"
+                    th:value="${dates.get(2).toString() + '_0'}"
+                    class="uk-radio"
+                    type="radio"
+                    checked
+                  />
+                  <label for="wednesday-option1"> Не працюю </label>
+
+                  <input
+                    name="zmina_2"
+                    id="wednesday-option2"
+                    th:value="${dates.get(2).toString() + '_1'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="wednesday-option2">
+                    Денна зміна
+                  </label>
+
+                  <input
+                    id="wednesday-option3"
+                    name="zmina_2"
+                    th:value="${dates.get(2).toString() + '_2'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="wednesday-option3">
+                    Нічна зміна
+                  </label>
+                </div>
+              </div>
+              <div class="form__input">
+                <div class="form__input--left">
+                  <h3 class="form__input-title">Четвер</h3>
+                  <p
+                    class="form__input-date"
+                    th:text="${dates.get(3).dayOfWeek.toString() + ' ' + dates.get(3).dayOfMonth + ' ' + dates.get(3).month.toString()}"
+                  >
+                    18 серпня
+                  </p>
+                </div>
+
+                <div class="form__input--right">
+                  <input
+                    id="thursday-option1"
+                    name="zmina_3"
+                    th:value="${dates.get(3).toString() + '_0'}"
+                    class="uk-radio"
+                    type="radio"
+                    checked
+                  />
+                  <label for="thursday-option1"> Не працюю </label>
+
+                  <input
+                    name="zmina_3"
+                    id="thursday-option2"
+                    th:value="${dates.get(3).toString() + '_1'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="thursday-option2">
+                    Денна зміна
+                  </label>
+
+                  <input
+                    id="thursday-option3"
+                    name="zmina_3"
+                    th:value="${dates.get(3).toString() + '_2'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="thursday-option3">
+                    Нічна зміна
+                  </label>
+                </div>
+              </div>
+              <div class="form__input">
+                <div class="form__input--left">
+                  <h3 class="form__input-title">П'ЯТНИЦЯ</h3>
+                  <p
+                    class="form__input-date"
+                    th:text="${dates.get(4).dayOfWeek.toString() + ' ' + dates.get(4).dayOfMonth + ' ' + dates.get(4).month.toString()}"
+                  >
+                    20 серпня
+                  </p>
+                </div>
+
+                <div class="form__input--right">
+                  <input
+                    id="friday-option1"
+                    name="zmina_4"
+                    th:value="${dates.get(4).toString() + '_0'}"
+                    class="uk-radio"
+                    type="radio"
+                    checked
+                  />
+                  <label for="friday-option1"> Не працюю </label>
+
+                  <input
+                    name="zmina_4"
+                    id="friday-option2"
+                    th:value="${dates.get(4).toString() + '_1'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="friday-option2">
+                    Денна зміна
+                  </label>
+
+                  <input
+                    id="friday-option3"
+                    name="zmina_4"
+                    th:value="${dates.get(4).toString() + '_2'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="friday-option3">
+                    Нічна зміна
+                  </label>
+                </div>
+              </div>
+              <div class="form__input">
+                <div class="form__input--left">
+                  <h3 class="form__input-title">Субота</h3>
+                  <p
+                    class="form__input-date"
+                    th:text="${dates.get(5).dayOfWeek.toString() + ' ' + dates.get(5).dayOfMonth + ' ' + dates.get(5).month.toString()}"
+                  >
+                    20 серпня
+                  </p>
+                </div>
+
+                <div class="form__input--right">
+                  <input
+                    id="saturday-option1"
+                    name="zmina_5"
+                    th:value="${dates.get(5).toString() + '_0'}"
+                    class="uk-radio"
+                    type="radio"
+                    checked
+                  />
+                  <label for="saturday-option1"> Не працюю </label>
+
+                  <input
+                    name="zmina_5"
+                    id="saturday-option2"
+                    th:value="${dates.get(5).toString() + '_1'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="saturday-option2">
+                    Денна зміна
+                  </label>
+
+                  <input
+                    id="saturday-option3"
+                    name="zmina_5"
+                    th:value="${dates.get(5).toString() + '_2'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="saturday-option3">
+                    Нічна зміна
+                  </label>
+                </div>
+              </div>
+              <div class="form__input">
+                <div class="form__input--left">
+                  <h3 class="form__input-title">Неділя</h3>
+                  <p
+                    class="form__input-date"
+                    th:text="${dates.get(6).dayOfWeek.toString() + ' ' + dates.get(6).dayOfMonth + ' ' + dates.get(6).month.toString()}"
+                  >
+                    22 серпня
+                  </p>
+                </div>
+
+                <div class="form__input--right">
+                  <input
+                    id="sunday-option1"
+                    name="zmina_6"
+                    th:value="${dates.get(6).toString() + '_0'}"
+                    class="uk-radio"
+                    type="radio"
+                    checked
+                  />
+                  <label for="sunday-option1"> Не працюю </label>
+
+                  <input
+                    name="zmina_6"
+                    id="sunday-option2"
+                    th:value="${dates.get(6).toString() + '_1'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="sunday-option2">
+                    Денна зміна
+                  </label>
+
+                  <input
+                    id="sunday-option3"
+                    name="zmina_6"
+                    th:value="${dates.get(6).toString() + '_2'}"
+                    class="uk-radio"
+                    type="radio"
+                  />
+                  <label class="input block" for="sunday-option3">
+                    Нічна зміна
+                  </label>
+                </div>
+              </div>
+              <div class="uk-width-auto">
+                <input name="id" th:value="${loggedUser.id}" type="text" hidden>
+                <input name="week" value="this" type="input" hidden>
+                <input name="type" value="edit" type="input" hidden>
+                <button class="update_shift__button" type="submit" name="submit" value="Submit">Оновити</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        2023 © Quality Work — In the right place At the right time
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,5 +1,6 @@
 package app.equalityboot.service;
 
+import app.equalityboot.model.Role;
 import app.equalityboot.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -11,4 +12,6 @@ public interface UserService extends UserDetailsService {
     User get(Long id);
     User getByFirstNameAndLastName(String firstName, String lastName);
     List<User> getByCoordinator(User user);
+    List<User> getUserByRole(Role role);
+    User getUserByToken(String token);
 }

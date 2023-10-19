@@ -10,4 +10,7 @@ public interface OrderUserService {
     OrderUser save(OrderUser orderUser);
     List<OrderUser> getByOrder(Order order);
     List<OrderUser> getByCoordinator(List<OrderUser> allUsersPerOrder, User user);
+    OrderUser getByOrderAndUser(Order order, User user);
+    OrderUser get(Long id);
+    void delete(OrderUser orderUser);
 }

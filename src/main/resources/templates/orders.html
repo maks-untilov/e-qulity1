@@ -125,13 +125,13 @@
     <div class="uk-width-1-1">
       <div data-uk-grid class="uk-grid-small uk-flex">
         <div class="uk-width-auto">
-          <a href=""><span data-uk-icon="icon:arrow-left" class=""></span></a>
+          <a th:href="@{'http://localhost:8080/orders/' + ${dates.get(0).minusDays(1)}}"><span data-uk-icon="icon:arrow-left" class=""></span></a>
         </div>
         <div class="uk-width-auto">
           <b><p th:text="${dates.get(0).dayOfMonth + dates.get(0).month.toString() + ' - ' + dates.get(dates.size()-1).dayOfMonth + dates.get(dates.size()-1).month.toString()}"></b>
         </div>
         <div class="uk-width-auto uk-flex-last@m">
-          <a href=""><span data-uk-icon="icon:arrow-right" class=""></span></a>
+          <a th:href="@{'http://localhost:8080/orders/' + ${dates.get(0).plusDays(7)}}"><span data-uk-icon="icon:arrow-right" class=""></span></a>
         </div>
       </div>
     </div>

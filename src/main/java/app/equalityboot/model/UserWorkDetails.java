@@ -14,11 +14,17 @@ public class UserWorkDetails {
     private LocalDateTime startDateTime;
     private LocalDateTime finishDateTime;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Order order;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private User user;
+    private boolean isMissed;
     private boolean isAccepted;
     private Shift shift;
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    private byte[] image;
     private boolean isPaid;
     public enum Shift {
-        DAY, NIGHT, NOT_WORKING;
+        DAY, NIGHT, NOT_WORKING, DAY_NIGHT;
     }
 }

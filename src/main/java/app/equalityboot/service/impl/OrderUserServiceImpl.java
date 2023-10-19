@@ -4,6 +4,7 @@ import app.equalityboot.dao.OrderUserDao;
 import app.equalityboot.model.Order;
 import app.equalityboot.model.OrderUser;
 import app.equalityboot.model.User;
+import app.equalityboot.service.OrderService;
 import app.equalityboot.service.OrderUserService;
 import org.springframework.stereotype.Service;
 
@@ -34,4 +35,24 @@ public class OrderUserServiceImpl implements OrderUserService {
                 .filter(orderUser -> orderUser.getUser().getCoordinator().equals(user))
                 .toList();
     }
+
+    @Override
+    public OrderUser getByOrderAndUser(Order order, User user) {
+        return orderUserDao.getOrderUsersByOrder(order).stream()
+                .filter(orderUser -> orderUser.getUser()!=null)
+                .filter(orderUser -> orderUser.getUser().equals(user))
+                .findAny().get();
+    }
+
+    @Override
+    public OrderUser get(Long id) {
+        return orderUserDao.getOrderUsersById(id);
+    }
+
+    @Override
+    public void delete(OrderUser orderUser) {
+        orderUserDao.delete(orderUser);
+    }
+
+
 }

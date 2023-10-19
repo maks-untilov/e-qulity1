@@ -58,7 +58,8 @@
         <div class="login-box round">
           <div data-uk-grid class="uk-grid-small">
             <div class="uk-width-1-1 uk-text-center"><h1>Анкета працівника</h1></div>
-            <div class="uk-width-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dapibus dapibus justo, eget accumsan ipsum maximus quis. Praesent sit amet convallis ligula, ut rutrum justo. Maecenas vel velit ut massa eleifend sodales a cursus dui. Curabitur tincidunt sapien nec sollicitudin tristique.</div>
+            <div class="uk-width-1-1"><h2 style="color: red" th:text="${errorMsg}"></h2>
+            </div>
             <div class="uk-width-1-1">
               <div class="application-form">
                 <form method="POST" th:action="${questionnaire}" data-uk-grid class="uk-grid-small" >

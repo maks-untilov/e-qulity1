@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface OrderUserDao extends JpaRepository<OrderUser, Long> {
     List<OrderUser> getOrderUsersByOrder(Order order);
+    OrderUser getOrderUsersById(Long id);
 }
