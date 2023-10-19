@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.awt.*;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -20,6 +21,9 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
     private String email;
+    private String confirmationToken;
+    private Instant tokenCreationDate;
+    private boolean isEmailAllowed;
     private String password;
     private String phoneNumber;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -31,7 +35,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(getRole());
+        return List.of(getRole().getRoleName());
     }
 
     @Override
@@ -46,7 +50,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return isAllowed();
+        return isAllowed && isEmailAllowed;
     }
 
     @Override
@@ -57,19 +61,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public String getRGBColor() {
-        Pattern pattern = Pattern.compile("\\[r=(\\d+),g=(\\d+),b=(\\d+)\\]");
-        Matcher matcher = pattern.matcher(randomColor);
-
-        if (matcher.find()) {
-            int red = Integer.parseInt(matcher.group(1));
-            int green = Integer.parseInt(matcher.group(2));
-            int blue = Integer.parseInt(matcher.group(3));
-            return "rgb(" + red + "," + green + "," + blue + ")";
-        }
-
-        return ""; // Если не удалось извлечь значения RGB, вернуть пустую строку или другое значение по умолчанию
     }
 }

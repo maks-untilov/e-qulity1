@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="X-CSRF-TOKEN" content="4331f57b2beb6aa2cee55041dba83b4d" /><title>Main.offline</title>
+  <base href="https://e-quality.work">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;0,800;1,500;1,700;1,800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Calistoga&display=swap');
+    html {padding:0px;margin:0px;font-size:14px;line-height:1.4;font-family: 'Montserrat', Arial, Helvetica, sans-serif;}
+    body {background-color:#fff;color:#333333;padding:0px;margin:0px;position: relative;overflow-x:hidden;}
+    .blank-container{display:grid;grid-template-rows:auto 1fr auto;grid-template-areas:"header" "content" "footer";height:100vh;}
+    header {grid-area:header;background-color:white;padding:20px;font-size:.9rem;text-align:center;}
+    footer {grid-area:footer;background-color:white;padding:20px;font-size:.9rem;text-align:center;}
+    main {text-align:center;grid-area:content;display:flex;align-items:center;justify-content:center;}
+    main div{padding:0px 20px;}
+    .logo-text{text-align:center;font-family: 'Calistoga', Georgia, Times New Roman, serif;font-size:.8rem;color:#D09F0C;line-height:1.2;text-decoration:none;}
+    .logo-text span{font-size:2.2rem;display:block;}
+    .button{display:inline-block;padding:8px 20px;font-weight:700;color:#fff;background:#d09f0c;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;text-decoration:none;}
+    h1{font-size:1.6rem;}
+  </style>
+</head><body>
+<div class="blank-container">
+  <header>
+    <a href="https://e-quality.work/uk/" class="logo-text"><span>Quality Work</span>In the right place at the right time</a>
+  </header>
+  <main>
+    <div>
+      <h1>Зв'язок із інтернетом втрачено!</h1>
+      <p>Наш сервіс не працює в OFFLINE режимі. Перевірте ваше з'єднання із інтернетом та оновіть сторінку.</p>
+      <p><br><a href="/" class="button">Оновити</a></p>
+    </div>
+  </main>
+  <footer>2023 © Quality Work<br>In the right place At the right time</footer>
+</div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package app.equalityboot.service.impl;
 
 import app.equalityboot.dao.UserDao;
+import app.equalityboot.model.Role;
 import app.equalityboot.model.User;
 import app.equalityboot.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,5 +46,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> getByCoordinator(User coordinator) {
         return userDao.getUsersByCoordinator(coordinator);
+    }
+
+    @Override
+    public List<User> getUserByRole(Role role) {
+        return userDao.getUsersByRole(role);
+    }
+
+    @Override
+    public User getUserByToken(String token) {
+        return userDao.getUsersByConfirmationToken(token);
     }
 }

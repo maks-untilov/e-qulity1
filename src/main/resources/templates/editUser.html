@@ -91,7 +91,7 @@
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a th:href="@{http://localhost:8080/calendar/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Календар</a>
+            <a th:href="@{http://localhost:8080/calendar/coordinator/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Календар</a>
           </div>
         </div>
         <div class="uk-width-expand">
@@ -100,7 +100,7 @@
       </div>
     </div>
     <div class="uk-width-1-1"><hr></div>
-    <div class="uk-width-1-1"><h1>Профайл / <p th:text="${user.firstName + user.lastName}"></h1></div>
+    <div class="uk-width-1-1"><h1>Профайл / <p th:text="${user.firstName + ' ' + user.lastName}"></h1></div>
     <div class="uk-width-1-1">
       <div data-uk-grid class="uk-grid-small">
         <div class="uk-width-small@s">

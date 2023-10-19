@@ -46,4 +46,19 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getByDate(LocalDate date) {
         return orderDao.getOrderByDate(date);
     }
+
+    @Override
+    public List<Order> getOrderByDateBetween(LocalDate startDate, LocalDate finishDate) {
+        return orderDao.getOrderByDateBetweenTime(startDate, finishDate);
+    }
+
+    @Override
+    public List<Order> getOrderByDescription() {
+        return orderDao.getOrderByDescription();
+    }
+
+    @Override
+    public List<Order> getOrderByObjectName() {
+        return orderDao.getOrderByObjectName();
+    }
 }

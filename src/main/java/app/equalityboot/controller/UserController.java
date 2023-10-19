@@ -55,6 +55,7 @@ public class UserController {
         model.addAttribute("loggedUser", loggedUser);
         return "editUser";
     }
+
     @PostMapping("/{userId}")
     public String activateUser(Model model, @PathVariable("userId") String userId, @AuthenticationPrincipal User loggedUser) {
         User user = userService.get(Long.parseLong(userId));
@@ -99,7 +100,9 @@ public class UserController {
             throw new RuntimeException("password are not equal");
         }
         User register = registerService.register(first_name, last_name, phone, email, password, group);
-        register.setCoordinator(userService.get(Long.parseLong(number)));
+        if (!number.equals("не зазначено")) {
+            register.setCoordinator(userService.get(Long.parseLong(number)));
+        }
         userService.save(register);
         return "redirect:/users";
     }
@@ -113,6 +116,31 @@ public class UserController {
         model.addAttribute("managerRole", managerRole);
         model.addAttribute("adminRole", adminRole);
         model.addAttribute("bossRole", bossRole);
-        return "user";
+        return "usersByCoordinator";
+    }
+
+    @GetMapping("/boss/{userId}")
+    public String getEditUserForBoss(Model model, @PathVariable String userId, @AuthenticationPrincipal User loggedUser) {
+        User user = userService.get(Long.parseLong(userId));
+        model.addAttribute("user", user);
+        model.addAttribute("loggedUser", loggedUser);
+        return "editUserForBoss";
+    }
+
+    @GetMapping("/{userId}/block")
+    public String getBlockUserForBoss(Model model, @PathVariable String userId, @AuthenticationPrincipal User loggedUser) {
+        User user = userService.get(Long.parseLong(userId));
+        model.addAttribute("user", user);
+        model.addAttribute("loggedUser", loggedUser);
+        return "editUserForBoss";
+    }
+    @PostMapping("/{userId}/block")
+    public String postBlockUserForBoss(Model model, @PathVariable String userId, @AuthenticationPrincipal User loggedUser) {
+        User user = userService.get(Long.parseLong(userId));
+        user.setAllowed(false);
+        userService.save(user);
+        model.addAttribute("user", user);
+        model.addAttribute("loggedUser", loggedUser);
+        return "editUserForBoss";
     }
 }

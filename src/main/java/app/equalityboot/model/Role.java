@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 @Data
 @Entity
-public class Role implements GrantedAuthority {
+public class Role {
     public Role(RoleName roleName) {
         this.roleName = roleName;
     }
@@ -20,12 +20,12 @@ public class Role implements GrantedAuthority {
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
 
-    @Override
-    public String getAuthority() {
-        return roleName.name();
-    }
-
-    public enum RoleName {
+    public enum RoleName implements GrantedAuthority {
         ADMIN, USER, MANAGER, BOSS;
+
+        @Override
+        public String getAuthority() {
+            return name();
+        }
     }
 }

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Calistoga&family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/static/css/graphics-style.css" />
+    <script src="/static/js/app.js" defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <aside class="sidebar">
+        <div class="sidebar__content">
+          <div class="sidebar-top">
+            <div href="#" class="sidebar__logo">
+              <a href="#">
+                <h1 class="sidebar__title">Quality Work</h1>
+                <p class="sidebar__desc">
+                  In the right place at the right time
+                </p>
+              </a>
+              <button class="sidebar__close">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <nav class="sidenav">
+              <h4 class="sidenav__title">меню</h4>
+              <ul class="sidenav__list">
+                <li>
+                  <a href="http://localhost:8080/panel/worker" class="sidenav__item sidenav__item--accent">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Стартова панель</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://localhost:8080/calendar/coordinator" class="sidenav__item">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span>Календар</span></a
+                  >
+                </li>
+
+                <li>
+                  <a th:href="@{http://localhost:8080/stat/{userId}(userId = ${loggedUser.id})}" class="sidenav__item">
+                    <i class="fa-solid fa-fire"></i><span> Статистика</span></a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="sidebar-bottom">
+            <div class="sidebar__lang">
+              <button class="sidebar__lang-btn">Українська</button>
+              <button class="sidebar__lang-btn">Polski</button>
+            </div>
+
+            <div class="sidebar__user">
+              <img
+                class="sidebar__user-img"
+                src="https://e-quality.work/assets/upload/avatar/avatar.png"
+                alt="user icon"
+              />
+
+              <div>
+                <h5 class="sidebar__user-title" th:text="${loggedUser.firstName}"></h5>
+                <p class="sidebar__user-desc" th:text="${loggedUser.lastName}"></p>
+              </div>
+
+              <span class="sidebar__user-number" th:text="${loggedUser.id}"></span>
+            </div>
+
+            <button class="sidebar__exit"
+              ><i class="fa-solid fa-arrow-left"></i><span>Вийти</span></button
+            >
+          </div>
+        </div>
+        <i class="fa-solid fa-house"></i>
+      </aside>
+      <main class="main">
+        <header class="main__header">
+          <div class="header__left">
+            <a href="#" class="header__logo-icon">Q</a>
+
+            <button class="sidebar__open">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <h2 class="header__title">Стартова панель</h2>
+          </div>
+
+          <div class="header__right">
+            <button class="header__lang-btn header__lang-btn--accent"
+              >Українська</button
+            >
+            <button class="header__lang-btn">Polski</button>
+          </div>
+        </header>
+
+        <div class="main__content">
+          <table>
+            <thead>
+              <tr>
+                <th class="table__item">Працівник</th>
+                <th class="table__item">Група</th>
+                <th class="table__item">Номер</th>
+                <th class="table__item">Назва</th>
+                <th class="table__item">Графік роботи</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="worker : ${workers}" th:if="${worker.user != null}" th:object="${worker.id}">
+                  <td class="table__item" th:text="${worker.user.firstName + ' ' + worker.user.lastName}"></td>
+                  <td class="table__item" th:text="${worker.user.role}"></td>
+                  <td class="table__item" th:text="${worker.user.id}"></td>
+                  <td class="table__item" th:text="${worker.order.object.name}"></td>
+                  <td class="table__item">
+                    <div class="table__item--schedule">
+                      <span th:if="${userWorkDetailService.getByUserBetweenTime(worker.user, worker.order.startTime, worker.order.finishTime)!=null}">
+                        <span th:text="${userWorkDetailService.getByUserBetweenTime(worker.user, worker.order.startTime, worker.order.finishTime).startDateTime.toLocalTime() + '-' + userWorkDetailService.getByUserBetweenTime(worker.user, worker.order.startTime, worker.order.finishTime).finishDateTime.toLocalTime()}"></span>
+                      </span>
+                    </div>
+                  </td>
+                <td class="table__item">
+                  <a th:href="${'http://localhost:8080/graphics/edit/' + userWorkDetailService.getByUserBetweenTime(worker.user, worker.order.date.atTime(0,0),  worker.order.date.atTime(23,59)).id + '/' + worker.order.id}" class="table__item--edit">Редагувати</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+
+      <footer class="footer">
+        2023 © Quality Work — In the right place At the right time
+      </footer>
+    </div>
+
+    <div class="popup">
+      <form class="popup__content" method="post" th:action="@{'http://localhost:8080/graphics/edit/'}">
+        <div class="popup__top">
+          <h2>Редагувати</h2>
+          <div class="popup__close-icon">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+        </div>
+        <div class="popup__content-body">
+          <div class="time-picker-container">
+            <label for="time-from">Обрати робочі часи:</label>
+            <input
+              type="time"
+              name="time-from"
+              value=""
+              id="time-from"
+              class="time-picker-input"
+            />
+            <input
+              type="time"
+              name="time-to"
+              value=""
+              id="time-to"
+              class="time-picker-input"
+            />
+          </div>
+
+          <div class="has-paid-conteiner">
+            <label for="paidTrue">Оплечено</label>
+            <input
+                    id="paidTrue"
+                    name="paidTrue"
+                    th:value="${true}"
+                    class="uk-radio"
+                    type="radio"
+                    checked
+            />
+            <label for="paidFalse">Не оплечено</label>
+            <input
+                    id="paidFalse"
+                    name="paidTrue"
+                    th:value="${false}"
+                    class="uk-radio"
+                    type="radio"
+                    checked
+            />
+          </div>
+        </div>
+        <button type="submit" class="popup__save-btn">Зберегти</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -92,11 +92,14 @@
             <label>Група</label>
             <select class="uk-select" name="group">
               <option value="USER">Працівник</option>
+              <option value="MANAGER">Координатор</option>
+              <option value="ADMIN">Супервайзер</option>
             </select>
           </div>
           <div class="uk-width-small@s">
             <label>ID координатора</label>
             <select name="number" class="uk-select uk-width-1-1">
+              <option>не зазначено</option>
               <option  th:each="coordinator : ${users}" th:value="${coordinator.id}"><p th:text="${coordinator.id}"></option>
             </select>
           </div>

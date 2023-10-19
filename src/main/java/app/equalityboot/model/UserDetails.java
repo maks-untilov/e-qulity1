@@ -18,4 +18,5 @@ public class UserDetails {
     private String osoba;
     private String location;
     private String contactData;
+    private String stanRodziny;
 }

@@ -21,6 +21,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/panel")
 public class IndexForUserController {
+    private UserWorkDetails.Shift notWorking = UserWorkDetails.Shift.NOT_WORKING;
+    private UserWorkDetails.Shift dayWorking = UserWorkDetails.Shift.DAY;
+    private UserWorkDetails.Shift nightWorking = UserWorkDetails.Shift.NIGHT;
     private UserWorkDetailsService userWorkDetailsService;
     private OrderService orderService;
     private OrderUserService orderUserService;
@@ -41,9 +44,15 @@ public class IndexForUserController {
             timeNow = timeNow.minusDays(daysUntilPreviousMonday);
         }
         List<LocalDate> dates = timeNow.toLocalDate().datesUntil(timeNow.toLocalDate().plusDays(7)).toList();
+        model.addAttribute("notWorking", notWorking);
+        model.addAttribute("dayWorking", dayWorking);
+        model.addAttribute("nightWorking", nightWorking);
         model.addAttribute("userWorkDetailsService", userWorkDetailsService);
+        model.addAttribute("orderService", orderService);
+        model.addAttribute("orderUserService", orderUserService);
         model.addAttribute("dates", dates);
         model.addAttribute("loggedUser", user);
+        model.addAttribute("user", user);
         return "indexForUser";
     }
 
@@ -63,6 +72,6 @@ public class IndexForUserController {
         model.addAttribute("dates", dates);
         model.addAttribute("orderUserService", orderUserService);
         model.addAttribute("orderService", orderService);
-        return "coordinatorIndex";
+        return "indexForCoordinator";
     }
 }

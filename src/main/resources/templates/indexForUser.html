@@ -1,136 +1,165 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex">
-    <meta name="X-CSRF-TOKEN" content="82171889f75eb82d718ff2357a5834d6" /><title>Quality Work</title>
-    <link rel="icon" href="/static/images/quality-work-01.svg">
-    <link rel="apple-touch-icon" href="/static/images/quality-work-01.svg">
-    <link href="/static/css/uikit.min.css" type="text/css" rel="stylesheet" />
-    <link href="/static/css/style.css" type="text/css" rel="stylesheet" />
-    <script src="jquery.min.js"></script>
-    <script src="uikit.min.js"></script>
-    <script src="uikit-icons.min.js"></script>
-    <script src="inputmask.min.js"></script>
-    <script src="app.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Open+Sans&display=swap"
+          rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="/static/css/calendar-style.css" />
+    <script src="/static/js/app.js" defer></script>
 </head>
 <body>
-<nav id="nav" class="nav-crm close">
-    <ul>
-        <li class="logo-container"><a href="http://localhost:8080/panel/worker" class="logo-text">
-            <span>Quality Work</span>In the right place at the right time        </a></li>
-        <li class="divider">Menu</li>
-        <li><a href="http://localhost:8080/panel/worker" class="active icon icon-dashboard">Стартова панель</a></li>
-        <li><a href="http://localhost:8080/calendar" class=" icon icon-objects">Календар</a></li>
-        <li><a th:href="@{http://localhost:8080/stat/{userId}(userId = ${loggedUser.id})}" class=" icon icon-stat">Статистика</a></li>
-    </ul>
-    <ul class="nav-crm-bottom">
-        <li class="lang uk-hidden@l">
-            <a href="https://e-quality.work/uk/crm/" class="active">Українська</a>
-            <a href="https://e-quality.work/pl/crm/" class="">Polski</a>
-        </li>
-        <li class="profile">
-            <a href="http://localhost:8080/profile">
-                <img class="profile-image" src="/static/images/avatar.png">
-                <div><p th:text="${loggedUser.firstName + ' ' + loggedUser.lastName}"></div>
-            </a>
-            <div class="profile-number"><p th:text="${loggedUser.id}"></div>
-        </li>
-        <li><a href="/logout" class="icon icon-logout">Вийти</a></li>
-    </ul>
-    <a href="#" data-uk-toggle="target: #nav; cls: close" class="nav-crm-close uk-hidden@l"><span data-uk-icon="icon:close;ratio:1"></span></a>
-</nav>
-<header class="header-crm">
-    <div data-uk-grid class="uk-grid-small">
-        <div class="uk-width-auto uk-hidden@l">
-            <a href="http://localhost:8080/panel/worker" class="logo logo-icon"></a>
-        </div>
-        <div class="uk-width-auto uk-flex uk-flex-middle uk-hidden@l">
-            <a href="#" data-uk-toggle="target: #nav; cls: close" class=""><span data-uk-icon="icon:menu;ratio:1.2"></span></a>
-        </div>
-        <div class="uk-width-expand uk-flex uk-flex-middle">
-            <div class="header-title">Стартова панель</div>
-        </div>
-        <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
-            <ul class="lang-ul">
-                <li><a href="https://e-quality.work/uk/crm/" class="active">Українська</a></li>
-                <li><a href="https://e-quality.work/pl/crm/" class="">Polski</a></li>
-            </ul>
-        </div>
-    </div>
-</header>
-<main class="main-crm">
-    <br>
-    <div class="uk-grid-small" data-uk-grid>
-        <div class="uk-width-expand">
-            <div class="uk-grid-small" data-uk-grid>
-                <div class="uk-width-1-1">
-                    <div class="alert">
-                        <div class="uk-grid-small" data-uk-grid>
-                            <div class="uk-width-expand uk-flex uk-flex-middle">
-                                Ви маєте можливість додати/відредагувати зміни роботи на наступний тиждень</div>
-                            <div class="uk-width-auto@s uk-flex uk-flex-middle">
-                                <a class="uk-button uk-button-small uk-button-green" href="http://localhost:8080/calendar/next">Наступний тиждень</a>
-                            </div>
-                        </div>
-                    </div>
+<div class="app">
+    <aside class="sidebar">
+        <div class="sidebar__content">
+            <div class="sidebar-top">
+                <div href="#" class="sidebar__logo">
+                    <a href="#">
+                        <h1 class="sidebar__title">Quality Work</h1>
+                        <p class="sidebar__desc">
+                            In the right place at the right time
+                        </p>
+                    </a>
+                    <button class="sidebar__close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
                 </div>
-                <div class="uk-width-1-1"><h3>Мій робочий тиждень</h3></div>
-                <div class="uk-width-1-1">
-                    <ul class="calendar">
-                        <li class="calendar-close" th:each="date : ${dates}">
-                            <div class="calendar-padding">
-                                <div data-uk-grid class="uk-grid-small">
-                                    <div class="uk-width-auto uk-flex uk-flex-middle">
-                                        <p class="date"><p th:text="${date.dayOfWeek.toString() + ' ' + date.dayOfMonth + ' ' + date.month.toString()}"></p>
-                                    </div>
-                                    <div class="uk-width-auto uk-flex uk-flex-middle">
-                                <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) == null}">
-                                    <p class="zmina zmina-0">Не Працюю</p>
-                                </span>
-                                        <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) != null}">
-                                    <p class="zmina zmina-0" th:text="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).shift.toString()}">Рабочая смена</p>
-                                </span>
-                                    </div>
-                                    <div class="uk-width-auto">
-                                        <p class="need-approve">
-                                            <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) == null}">
-                                                <p class="zmina zmina-0">  </p>
-                                            </span>
-                                            <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) != null}">
-                                                <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).accepted == false}">
-                                                    Дані вступлять в силу після підтвердження Супервайзером.</span>
-                                                <p th:text="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).shift.toString()}"></p>
-                                            </span>
-                                            <br>
-                                    </div>
-                                    <div class="uk-width-expand@m uk-flex uk-flex-middle">
-                                        <div class="full">
-                                            <div data-uk-grid class="uk-grid-collapse">
-                                                <div class="uk-width-1-1 uk-flex uk-flex-middle">
-                                                    <em class="grey">Робота відсутня</em>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="uk-width-auto uk-flex uk-flex-middle">
-                                        <div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <nav class="sidenav">
+                    <h4 class="sidenav__title">меню</h4>
+                    <ul class="sidenav__list">
+                        <li>
+                            <a href="http://localhost:8080/panel/worker" class="sidenav__item sidenav__item--accent">
+                                <i class="fa-solid fa-house"></i>
+                                <span>Стартова панель</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:8080/calendar/user" class="sidenav__item ">
+                                <i class="fa-regular fa-calendar"></i>
+                                <span>Календар</span></a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:8080/stat/user" class="sidenav__item">
+                                <i class="fa-solid fa-fire"></i><span> Статистика</span></a>
                         </li>
                     </ul>
+                </nav>
+            </div>
+
+            <div class="sidebar-bottom" href="http://localhost:8080/profile">
+                <div class="sidebar__user">
+                    <img class="sidebar__user-img"
+                         src="https://e-quality.work/assets/upload/avatar/avatar.png"
+                         alt="user icon"/>
+                    <div>
+                        <h5 class="sidebar__user-title" th:text="${loggedUser.firstName}"></h5>
+                        <p class="sidebar__user-desc" th:text="${loggedUser.lastName}"></p>
+                    </div>
+
+                    <span class="sidebar__user-number" th:text="${loggedUser.id}"></span>
                 </div>
-                <br>
-                <div class="uk-width-1-1"><a class="uk-button uk-button-small" href="http://localhost:8080/calendar">Керувати календарем</a></div>
+
+                <a href="/logout" class="sidebar__exit">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Вийти</span>
+                </a>
             </div>
         </div>
-        <div class="uk-width-1-1 uk-hidden@l"><hr></div>
-    </div>
-</main>
-<footer class="footer-crm">
-    2023 © Quality Work — In the right place At the right time</footer>
+        <i class="fa-solid fa-house"></i>
+    </aside>
+    <main class="main">
+        <header class="main__header">
+            <div class="header__left">
+                <a href="#" class="header__logo-icon">Q</a>
+
+                <button class="sidebar__open">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <h2 class="header__title">Стартова панель</h2>
+            </div>
+
+            <div class="header__right">
+                <button class="header__lang-btn header__lang-btn--accent"
+                >Українська</button
+                >
+                <button class="header__lang-btn">Polski</button>
+            </div>
+        </header>
+
+        <div class="main__content">
+            <div class="main__layout">
+                <div>
+                    <div class="alert-message">
+                        <p class="alert-message-desc">
+                            Ви маєте можливість додати/відредагувати зміни роботи на
+                            наступний тиждень
+                        </p>
+
+                        <a href="http://localhost:8080/calendar/user/next" class="alert-message-btn">НАСТУПНИЙ ТИЖДЕНЬ</a>
+                    </div>
+                    <div class="schedule">
+                        <h2 class="schedule__title">Мій робочий тиждень</h2>
+                        <ul class="schedule__list" th:each="date : ${dates}">
+                            <li class="schedule__item schedule__item--accent">
+                                <div class="schedule__date">
+                                    <h4 class="schedule__date-title" th:text="${date.dayOfWeek.name()}"></h4>
+                                    <p class="schedule__date-desc" th:text="${date.dayOfMonth + ' ' + date.month.name()}"></p>
+                                </div>
+                                <!-- Проверяем, есть ли у пользователя смена на эту дату -->
+                                <span th:if="${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)) != null}">
+                                    <button class="schedule__button" th:text="${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)).shift.name()}"></button>
+                                </span>
+                                <div class="schedule__work-info">
+                                    <!-- Проверяем, есть ли записи (orders) на эту дату -->
+                                    <span th:if="${orderUserService.getByOrder(user) != null}">
+                                        <span>Робота відсутня</span>
+                                </span>
+                                    <span th:if="${orderService.getByDate(date).size() > 0}">
+                <!-- Перебираем записи (orders) -->
+                    <div class="work-details">
+                      <span th:if="${orderUserService.getByOrder(orderService.getByDate(date)[0]).size() == 0}">
+                        <span>Робота відсутня</span>
+                      </span>
+                      <span th:if="${orderUserService.getByOrder(orderService.getByDate(date)).size() > 0}">
+                        <!-- Перебираем пользователей (users), связанных с первой записью (order) на эту дату -->
+                          <strong th:text="${'Обєкт: ' + orderService.getByDate(date).get(0).object.name}"></strong>
+                          <strong>Робочі години:</strong>
+                          <span th:text="${orderService.getByDate(date)[0].startTime.toLocalTime() + ' - ' + orderService.getByDate(date)[0].finishTime.toLocalTime()}"></span>
+                          <button class="schedule__work-btn">робота</button>
+                          </p>
+                    </span>
+                </div>
+            </span>
+                                </div>
+
+                                <!-- Отображаем сообщение "Дані вступлять в силу після підтвердження Супервайзером" -->
+                                <span th:if="${userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)) != null and userWorkDetailsService.getByUserBetweenTime(loggedUser, date.atTime(0, 0), date.atTime(23, 59)).accepted == false}">
+            <span>Дані вступлять в силу після підтвердження Супервайзером.</span>
+        </span>
+                            </li>
+                        </ul>
+                        <div class="schedule__btn-settings"><a href="http://localhost:8080/calendar/edit"> керувати календарем </a></div>
+                    </div>
+                </div>
+                <div class="messages">
+                    <h2 class="schedule__title">Повідомлення</h2>
+                    <div class="message">Повідомлення відсутні</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        2023 © Quality Work — In the right place At the right time
+    </footer>
+</div>
 </body>
 </html>

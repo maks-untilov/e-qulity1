@@ -1,38 +1,45 @@
 package app.equalityboot.controller;
 
+import app.equalityboot.model.User;
 import app.equalityboot.model.UserWorkDetails;
+import app.equalityboot.service.EmailSenderService;
 import app.equalityboot.service.UserService;
 import app.equalityboot.service.UserWorkDetailsService;
+import app.equalityboot.service.impl.EmailSenderServiceImpl;
+import jakarta.mail.MessagingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/inject")
 public class InjectController {
-    private UserWorkDetailsService userWorkDetailsService;
-    private UserService userService;
+    private final EmailSenderServiceImpl emailSenderService;
+    private final UserService userService;
+    private final String MY_EMAIL = "maksimuntilov7@gmail.com";
 
-    public InjectController(UserWorkDetailsService userWorkDetailsService, UserService userService) {
-        this.userWorkDetailsService = userWorkDetailsService;
+    public InjectController(EmailSenderServiceImpl emailSenderService, UserService userService) {
+        this.emailSenderService = emailSenderService;
         this.userService = userService;
     }
 
     @GetMapping
-    public String get() {
-        LocalDateTime start = LocalDateTime.now();
-        LocalDateTime finish = start.plusHours(5);
-        UserWorkDetails.Shift shift = UserWorkDetails.Shift.DAY;
-        UserWorkDetails userWorkDetails = new UserWorkDetails();
-        userWorkDetails.setUser(userService.get(10L));
-        userWorkDetails.setStartDateTime(start);
-        userWorkDetails.setFinishDateTime(finish);
-        userWorkDetails.setShift(shift);
-        userWorkDetails.setAccepted(true);
-        userWorkDetailsService.save(userWorkDetails);
+    public String get() throws MessagingException {
+        emailSenderService.sendEmail(MY_EMAIL, "Test Subject", "Test Body");
         return "injected";
+    }
+
+    @GetMapping("/allow")
+    public String getAllow() {
+        List<User> users = userService.getAll();
+        for (User user : users) {
+            user.setEmailAllowed(true);
+            userService.save(user);
+        }
+        return "sucsses";
     }
 }

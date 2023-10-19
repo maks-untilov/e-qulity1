@@ -138,12 +138,29 @@
         </tbody>
       </table>
     </div>
-    <div class="uk-width-1-1">
-      <div class="alert">
-        <span th:each="worker : ${orderUserService.getByOrder(order)}" th:if="${worker.user} != null">
-                            <p th:text="${worker.user.firstName + ' ' + worker.user.lastName}">
-        </span>
+    <div class="uk-width-1-1 uk-margin-medium-top add" >
+      <div data-uk-grid class="uk-grid-small">
+        <div class="uk-width-1-1"><hr></div>
+        <div class="uk-width-1-1">
+          <h3>Працівники на замовленні</h3>
+        </div>
+        <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-responsive">
+          <div class="uk-width-1-1">
+            <tr>
+              <span th:each="worker : ${orderUserService.getByOrder(order)}" th:if="${worker.user} != null">
+                <form method="post" th:action="@{'http://localhost:8080/orders/delete/' + ${order.id + '/' + worker.user.id}}">
+                  <td data-th="Працівник:" class="uk-text-bold"><p th:text="${worker.user.firstName}"><p th:text="${worker.user.lastName}"><div class="right">
+                    <span class="code code-green"><p th:text="${worker.user.id}"></span>
+                  </div>
+                    <button type="submit" class="uk-button uk-button-xsmall">Видалити с замовлення</button>
+                  </td>
+                </form>
+              </span>
+            </tr>
+          </div>
+        </table>
       </div>
+    </div>
     </div>
     <div class="uk-width-1-1 uk-margin-medium-top add" >
       <div data-uk-grid class="uk-grid-small">
@@ -154,21 +171,24 @@
         <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-responsive">
         <div class="uk-width-1-1">
             <tr th:each="worker : ${workers}">
-              <td data-th="Працівник:" class="uk-text-bold"><p th:text="${worker.firstName}"><p th:text="${worker.lastName}"><div class="right">
-                <span class="code code-green"><p th:text="${worker.id}"></span>
+              <span th:if="${worker.user!=null}">
+              <form method="post" th:action="@{'http://localhost:8080/orders/add/' + ${order.id + '/' + worker.user.id}}">
+              <td data-th="Працівник:" class="uk-text-bold"><p th:text="${worker.user.firstName}"><p th:text="${worker.user.lastName}"><div class="right">
+                <span class="code code-green"><p th:text="${worker.user.id}"></span>
               </div>
               </td>
-              <td data-th="Группа:"><div class="right"><p th:text="${worker.role}"></div></td>
-              <td data-th="Номер:"><div class="right"><p th:text="${worker.phoneNumber}"></div></td>
-              <td data-th="Email:"><div class="right"><p th:text="${worker.email}"></div></td>
+              <td data-th="Группа:"><div class="right"><p th:text="${worker.user.role}"></div></td>
+              <td data-th="Номер:"><div class="right"><p th:text="${worker.user.phoneNumber}"></div></td>
+              <td data-th="Email:"><div class="right"><p th:text="${worker.user.email}"></div></td>
               <td class="uk-table-shrink"><div class="left">
-                <a th:href="@{'http://localhost:8080/orders/add/' + ${order.id} + '/' + ${worker.id}}" class="uk-button uk-button-xsmall">Додати до замовлення</a></div></td>
+                <button type="submit" class="uk-button uk-button-xsmall">Додати до замовлення</button></div></td>
+              </form>
+                </span>
             </tr>
           </div>
         </table>
       </div>
     </div>
-  </div>
   <div id="remove" data-uk-modal="bg-close:false;">
     <div class="uk-modal-dialog uk-modal-body">
       <button class="uk-modal-close-default" type="button" data-uk-close></button>

@@ -1,6 +1,7 @@
 package app.equalityboot.service;
 
 import app.equalityboot.model.Order;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,4 +14,7 @@ public interface OrderService {
     List<Order> getByDateGreaterThan(LocalDateTime time);
     void deleteOrder(Order order);
     List<Order> getByDate(LocalDate date);
+    List<Order> getOrderByDateBetween(LocalDate startDate, LocalDate finishDate);
+    List<Order> getOrderByDescription();
+    List<Order> getOrderByObjectName();
 }

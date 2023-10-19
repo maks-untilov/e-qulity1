@@ -83,20 +83,17 @@
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a href="https://e-quality.work/uk/crm/users/profile/139" class="uk-button uk-button-small">Профайл</a>
+            <a th:href="@{http://localhost:8080/profile/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Профайл</a>
           </div>
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a href="https://e-quality.work/uk/crm/users/calendar/139" class="uk-button uk-button-small">Календар</a>
+            <a th:href="@{http://localhost:8080/calendar/coordinator/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Календар</a>
           </div>
         </div>
         <div class="uk-width-expand">
-          <div class="">
-            <a href="https://e-quality.work/uk/crm/users/application/139" class="uk-button uk-button-small">Анкета</a>
-          </div>
+          <a th:href="@{http://localhost:8080/users/questionnaire/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Анкета</a>
         </div>
-
       </div>
     </div>
     <div class="uk-width-1-1"><hr></div>
@@ -171,6 +168,9 @@
     </div>
     <div class="uk-width-1-1">
       <a href="#form-edit" class="uk-button uk-button-small" data-uk-toggle>Редагувати</a>
+    </div>
+    <div class="uk-width-auto">
+      <a class="uk-button uk-button-small" th:href="@{'http://localhost:8080/document/download/user-document/' + ${user.id}}">Заванатжити дані о користувачі</a>
     </div>
     <div id="form-edit" class="uk-width-1-1 uk-margin-medium-top" hidden>
       <div class="border-box">
