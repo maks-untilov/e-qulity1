@@ -23,22 +23,22 @@
 </head><body>
 <nav id="nav" class="nav-crm close">
   <ul>
-    <li class="logo-container"><a href="http://localhost:8080/index" class="logo-text">
+    <li class="logo-container"><a href="/index" class="logo-text">
       <span>Quality Work</span>In the right place at the right time</a></li>
     <li class="divider">Меню</li>
-    <li><a href="http://localhost:8080/index" class=" icon icon-dashboard">Стартова панель</a></li>
-    <li><a href="http://localhost:8080/objects" class=" icon icon-objects">Об'єкти</a></li>
-    <li><a href="http://localhost:8080/orders" class="active icon icon-orders">Замовлення</a></li>
-    <li><a href="http://localhost:8080/users" class=" icon icon-users">Працівникі</a></li>
-    <li><a href="http://localhost:8080/stat" class=" icon icon-stat">Статистика</a></li>
+    <li><a href="/index" class=" icon icon-dashboard">Стартова панель</a></li>
+    <li><a href="/objects" class=" icon icon-objects">Об'єкти</a></li>
+    <li><a href="/orders" class="active icon icon-orders">Замовлення</a></li>
+    <li><a href="/users" class=" icon icon-users">Працівникі</a></li>
+    <li><a href="/stat" class=" icon icon-stat">Статистика</a></li>
   </ul>
   <ul class="nav-crm-bottom">
     <li class="lang uk-hidden@l">
-      <a href="https://e-quality.work/uk/crm/orders" class="active">Ukrainian</a>
-      <a href="https://e-quality.work/pl/crm/orders" class="">Polski</a>
+      <a href="/" class="active">Ukrainian</a>
+      <a href="/" class="">Polski</a>
     </li>
     <li class="profile">
-      <a href="http://localhost:8080/profile">
+      <a href="/profile">
         <img class="profile-image" src="assets/upload/avatar/avatar.png">
         <div><p th:text="${user.firstName}"><br><p th:text="${user.lastName}"></div>
       </a>
@@ -51,7 +51,7 @@
 <header class="header-crm">
   <div data-uk-grid class="uk-grid-small">
     <div class="uk-width-auto uk-hidden@l">
-      <a href="https://e-quality.work/uk/crm/" class="logo logo-icon"></a>
+      <a href="" class="logo logo-icon"></a>
     </div>
     <div class="uk-width-auto uk-flex uk-flex-middle uk-hidden@l">
       <a href="#" data-uk-toggle="target: #nav; cls: close" class=""><span data-uk-icon="icon:menu;ratio:1.2"></span></a>
@@ -125,13 +125,13 @@
     <div class="uk-width-1-1">
       <div data-uk-grid class="uk-grid-small uk-flex">
         <div class="uk-width-auto">
-          <a th:href="@{'http://localhost:8080/orders/' + ${dates.get(0).minusDays(1)}}"><span data-uk-icon="icon:arrow-left" class=""></span></a>
+          <a th:href="@{'/orders/' + ${dates.get(0).minusDays(1)}}"><span data-uk-icon="icon:arrow-left" class=""></span></a>
         </div>
         <div class="uk-width-auto">
           <b><p th:text="${dates.get(0).dayOfMonth + dates.get(0).month.toString() + ' - ' + dates.get(dates.size()-1).dayOfMonth + dates.get(dates.size()-1).month.toString()}"></b>
         </div>
         <div class="uk-width-auto uk-flex-last@m">
-          <a th:href="@{'http://localhost:8080/orders/' + ${dates.get(0).plusDays(7)}}"><span data-uk-icon="icon:arrow-right" class=""></span></a>
+          <a th:href="@{'/orders/' + ${dates.get(0).plusDays(7)}}"><span data-uk-icon="icon:arrow-right" class=""></span></a>
         </div>
       </div>
     </div>
@@ -158,7 +158,7 @@
               <p th:text="${order.startTime.toLocalTime().toString() +'-'+ order.finishTime.toLocalTime().toString()}"></div></td>
             <td data-th="Працівників:" class=""><b><p th:text="${orderUserService.getByOrder(order).size()-1}"></b></td>
             <td class="uk-table-shrink"><div class="left">
-              <a href="editOrder.html" th:href="@{http://localhost:8080/orders/edit/{orderId}(orderId = ${order.id})}" class="uk-button uk-button-xsmall">Перегляд</a></div></td>
+              <a href="editOrder.html" th:href="@{/orders/edit/{orderId}(orderId = ${order.id})}" class="uk-button uk-button-xsmall">Перегляд</a></div></td>
           </tr>
           </tbody>
         </table>

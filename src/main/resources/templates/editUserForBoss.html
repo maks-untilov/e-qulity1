@@ -23,35 +23,35 @@
 <body>
 <nav id="nav" class="nav-crm close">
   <ul>
-    <li class="logo-container"><a href="http://localhost:8080/index" class="logo-text">
+    <li class="logo-container"><a href="/index" class="logo-text">
       <span>Quality Work</span>In the right place at the right time        </a></li>
     <li class="divider">Меню</li>
-    <li><a href="http://localhost:8080/index" class="icon icon-dashboard">Стартова панель</a></li>
-    <li><a href="http://localhost:8080/objects" class=" icon icon-objects">Об'єкти</a></li>
-    <li><a href="http://localhost:8080/orders" class=" icon icon-orders">Замовлення</a></li>
-    <li><a href="http://localhost:8080/users" class="active icon icon-users">Працівникі</a></li>
-    <li><a href="http://localhost:8080/stat" class=" icon icon-stat">Статистика</a></li>
+    <li><a href="/index" class="icon icon-dashboard">Стартова панель</a></li>
+    <li><a href="/objects" class=" icon icon-objects">Об'єкти</a></li>
+    <li><a href="/orders" class=" icon icon-orders">Замовлення</a></li>
+    <li><a href="/users" class="active icon icon-users">Працівникі</a></li>
+    <li><a href="/stat" class=" icon icon-stat">Статистика</a></li>
   </ul>
   <ul class="nav-crm-bottom">
     <li class="lang uk-hidden@l">
-      <a href="https://e-quality.work/uk/crm/users/profile/136" class="active">Українська</a>
-      <a href="https://e-quality.work/pl/crm/users/profile/136" class="">Polski</a>
+      <a href="/" class="active">Українська</a>
+      <a href="/" class="">Polski</a>
     </li>
     <li class="profile">
-      <a href="https://e-quality.work/uk/crm/profile">
+      <a href="/">
         <img class="profile-image" src="assets/upload/avatar/avatar.png">
         <div><p th:text="${loggedUser.firstName}"><br><p th:text="${loggedUser.lastName}"></div>
       </a>
       <div class="profile-number"><p th:text="${loggedUser.id}"></div>
     </li>
-    <li><a href="https://e-quality.work/uk/logout" class="icon icon-logout">Вийти</a></li>
+    <li><a href="/" class="icon icon-logout">Вийти</a></li>
   </ul>
   <a href="#" data-uk-toggle="target: #nav; cls: close" class="nav-crm-close uk-hidden@l"><span data-uk-icon="icon:close;ratio:1"></span></a>
 </nav>
 <header class="header-crm">
   <div data-uk-grid class="uk-grid-small">
     <div class="uk-width-auto uk-hidden@l">
-      <a href="https://e-quality.work/uk/crm/" class="logo logo-icon"></a>
+      <a href="/" class="logo logo-icon"></a>
     </div>
     <div class="uk-width-auto uk-flex uk-flex-middle uk-hidden@l">
       <a href="#" data-uk-toggle="target: #nav; cls: close" class=""><span data-uk-icon="icon:menu;ratio:1.2"></span></a>
@@ -61,8 +61,8 @@
     </div>
     <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
       <ul class="lang-ul">
-        <li><a href="https://e-quality.work/uk/crm/users/profile/136" class="active">Українська</a></li>
-        <li><a href="https://e-quality.work/pl/crm/users/profile/136" class="">Polski</a></li>
+        <li><a href="/" class="active">Українська</a></li>
+        <li><a href="/" class="">Polski</a></li>
       </ul>
     </div>
   </div>
@@ -70,7 +70,7 @@
 <main class="main-crm">
   <div data-uk-grid class="uk-grid-small">
     <div class="uk-width-1-1">
-      <a href="https://e-quality.work/uk/crm/users"><span data-uk-icon="icon:arrow-left" class="uk-margin-small-right">
+      <a href="/"><span data-uk-icon="icon:arrow-left" class="uk-margin-small-right">
       </span>Повернутись до переліку працівників</a>
     </div>
     <div class="uk-width-1-1">
@@ -78,13 +78,13 @@
 
         <div class="uk-width-auto">
           <span th:if="${user.isAllowed()== false}">
-             <form method="POST" th:action="@{http://localhost:8080/users/{userId}(userId = ${user.id})}">
+             <form method="POST" th:action="@{/users/{userId}(userId = ${user.id})}">
             <input hidden name="id" th:value="${user.id}" class="uk-input uk-width-1-1" type="number">
             <button type="submit" class="uk-button uk-button-small uk-button-green">Активувати</button>
           </form>
           </span>
           <span th:if="${user.isAllowed()== true}">
-          <form method="POST" th:action="@{'http://localhost:8080/users/' + ${user.id} + '/block'}">
+          <form method="POST" th:action="@{'/users/' + ${user.id} + '/block'}">
             <input hidden name="id" th:value="${user.id}" class="uk-input uk-width-1-1" type="number">
             <button type="submit" class="uk-button uk-button-small uk-button-danger">Блокувати</button>
           </form>
@@ -92,16 +92,16 @@
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a th:href="@{http://localhost:8080/profile/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Профайл</a>
+            <a th:href="@{/profile/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Профайл</a>
           </div>
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a th:href="@{http://localhost:8080/calendar/coordinator/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Календар</a>
+            <a th:href="@{/calendar/coordinator/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Календар</a>
           </div>
         </div>
         <div class="uk-width-expand">
-          <a th:href="@{http://localhost:8080/users/questionnaire/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Анкета</a>
+          <a th:href="@{/users/questionnaire/{userId}(userId = ${user.id})}" class="uk-button uk-button-small">Анкета</a>
         </div>
       </div>
     </div>

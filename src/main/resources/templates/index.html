@@ -20,14 +20,14 @@
 </head><body>
 <nav id="nav" class="nav-crm close">
     <ul>
-        <li class="logo-container"><a href="http://localhost:8080/index" class="logo-text">
+        <li class="logo-container"><a href="/index" class="logo-text">
             <span>Quality Work</span>In the right place at the right time        </a></li>
         <li class="divider">Menu</li>
-        <li><a href="http://localhost:8080/index" class="active icon icon-dashboard">Стартова панель</a></li>
-        <li><a href="http://localhost:8080/objects" class=" icon icon-objects">Об'єкти</a></li>
-        <li><a href="http://localhost:8080/orders" class=" icon icon-orders">Замовлення</a></li>
-        <li><a href="http://localhost:8080/users" class=" icon icon-users">Працівникі</a></li>
-        <li><a href="http://localhost:8080/stat" class=" icon icon-stat">Статистика</a></li>
+        <li><a href="/index" class="active icon icon-dashboard">Стартова панель</a></li>
+        <li><a href="/objects" class=" icon icon-objects">Об'єкти</a></li>
+        <li><a href="/orders" class=" icon icon-orders">Замовлення</a></li>
+        <li><a href="/users" class=" icon icon-users">Працівникі</a></li>
+        <li><a href="/stat" class=" icon icon-stat">Статистика</a></li>
     </ul>
     <ul class="nav-crm-bottom">
         <li class="lang uk-hidden@l">
@@ -35,7 +35,7 @@
             <a href="*" class="">Polski</a>
         </li>
         <li class="profile">
-            <a href="http://localhost:8080/profile">
+            <a href="/profile">
                 <img class="profile-image" src="avatar.png">
                 <div><p th:text="${user.firstName + ' ' + user.lastName}"><br></div>
             </a>
@@ -62,17 +62,17 @@
         </div>
         <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
             <ul class="lang-ul">
-                <li><a href="https://e-quality.work/uk/crm/" class="active">Ukraine</a></li>
-                <li><a href="https://e-quality.work/pl/crm/" class="">Polski</a></li>
+                <li><a href="/" class="active">Ukraine</a></li>
+                <li><a href="/" class="">Polski</a></li>
             </ul>
         </div>
     </div>
 </header>
 <br>
 <main class="main-crm">
-    <a href="http://localhost:8080/index/desc" class="schedule__work-btn">По опису</a>
-    <a href="http://localhost:8080/index/object" class="schedule__work-btn">По назві об'єкта</a>
-    <a href="http://localhost:8080/index/time" class="schedule__work-btn">По часу</a>
+    <a href="/index/desc" class="schedule__work-btn">По опису</a>
+    <a href="/index/object" class="schedule__work-btn">По назві об'єкта</a>
+    <a href="/index/time" class="schedule__work-btn">По часу</a>
         <div class="uk-width-1-1"><h3>Мої замовлення цього тижня</h3></div>
         <div class="table">
             <div class="table__title">Tabela zamówień</div>
@@ -396,7 +396,7 @@
         </div>
         <br>
         <div class="uk-width-1-1">
-            <a href="https://e-quality.work/uk/crm/orders/all-list/" target="_blank" class="uk-button uk-button-green uk-button-small">Завантажити List поточного тижня</a>
+            <a href="/" target="_blank" class="uk-button uk-button-green uk-button-small">Завантажити List поточного тижня</a>
         </div>
     </div>
     </div>
