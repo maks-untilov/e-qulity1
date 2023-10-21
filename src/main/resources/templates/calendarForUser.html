@@ -60,8 +60,8 @@
                          src="https://e-quality.work/assets/upload/avatar/avatar.png"
                          alt="user icon"/>
                     <div>
-                        <a href="http://localhost:8080/profile" class="sidebar__user-title" th:text="${loggedUser.firstName}"></a>
-                        <a href="http://localhost:8080/profile" class="sidebar__user-desc" th:text="${loggedUser.lastName}"></a>
+                        <a href="/profile" class="sidebar__user-title" th:text="${loggedUser.firstName}"></a>
+                        <a href="/profile" class="sidebar__user-desc" th:text="${loggedUser.lastName}"></a>
                     </div>
 
                     <span class="sidebar__user-number" th:text="${loggedUser.id}"></span>
@@ -98,7 +98,7 @@
         <div class="main__content">
             <div class="main__layout">
                 <div>
-                    <a href="http://localhost:8080/calendar/user/prev" class="schedule__work-btn">попередній</a>
+                    <a href="/calendar/user/prev" class="schedule__work-btn">попередній</a>
                     <a href="http://localhost:8080/calendar/user" class="schedule__work-btn">поточний</a>
                     <a href="http://localhost:8080/calendar/user/next" class="schedule__work-btn">наступний</a>
                     <div class="schedule">
