@@ -22,20 +22,20 @@
 </head><body>
 <nav id="nav" class="nav-crm close">
     <ul>
-        <li class="logo-container"><a href="http://localhost:8080/panel/worker" class="logo-text">
+        <li class="logo-container"><a href="/panel/worker" class="logo-text">
             <span>Quality Work</span>In the right place at the right time        </a></li>
         <li class="divider">Menu</li>
-        <li><a href="http://localhost:8080/panel/worker" class="icon icon-dashboard">Стартова панель</a></li>
-        <li><a href="http://localhost:8080/calendar/user" class=" icon icon-objects">Календар</a></li>
-        <li><a href="http://localhost:8080/stat/user" class="active icon icon-stat">Статистика</a></li>
+        <li><a href="/panel/worker" class="icon icon-dashboard">Стартова панель</a></li>
+        <li><a href="/calendar/user" class=" icon icon-objects">Календар</a></li>
+        <li><a href="/stat/user" class="active icon icon-stat">Статистика</a></li>
     </ul>
     <ul class="nav-crm-bottom">
         <li class="lang uk-hidden@l">
-            <a href="https://e-quality.work/uk/crm/calendar" class="active">Українська</a>
-            <a href="https://e-quality.work/pl/crm/calendar" class="">Polski</a>
+            <a href="/" class="active">Українська</a>
+            <a href="/" class="">Polski</a>
         </li>
         <li class="profile">
-            <a href="http://localhost:8080/profile">
+            <a href="/profile">
                 <img class="profile-image" src="static/images/avatar.png">
                 <div><p th:text="${loggedUser.firstName + ' ' + loggedUser.lastName}"></div>
             </a>
@@ -48,7 +48,7 @@
 <header class="header-crm">
     <div data-uk-grid class="uk-grid-small">
         <div class="uk-width-auto uk-hidden@l">
-            <a href="https://e-quality.work/uk/crm/" class="logo logo-icon"></a>
+            <a href="/" class="logo logo-icon"></a>
         </div>
         <div class="uk-width-auto uk-flex uk-flex-middle uk-hidden@l">
             <a href="#" data-uk-toggle="target: #nav; cls: close" class=""><span data-uk-icon="icon:menu;ratio:1.2"></span></a>
@@ -58,8 +58,8 @@
         </div>
         <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
             <ul class="lang-ul">
-                <li><a href="https://e-quality.work/uk/crm/stat" class="active">Українська</a></li>
-                <li><a href="https://e-quality.work/pl/crm/stat" class="">Polski</a></li>
+                <li><a href="/" class="active">Українська</a></li>
+                <li><a href="/" class="">Polski</a></li>
             </ul>
         </div>
     </div>
@@ -71,35 +71,35 @@
                 <div class="uk-width-auto">
                     <div class="uk-width-auto">
                         <div class="">
-                            <a href="http://localhost:8080/stat" class="uk-button uk-button-small">Робочі дні</a>
+                            <a href="/stat" class="uk-button uk-button-small">Робочі дні</a>
                         </div>
                     </div>
                     <div class="uk-width-auto">
                         <div class="">
-                            <a href="http://localhost:8080/passedDays" class="uk-button uk-button-small">Пропуски</a>
+                            <a href="/passedDays" class="uk-button uk-button-small">Пропуски</a>
                         </div>
                     </div>
                     <div class="uk-width-auto">
                         <div class="">
-                            <a href="http://localhost:8080/stat/objects" class="uk-button uk-button-small">Об'єкти</a>
+                            <a href="/stat/objects" class="uk-button uk-button-small">Об'єкти</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="uk-width-expand"><h3>Статистика відпрацьованих годин</h3></div>
             <div class="uk-width-auto@s">
-                <a th:href="'http://localhost:8080/excel/' + ${user.id} + '/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel</a>
+                <a th:href="'/excel/' + ${user.id} + '/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel</a>
             </div>
         <div class="uk-width-1-1">
             <div data-uk-grid class="uk-grid-small uk-flex">
                 <div class="uk-width-auto">
-                    <a href="https://e-quality.work/uk/crm/stat?date=20230605"><span data-uk-icon="icon:arrow-left" class=""></span></a>
+                    <a href="/"><span data-uk-icon="icon:arrow-left" class=""></span></a>
                 </div>
                 <div class="uk-width-auto">
                     <b><p th:text="${dates.get(0).dayOfMonth + dates.get(0).month.toString() + ' - ' + dates.get(dates.size()-1).dayOfMonth + dates.get(dates.size()-1).month.toString()}"></b>
                 </div>
                 <div class="uk-width-auto uk-flex-last@m">
-                    <a href="https://e-quality.work/uk/crm/stat?date=20230619"><span data-uk-icon="icon:arrow-right" class=""></span></a>
+                    <a href="/"><span data-uk-icon="icon:arrow-right" class=""></span></a>
                 </div>
             </div>
         </div>
@@ -161,6 +161,7 @@
         </div>
         <div class="uk-width-1-1" hidden>
         </div>
+    </div>
     </div>
 </main>
 <footer class="footer-crm">
