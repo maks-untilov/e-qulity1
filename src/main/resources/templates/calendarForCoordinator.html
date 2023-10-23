@@ -36,22 +36,22 @@
           <h4 class="sidenav__title">меню</h4>
           <ul class="sidenav__list">
             <li>
-              <a href="/panel/coordinator" class="sidenav__item ">
+              <a href="https://e-quality-work.eu/panel/coordinator" class="sidenav__item ">
                 <i class="fa-solid fa-house"></i>
                 <span>Стартова панель</span>
               </a>
             </li>
             <li>
-              <a href="/calendar/coordinator" class="sidenav__item sidenav__item--accent">
+              <a href="https://e-quality-work.eu/calendar/coordinator" class="sidenav__item sidenav__item--accent">
                 <i class="fa-regular fa-calendar"></i>
                 <span>Календар</span></a>
             </li>
             <li>
-              <a href="/users/byCoordinator" class="sidenav__item">
+              <a href="https://e-quality-work.eu/users/byCoordinator" class="sidenav__item">
                 <i class="fa-solid fa-fire"></i><span>Працівники</span></a>
             </li>
             <li>
-              <a href="/stat/coordinator" class="sidenav__item">
+              <a href="https://e-quality-work.eu/stat/coordinator" class="sidenav__item">
                 <i class="fa-solid fa-fire"></i><span> Статистика</span></a>
             </li>
           </ul>
@@ -71,7 +71,7 @@
           <span class="sidebar__user-number" th:text="${loggedUser.id}"></span>
         </div>
 
-        <a href="/logout" class="sidebar__exit">
+        <a href="https://e-quality-work.eu/logout" class="sidebar__exit">
           <i class="fa-solid fa-arrow-left"></i>
           <span>Вийти</span>
         </a>
@@ -102,9 +102,9 @@
     <div class="main__content">
       <div class="main__layout">
         <div>
-          <a href="/calendar/coordinator/prev" class="schedule__work-btn">попередній</a>
-          <a href="/calendar/coordinator" class="schedule__work-btn">поточний</a>
-          <a href="/calendar/coordinator/next" class="schedule__work-btn">наступний</a>
+          <a href="https://e-quality-work.eu/calendar/coordinator/prev" class="schedule__work-btn">попередній</a>
+          <a href="https://e-quality-work.eu/calendar/coordinator" class="schedule__work-btn">поточний</a>
+          <a href="https://e-quality-work.eu/calendar/coordinator/next" class="schedule__work-btn">наступний</a>
           <div class="schedule">
             <h2 class="schedule__title">Мій робочий тиждень</h2>
             <ul class="schedule__list" th:each="date : ${dates}">
@@ -135,7 +135,7 @@
                         <span th:text="${orderService.getByDate(date)[0].startTime.toLocalTime() + ' - ' + orderService.getByDate(date)[0].finishTime.toLocalTime()}"></span>
                         <button class="schedule__work-btn">робота</button>
 
-                        <a th:href="@{'/report/add/' + ${orderService.getByDate(date).get(0).id} + '/' + ${date}}" class="schedule__work-btn">звіт</a>
+                        <a th:href="@{'https://e-quality-work.eu/report/add/' + ${orderService.getByDate(date).get(0).id} + '/' + ${date}}" class="schedule__work-btn">звіт</a>
                     </span>
                 </div>
             </span>
@@ -144,8 +144,8 @@
                 <!-- Отображаем сообщение "Дані вступлять в силу після підтвердження Супервайзером" -->
                 <span th:if="${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)) != null and userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)).accepted == false}">
             <span>Дані вступлять в силу після підтвердження Супервайзером.</span>
-                  <a th:href="@{'/calendar/allow/' + ${user.id + '/' + date}}" class="schedule__allow-btn">підтвердити</a>
-                  <a th:href="@{'/calendar/cancel/' + ${user.id + '/' + date}}" class="schedule__cancel-btn">відхилити</a>
+                  <a th:href="@{'https://e-quality-work.eu/calendar/allow/' + ${user.id + '/' + date}}" class="schedule__allow-btn">підтвердити</a>
+                  <a th:href="@{'https://e-quality-work.eu/calendar/cancel/' + ${user.id + '/' + date}}" class="schedule__cancel-btn">відхилити</a>
         </span>
             </ul>
             <div class="schedule__btn-settings"><a th:href="@{/calendar/coordinator/edit/{userId}(userId = ${user.id})}"> керувати календарем </a></div>

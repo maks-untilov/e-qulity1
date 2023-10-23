@@ -23,16 +23,16 @@
       <span>Quality Work</span>In the right place at the right time</a>
     </li>
     <li class="divider">Меню</li>
-    <li><a href="/index" class=" icon icon-dashboard">Стартова панель</a></li>
-    <li><a href="/objects" class=" icon icon-objects">Об'єкти</a></li>
-    <li><a href="/orders" class="active icon icon-orders">Замовлення</a></li>
-    <li><a href="/users" class=" icon icon-users">Працівникі</a></li>
-    <li><a href="/stat" class=" icon icon-stat">Статистика</a></li>
+    <li><a href="https://e-quality-work.eu/index" class=" icon icon-dashboard">Стартова панель</a></li>
+    <li><a href="https://e-quality-work.eu/objects" class=" icon icon-objects">Об'єкти</a></li>
+    <li><a href="https://e-quality-work.eu/orders" class="active icon icon-orders">Замовлення</a></li>
+    <li><a href="https://e-quality-work.eu/users" class=" icon icon-users">Працівникі</a></li>
+    <li><a href="https://e-quality-work.eu/stat" class=" icon icon-stat">Статистика</a></li>
   </ul>
   <ul class="nav-crm-bottom">
     <li class="lang uk-hidden@l">
-      <a href="/" class="active">Українська</a>
-      <a href="/" class="">Polski</a>
+      <a href="https://e-quality-work.eu/" class="active">Українська</a>
+      <a href="https://e-quality-work.eu/" class="">Polski</a>
     </li>
     <li class="profile">
       <a href="/">
@@ -58,8 +58,8 @@
     </div>
     <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
       <ul class="lang-ul">
-        <li><a href="/" class="active">Українська</a></li>
-        <li><a href="/" class="">Polski</a></li>
+        <li><a href="https://e-quality-work.eu/" class="active">Українська</a></li>
+        <li><a href="https://e-quality-work.eu/" class="">Polski</a></li>
       </ul>
     </div>
   </div>
@@ -67,24 +67,24 @@
 <main class="main-crm">
   <div data-uk-grid class="uk-grid-small">
     <div class="uk-width-1-1">
-      <a href="/orders"><span data-uk-icon="icon:arrow-left" class="uk-margin-small-right"></span>Повернутись до замовлень</a>
+      <a href="https://e-quality-work.eu/orders"><span data-uk-icon="icon:arrow-left" class="uk-margin-small-right"></span>Повернутись до замовлень</a>
     </div>
     <div class="uk-width-expand">
       <div data-uk-grid class="uk-grid-small">
         <div class="uk-width-auto">
           <div class="">
-            <a th:href="@{/orders/edit/{orderId}(orderId = ${order.id})}" class="uk-button uk-button-small">Замовлення</a>
+            <a th:href="@{https://e-quality-work.eu/orders/edit/{orderId}(orderId = ${order.id})}" class="uk-button uk-button-small">Замовлення</a>
           </div>
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a th:href="@{/orders/edit/workers/{orderId}(orderId = ${order.id})}" class="uk-button uk-button-small">Працівники</a>
+            <a th:href="@{https://e-quality-work.eu/orders/edit/workers/{orderId}(orderId = ${order.id})}" class="uk-button uk-button-small">Працівники</a>
           </div>
         </div>
       </div>
     </div>
     <div class="uk-width-auto@s">
-      <a href="/orders" target="_blank" class="uk-button uk-button-green uk-button-small">Завантажити List</a>
+      <a href="https://e-quality-work.eu/orders" target="_blank" class="uk-button uk-button-green uk-button-small">Завантажити List</a>
     </div>
     <div class="uk-width-1-1"><hr></div>
     <div class="uk-width-1-1"><h1>Замовлення <p th:text="${order.id}"></h1></div>
@@ -141,7 +141,7 @@
                         <p th:text="${order.description}">
                       </div>
                       <div id="description" class="uk-width-1-1 uk-margin-small-top uk-margin-small-bottom" hidden>
-                        <form method="post" th:action="@{/orders/edit/{orderId}(orderId = ${order.id})}" data-uk-grid class="uk-grid-small">
+                        <form method="post" th:action="@{'https://e-quality-work.eu' + /orders/edit/{orderId}(orderId = ${order.id})}" data-uk-grid class="uk-grid-small">
                           <div class="uk-width-1-1">
                             <textarea class="uk-textarea" name="description" rows="3"></textarea>
                           </div>
@@ -194,7 +194,7 @@
     </div>
     <div class="uk-width-1-1 uk-margin-large-top"><hr></div>
     <div class="uk-width-1-1">
-      <a th:href="@{/orders/remove/{orderId}(orderId = ${order.id})}" data-uk-toggle class="">
+      <a th:href="@{https://e-quality-work.eu/orders/remove/{orderId}(orderId = ${order.id})}" data-uk-toggle class="">
         <span data-uk-icon="icon:trash" class="uk-margin-small-right"></span>Видалити замовлення</a>
       <div id="remove" data-uk-modal="bg-close:false;">
         <div class="uk-modal-dialog uk-modal-body">
@@ -206,7 +206,7 @@
               <button class="uk-button uk-width-1-1 uk-modal-close">Відміна</button>
             </div>
             <div class="uk-width-expand">
-              <form method="post" th:action="@{/orders/remove/{orderId}(orderId = ${order.id})}">
+              <form method="post" th:action="@{https://e-quality-work.eu/orders/remove/{orderId}(orderId = ${order.id})}">
                 <input name="_method" value="DELETE" type="text" hidden>
                 <input name="id" th:value="${orderId}" type="text" hidden>
                 <button class="uk-button uk-width-1-1 uk-button-danger" type="submit" name="submit" value="Submit_page_del">Підтвердити</button>

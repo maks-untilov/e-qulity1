@@ -25,19 +25,19 @@
     <li class="logo-container"><a href="/index" class="logo-text">
       <span>Quality Work</span>In the right place at the right time        </a></li>
     <li class="divider">Menu</li>
-    <li><a href="/index" class="active icon icon-dashboard">Стартова панель</a></li>
-    <li><a href="/objects" class=" icon icon-objects">Об'єкти</a></li>
-    <li><a href="/orders" class=" icon icon-orders">Замовлення</a></li>
-    <li><a href="/users" class=" icon icon-users">Працівникі</a></li>
-    <li><a href="/stat" class=" icon icon-stat">Статистика</a></li>
+    <li><a href="https://e-quality-work.eu/index" class="active icon icon-dashboard">Стартова панель</a></li>
+    <li><a href="https://e-quality-work.eu/objects" class=" icon icon-objects">Об'єкти</a></li>
+    <li><a href="https://e-quality-work.eu/orders" class=" icon icon-orders">Замовлення</a></li>
+    <li><a href="https://e-quality-work.eu/users" class=" icon icon-users">Працівникі</a></li>
+    <li><a href="https://e-quality-work.eu/stat" class=" icon icon-stat">Статистика</a></li>
   </ul>
   <ul class="nav-crm-bottom">
     <li class="lang uk-hidden@l">
-      <a href="/" class="active">Українська</a>
-      <a href="/" class="">Polski</a>
+      <a href="https://e-quality-work.eu/" class="active">Українська</a>
+      <a href="https://e-quality-work.eu/" class="">Polski</a>
     </li>
     <li class="profile">
-      <a href="/">
+      <a href="https://e-quality-work.eu/profile">
         <img class="profile-image" src="assets/upload/avatar/avatar.png">
         <div><p th:text="${loggedUser.firstName}"><br><p th:text="${loggedUser.lastName}"></div>
       </a>
@@ -61,8 +61,8 @@
     </div>
     <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
       <ul class="lang-ul">
-        <li><a href="/" class="active">Українська</a></li>
-        <li><a href="/" class="">Polski</a></li>
+        <li><a href="https://e-quality-work.eu/" class="active">Українська</a></li>
+        <li><a href="https://e-quality-work.eu/" class="">Polski</a></li>
       </ul>
     </div>
   </div>
@@ -70,23 +70,23 @@
 <main class="main-crm">
   <div data-uk-grid class="uk-grid-small">
     <div class="uk-width-1-1">
-      <a href="/orders"><span data-uk-icon="icon:arrow-left" class="uk-margin-small-right"></span>Повернутись до замовлень</a>
+      <a href="https://e-quality-work.eu/orders"><span data-uk-icon="icon:arrow-left" class="uk-margin-small-right"></span>Повернутись до замовлень</a>
     </div>
     <div class="uk-width-expand">
       <div data-uk-grid class="uk-grid-small">
         <div class="uk-width-auto">
           <div class="">
-            <a href="/" class="uk-button uk-button-small">Замовлення</a>
+            <a href="https://e-quality-work.eu/orders" class="uk-button uk-button-small">Замовлення</a>
           </div>
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a href="/" class="uk-button uk-button-small">Робочі години</a>
+            <a href="https://e-quality-work.eu/" class="uk-button uk-button-small">Робочі години</a>
           </div>
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a href="/" class="uk-button uk-button-small">Працівники</a>
+            <a th:href="'https://e-quality-work.eu/orders/edit/workers/' + ${orderId}" class="uk-button uk-button-small">Працівники</a>
           </div>
         </div>
 
@@ -148,7 +148,7 @@
           <div class="uk-width-1-1">
             <tr>
               <span th:each="worker : ${orderUserService.getByOrder(order)}" th:if="${worker.user} != null">
-                <form method="post" th:action="@{'/orders/delete/' + ${order.id + '/' + worker.user.id}}">
+                <form method="post" th:action="@{'https://e-quality-work.eu/orders/delete/' + ${order.id + '/' + worker.user.id}}">
                   <td data-th="Працівник:" class="uk-text-bold"><p th:text="${worker.user.firstName}"><p th:text="${worker.user.lastName}"><div class="right">
                     <span class="code code-green"><p th:text="${worker.user.id}"></span>
                   </div>
@@ -172,7 +172,7 @@
         <div class="uk-width-1-1">
             <tr th:each="worker : ${workers}">
               <span th:if="${worker.user!=null}">
-              <form method="post" th:action="@{'/orders/add/' + ${order.id + '/' + worker.user.id}}">
+              <form method="post" th:action="@{'https://e-quality-work.eu/orders/add/' + ${order.id + '/' + worker.user.id}}">
               <td data-th="Працівник:" class="uk-text-bold"><p th:text="${worker.user.firstName}"><p th:text="${worker.user.lastName}"><div class="right">
                 <span class="code code-green"><p th:text="${worker.user.id}"></span>
               </div>
@@ -199,7 +199,7 @@
           <button class="uk-button uk-width-1-1 uk-modal-close">Відміна</button>
         </div>
         <div class="uk-width-expand">
-          <form method="post" action="/">
+          <form method="post" action="https://e-quality-work.eu/">
             <input name="user_id" value="" type="hidden" class="delete-id-users">
             <input name="id" th:value="userId" type="hidden">
             <input name="type" type="hidden" value="remove">

@@ -27,25 +27,25 @@
             <span>Quality Work</span>In the right place at the right time</a>
         </li>
         <li class="divider">Меню</li>
-        <li><a href="/index" class=" icon icon-dashboard">Стартова панель</a></li>
-        <li><a href="/objects" class="active icon icon-objects">Об'єкти</a></li>
-        <li><a href="/orders" class=" icon icon-orders">Замовлення</a></li>
-        <li><a href="/users" class=" icon icon-users">Працівникі</a></li>
-        <li><a href="/stat" class=" icon icon-stat">Статистика</a></li>
+        <li><a href="https://e-quality-work.eu/index" class=" icon icon-dashboard">Стартова панель</a></li>
+        <li><a href="https://e-quality-work.eu/objects" class="active icon icon-objects">Об'єкти</a></li>
+        <li><a href="https://e-quality-work.eu/orders" class=" icon icon-orders">Замовлення</a></li>
+        <li><a href="https://e-quality-work.eu/users" class=" icon icon-users">Працівникі</a></li>
+        <li><a href="https://e-quality-work.eu/stat" class=" icon icon-stat">Статистика</a></li>
     </ul>
     <ul class="nav-crm-bottom">
         <li class="lang uk-hidden@l">
-            <a href="/" class="active">Українська</a>
-            <a href="/" class="">Polski</a>
+            <a href="https://e-quality-work.eu/" class="active">Українська</a>
+            <a href="https://e-quality-work.eu/" class="">Polski</a>
         </li>
         <li class="profile">
-            <a href="/profile">
+            <a href="https://e-quality-work.eu/profile">
                 <img class="profile-image" src="assets/upload/avatar/avatar.png">
                 <div><p th:text="${loggedUser.firstName}"><br><p th:text="${loggedUser.lastName}"></div>
             </a>
             <div class="profile-number"><p th:text="${loggedUser.id}"></div>
         </li>
-        <li><a href="/" class="icon icon-logout">Вийти</a></li>
+        <li><a href="https://e-quality-work.eu/logout" class="icon icon-logout">Вийти</a></li>
     </ul>
     <a href="#" data-uk-toggle="target: #nav; cls: close" class="nav-crm-close uk-hidden@l"><span data-uk-icon="icon:close;ratio:1">
     </span></a>
@@ -63,8 +63,8 @@
         </div>
         <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
             <ul class="lang-ul">
-                <li><a href="/" class="active">Українська</a></li>
-                <li><a href="/" class="">Polski</a></li>
+                <li><a href="https://e-quality-work.eu/" class="active">Українська</a></li>
+                <li><a href="https://e-quality-work.eu/" class="">Polski</a></li>
             </ul>
         </div>
     </div>
@@ -72,7 +72,7 @@
 <main class="main-crm">
     <div data-uk-grid class="uk-grid-small">
         <div class="uk-width-1-1">
-            <a href="/">
+            <a href="https://e-quality-work.eu/">
                 <span data-uk-icon="icon:arrow-left" class="uk-margin-small-right">
             </span>Повернутись до переліку об'єктів</a>
         </div>
@@ -81,7 +81,7 @@
         </div>
         <div class="uk-width-1-1"><hr></div>
         <div class="uk-width-1-1">
-            <form method="POST" th:action="@{/objects/edit/{objId}(objId = ${ob.id})}"
+            <form method="POST" th:action="@{https://e-quality-work.eu/objects/edit/{objId}(objId = ${ob.id})}"
                   data-uk-grid class="uk-grid-small" enctype="multipart/form-data">
                 <div class="uk-width-expand">
                     <div data-uk-grid class="uk-grid-small">
@@ -177,7 +177,7 @@
                             <button class="uk-button uk-width-1-1 uk-modal-close">Відміна</button>
                         </div>
                         <div class="uk-width-expand">
-                            <form method="post" action="/">
+                            <form method="post" action="https://e-quality-work.eu">
                                 <input name="_method" value="DELETE" type="text" hidden>
                                 <input name="id" value="25" type="text" hidden>
                                 <button class="uk-button uk-width-1-1 uk-button-danger" type="submit" name="submit" value="Submit_page_del">Підтвердити</button>

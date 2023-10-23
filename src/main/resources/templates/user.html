@@ -22,28 +22,28 @@
 </head><body>
 <nav id="nav" class="nav-crm close">
   <ul>
-    <li class="logo-container"><a href="/index" class="logo-text">
+    <li class="logo-container"><a href="https://e-quality-work.eu/index" class="logo-text">
       <span>Quality Work</span>In the right place at the right time        </a></li>
     <li class="divider">Меню</li>
-    <li><a href="/index" class="icon icon-dashboard">Стартова панель</a></li>
-    <li><a href="/objects" class=" icon icon-objects">Об'єкти</a></li>
-    <li><a href="/orders" class=" icon icon-orders">Замовлення</a></li>
-    <li><a href="/users" class="active icon icon-users">Працівникі</a></li>
-    <li><a href="/stat" class=" icon icon-stat">Статистика</a></li>
+    <li><a href="https://e-quality-work.eu/index" class="icon icon-dashboard">Стартова панель</a></li>
+    <li><a href="https://e-quality-work.eu/objects" class=" icon icon-objects">Об'єкти</a></li>
+    <li><a href="https://e-quality-work.eu/orders" class=" icon icon-orders">Замовлення</a></li>
+    <li><a href="https://e-quality-work.eu/users" class="active icon icon-users">Працівникі</a></li>
+    <li><a href="https://e-quality-work.eu/stat" class=" icon icon-stat">Статистика</a></li>
   </ul>
   <ul class="nav-crm-bottom">
     <li class="lang uk-hidden@l">
-      <a href="/" class="active">Українська</a>
-      <a href="/" class="">Polski</a>
+      <a href="https://e-quality-work.eu/" class="active">Українська</a>
+      <a href="https://e-quality-work.eu/" class="">Polski</a>
     </li>
     <li class="profile">
-      <a href="/profile">
+      <a href="https://e-quality-work.eu/profile">
         <img class="profile-image" src="assets/upload/avatar/avatar.png">
         <div><p th:text="${loggedUser.firstName}"><br><p th:text="${loggedUser.lastName}"></div>
       </a>
       <div class="profile-number"><p th:text="${loggedUser.id}"></div>
     </li>
-    <li><a href="/" class="icon icon-logout">Вийти</a></li>
+    <li><a href="https://e-quality-work.eu/logout" class="icon icon-logout">Вийти</a></li>
   </ul>
   <a href="#" data-uk-toggle="target: #nav; cls: close" class="nav-crm-close uk-hidden@l"><span data-uk-icon="icon:close;ratio:1"></span></a>
 </nav>
@@ -60,8 +60,8 @@
     </div>
     <div class="uk-width-auto uk-flex uk-flex-middle uk-visible@m">
       <ul class="lang-ul">
-        <li><a href="/" class="active">Українська</a></li>
-        <li><a href="/" class="">Polski</a></li>
+        <li><a href="https://e-quality-work.eu/" class="active">Українська</a></li>
+        <li><a href="https://e-quality-work.eu/" class="">Polski</a></li>
       </ul>
     </div>
   </div>
@@ -71,7 +71,7 @@
     <div class="uk-width-1-1 uk-margin-small-top uk-margin-medium-bottom" id="add" hidden>
       <div class="border-box">
         <div class="border-box-title">Додати користувача</div>
-        <form method="POST" th:action="@{/users/add}" data-uk-grid class="uk-grid-small">
+        <form method="POST" th:action="@{https://e-quality-work.eu/users/add}" data-uk-grid class="uk-grid-small">
           <div class="uk-width-1-2@s">
             <label>Ім'я</label>
             <input name="first_name" value="" class="uk-input uk-width-1-1" type="text" required></div>
@@ -121,7 +121,7 @@
                 <button class="uk-button uk-width-1-1" type="submit" name="submit" value="Submit">Додати</button>
               </div>
               <div class="uk-width-auto">
-                <a href="/users" class="uk-button uk-button-grey uk-width-1-1" data-uk-toggle>Відміна</a>
+                <a href="https://e-quality-work.eu/users" class="uk-button uk-button-grey uk-width-1-1" data-uk-toggle>Відміна</a>
               </div>
             </div>
           </div>
@@ -201,7 +201,7 @@
             <td data-th="Номер:"><div class="right"><p th:text="${user.phoneNumber}"></div></td>
             <td data-th="Email:"><div class="right"><p th:text="${user.email}"></div></td>
             <td class="uk-table-shrink"><div class="left">
-              <a th:href="@{/users/{userId}(userId = ${user.id})}" class="uk-button uk-button-xsmall">Редагувати</a></div></td>
+              <a th:href="@{https://e-quality-work.eu/users/{userId}(userId = ${user.id})}" class="uk-button uk-button-xsmall">Редагувати</a></div></td>
           </tr>
           </tbody>
 
