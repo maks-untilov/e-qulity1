@@ -43,9 +43,16 @@ public class QuestionnaireController {
                        @RequestParam String education, @RequestParam String pesel,
                        @RequestParam String osoba, @RequestParam String location) {
         UserDetails userDetails = new UserDetails();
-        User user = userService.getByFirstNameAndLastName(first_name, last_name);
+        String errorMsg = "";
+        User user = new User();
+        try {
+            user = userService.getByFirstNameAndLastName(first_name, last_name);
+        } catch (Exception e) {
+            errorMsg = "Incorrect first name or last name";
+            model.addAttribute("errorMsg", errorMsg);
+            return "questionnaire";
+        }
         user.setCoordinator(userService.get(Long.parseLong(number_id)));
-        String errorMsg = new String();
         String word = validationService.validateAllLatin(first_name, last_name, number_id, sex, birth_date,
                 dane_kontaktowe, education, pesel, osoba, location);
         if (word.equals("")) {
