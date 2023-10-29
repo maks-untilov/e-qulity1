@@ -39,15 +39,10 @@ public class ObjectsController {
 
     @PostMapping
     public String post(Model model, @RequestParam String title, @RequestParam String address,
-                       @RequestParam String lat, @RequestParam String lng,
                        @RequestParam String description, @AuthenticationPrincipal User user) {
         Objects objects = new Objects();
         objects.setName(title);
         objects.setAddress(address);
-        Optional<Float> latitude = Optional.of(Float.parseFloat(lat));
-        Optional<Float> longitude = Optional.of(Float.parseFloat(lng));
-        objects.setLat(latitude.get());
-        objects.setLng(longitude.get());
         objects.setDescription(description);
         objectsService.add(objects);
         List<ObjectResponseDto> objectsList = objectsService.gelAll()
@@ -69,14 +64,11 @@ public class ObjectsController {
 
     @PostMapping("/edit/{objId}")
     public String post(Model model, @PathVariable("objId") String objId, @RequestParam String title,
-                       @RequestParam String address, @RequestParam String lat, @RequestParam String lng,
-                       @RequestParam String description, @RequestParam String phone,
+                       @RequestParam String address, @RequestParam String description, @RequestParam String phone,
                        @RequestParam String email,@AuthenticationPrincipal User user) {
         Objects objects = objectsService.get(Long.parseLong(objId));
         objects.setName(title);
         objects.setAddress(address);
-        objects.setLat(Float.parseFloat(lat));
-        objects.setLng(Float.parseFloat(lng));
         objects.setDescription(description);
         objects.setEmail(email);
         objects.setPhoneNumber(phone);

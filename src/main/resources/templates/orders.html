@@ -75,10 +75,10 @@
         <form method="POST" th:action="${order}" data-uk-grid class="uk-grid-small">
           <div class="uk-width-1-1">
             <label>Вибрати об'єкт</label>
-            <div data-type="objects" class="input-search-container input-search-container-objects">
-              <input name="objectName" value="" class="uk-input uk-width-1-1 input-search" type="text" placeholder="Введіть назву">
-              <ul class="input-search-result input-search-result-objects" hidden></ul>
-            </div>
+            <select name="objectName" class="uk-select uk-width-1-1">
+              <option>не зазначено</option>
+              <option  th:each="object : ${objects}" th:value="${object.name}"><p th:text="${object.name}"></option>
+            </select>
           </div>
           <div class="uk-width-small@s">
             <label>Дата у форматі MM d yyyy HH:mm</label>
