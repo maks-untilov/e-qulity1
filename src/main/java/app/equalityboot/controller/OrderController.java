@@ -47,6 +47,7 @@ public class OrderController {
             int daysUntilPreviousMonday = timeNow.getDayOfWeek().getValue() - DayOfWeek.MONDAY.getValue();
             timeNow = timeNow.minusDays(daysUntilPreviousMonday);
         }
+        List<Objects> objects = objectsService.gelAll();
         List<LocalDate> dates = timeNow.toLocalDate().datesUntil(timeNow.toLocalDate().plusDays(7)).toList();
         List<Order> allWeekOrders = orderService.getOrderByDateBetween(dates.get(0), dates.get(6));
         model.addAttribute("timeNow", timeNow);
@@ -54,6 +55,7 @@ public class OrderController {
         model.addAttribute("location", allWeekOrders);
         model.addAttribute("user", user);
         model.addAttribute("dates", dates);
+        model.addAttribute("objects", objects);
         return "orders";
     }
 

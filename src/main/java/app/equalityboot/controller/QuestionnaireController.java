@@ -52,7 +52,6 @@ public class QuestionnaireController {
             model.addAttribute("errorMsg", errorMsg);
             return "questionnaire";
         }
-        user.setCoordinator(userService.get(Long.parseLong(number_id)));
         String word = validationService.validateAllLatin(first_name, last_name, number_id, sex, birth_date,
                 dane_kontaktowe, education, pesel, osoba, location);
         if (word.equals("")) {
@@ -78,6 +77,7 @@ public class QuestionnaireController {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+        user.setCoordinator(userService.get(Long.parseLong(number_id)));
         return "redirect:/confirm" + user.getConfirmationToken();
     }
 }
