@@ -43,7 +43,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
 
             // Создайте строку для заголовка
             Row headerRow = sheet.createRow(0);
-            headerRow.createCell(0).setCellValue("Працівники");
+            headerRow.createCell(0).setCellValue("Imię i Nazwisko");
 
             LocalDate localDate = list.get(0).getStartDateTime().toLocalDate();
             LocalDateTime dateToExcelStartMonth = LocalDate.of(localDate.getYear(),
@@ -67,7 +67,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
                 headerRow.createCell(i + 1).setCellValue(dates.get(i).toString());
             }
 
-            headerRow.createCell(i + 1).setCellValue("Разом");
+            headerRow.createCell(i + 1).setCellValue("Suma");
 
             // Создайте множество для хранения уникальных пользователей
 
@@ -102,7 +102,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
                     dataRow.createCell(j + 1).setCellValue(totalWorkHours);
                 }
 
-// Добавляем столбец "Разом"
+// Добавляем столбец "Suma"
                 List<UserWorkDetails> userWorkDetailsForRange = list.stream()
                         .filter(details -> details.getUser().getId().equals(user.getId())
                                 && details.getStartDateTime().toLocalDate().isAfter(dateToExcelStartMonth.toLocalDate())
@@ -139,7 +139,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
 
             // Создайте строку для заголовка
             Row headerRow = sheet.createRow(0);
-            headerRow.createCell(0).setCellValue("Працівники");
+            headerRow.createCell(0).setCellValue("Imię i Nazwisko");
 
             LocalDate localDate = list.get(0).getStartDateTime().toLocalDate();
             LocalDateTime dateToExcelStartMonth = LocalDate.of(localDate.getYear(),
@@ -163,7 +163,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
                 headerRow.createCell(i + 1).setCellValue(dates.get(i).toString());
             }
 
-            headerRow.createCell(i + 1).setCellValue("Разом");
+            headerRow.createCell(i + 1).setCellValue("Suma");
 
             // Создайте множество для хранения уникальных пользователей
 
@@ -198,7 +198,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
                     dataRow.createCell(j + 1).setCellValue(totalWorkHours);
                 }
 
-// Добавляем столбец "Разом"
+// Добавляем столбец "Suma"
                 List<UserWorkDetails> userWorkDetailsForRange = list.stream()
                         .filter(details -> details.getUser().getId().equals(user.getId())
                                 && details.getStartDateTime().toLocalDate().isAfter(dateToExcelStartMonth.toLocalDate())
@@ -236,7 +236,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
 
             // Создайте строку для заголовка
             Row headerRow = sheet.createRow(0);
-            headerRow.createCell(0).setCellValue("Працівники");
+            headerRow.createCell(0).setCellValue("Imię i Nazwisko");
 
             LocalDate localDate = list.get(0).getStartDateTime().toLocalDate();
             LocalDateTime dateToExcelStartMonth = LocalDate.of(localDate.getYear(),
@@ -258,7 +258,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
             for (i = 0; i < dates.size(); i++) {
                 headerRow.createCell(i + 1).setCellValue(dates.get(i).toString());
             }
-            headerRow.createCell(i + 1).setCellValue("Разом");
+            headerRow.createCell(i + 1).setCellValue("Suma");
             // Создайте множество для хранения уникальных пользователей
             Set<User> uniqueUsers = new HashSet<>();
             uniqueUsers.add(list.get(0).getUser());
@@ -290,7 +290,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
                     dataRow.createCell(j + 1).setCellValue(totalWorkHours);
                 }
 
-// Добавляем столбец "Разом"
+// Добавляем столбец "Suma"
                 List<UserWorkDetails> userWorkDetailsForRange = list.stream()
                         .filter(details -> details.getUser().getId().equals(user.getId())
                                 && details.getStartDateTime().toLocalDate().isAfter(dateToExcelStartMonth.toLocalDate())
@@ -328,7 +328,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
 
             // Создайте строку для заголовка
             Row headerRow = sheet.createRow(0);
-            headerRow.createCell(0).setCellValue("Працівники");
+            headerRow.createCell(0).setCellValue("Imię i Nazwisko");
 
             LocalDate localDate = LocalDate.now();
             LocalDateTime dateToExcelStartMonth = LocalDate.of(localDate.getYear(),
@@ -352,7 +352,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
                 headerRow.createCell(i + 1).setCellValue(dates.get(i).toString());
             }
 
-            headerRow.createCell(i + 1).setCellValue("Разом");
+            headerRow.createCell(i + 1).setCellValue("Suma");
 
             // Создайте множество для хранения уникальных пользователей
 
@@ -387,7 +387,7 @@ public class ExcelGeneratorServiceImpl implements ExcelGeneratorService {
                     dataRow.createCell(j + 1).setCellValue(totalWorkHours);
                 }
 
-// Добавляем столбец "Разом"
+// Добавляем столбец "Suma"
                 List<UserWorkDetails> userWorkDetailsForRange = list.stream()
                         .filter(details -> details.getUser().getId().equals(user.getId())
                                 && details.getStartDateTime().toLocalDate().isAfter(dateToExcelStartMonth.toLocalDate())

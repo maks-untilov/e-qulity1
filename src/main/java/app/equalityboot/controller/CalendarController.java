@@ -7,20 +7,16 @@ import app.equalityboot.service.OrderService;
 import app.equalityboot.service.OrderUserService;
 import app.equalityboot.service.UserService;
 import app.equalityboot.service.UserWorkDetailsService;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/calendar")
