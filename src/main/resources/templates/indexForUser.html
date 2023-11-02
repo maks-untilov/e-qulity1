@@ -127,7 +127,8 @@
                       <span th:if="${orderUserService.getByOrder(orderService.getByDate(date)[0]).size() == 0}">
                         <span>Робота відсутня</span>
                       </span>
-                      <span th:if="${orderUserService.getByOrder(orderService.getByDate(date)).size() > 0}">
+                      <span th:if="${orderService.getByDate(date) != null}">
+                      <span th:each="orderUser : ${orderUserService.getByOrder(orderService.getByDate(date))}" th:if="${orderUser.user != null && orderUser.user.id.equals(user.id)}">
                         <!-- Перебираем пользователей (users), связанных с первой записью (order) на эту дату -->
                           <strong th:text="${'Обєкт: ' + orderService.getByDate(date).get(0).object.name}"></strong>
                           <strong>Робочі години:</strong>

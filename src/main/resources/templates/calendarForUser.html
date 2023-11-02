@@ -111,7 +111,7 @@
                                 </div>
                                 <!-- Проверяем, есть ли у пользователя смена на эту дату -->
                                 <span th:if="${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)) != null}">
-                                    <span th:if="${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)).shift != null}">
+                                    <span th:if="${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)).order != null}">
                                         <button class="schedule__button" th:text="${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)).shift.toString()}"></button>
                                     </span>
                                 </span><div class="schedule__work-info">

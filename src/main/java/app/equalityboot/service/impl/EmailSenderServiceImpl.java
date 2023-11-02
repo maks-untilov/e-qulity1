@@ -36,7 +36,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     public String getBodyToAcceptationEmail(User user) {
         String text =
                 "Щоб завершити реєстрацію, вам потрібно підтвердити свій Email.\n" +
-                "Підтвердити Email " + "http://localhost:8080/confirm/" + user.getConfirmationToken();
+                "Підтвердити Email " + "https://e-quality-work.eu/confirm/" + user.getConfirmationToken();
         return text;
     }
 }
