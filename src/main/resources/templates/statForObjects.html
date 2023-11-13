@@ -93,7 +93,8 @@
         <option>не зазначено</option>
         <option  th:each="object : ${objects}" th:value="${object.name}"><p th:text="${object.name}"></option>
       </select>
-      <a th:href="'https://e-quality-work.eu/excel/object/' + ${objects.get(0).id} + '/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel</a>
+      <a th:href="'https://e-quality-work.eu/excel/object/month/' + ${objects.get(0).id} + '/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel Месяц</a>
+      <a th:href="'https://e-quality-work.eu/excel/object/week/' + ${objects.get(0).id} + '/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel Неделя</a>
     </div>
     <div class="uk-width-1-1">
       <div data-uk-grid class="uk-grid-small uk-flex">
