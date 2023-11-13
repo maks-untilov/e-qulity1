@@ -1,5 +1,6 @@
 package app.equalityboot.config;
 
+import app.equalityboot.model.Role;
 import app.equalityboot.service.UserService;
 import app.equalityboot.service.impl.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +34,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/login", "/register", "/logout", "/questionnaire", "/confirm/**", "/inject/**").permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/profile", true) // Общий путь по умолчанию

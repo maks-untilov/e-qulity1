@@ -68,6 +68,15 @@ public class CalendarController {
         return "redirect:/calendar/user";
     }
 
+    @PostMapping("/user/distinct")
+    public String postForUser(@RequestParam String orderUserId, @RequestParam String description) {
+        OrderUser orderUser = orderUserService.get(Long.parseLong(orderUserId));
+        orderUser.setValue(false);
+        orderUser.setDescription(description);
+        orderUserService.save(orderUser);
+        return "redirect:/calendar/user";
+    }
+
     @PostMapping
     public String post(Model model, @AuthenticationPrincipal User user, @RequestParam String shift) {
         return "redirect:/calendar";

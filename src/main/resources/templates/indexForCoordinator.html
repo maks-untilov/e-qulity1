@@ -74,78 +74,92 @@
         <div class="table__col">
           <div class="table__row table__row--title" th:text="${dates.get(0)}"></div>
           <div th:each="order : ${orderService.getByDate(dates.get(0))}">
+            <span th:if="${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user).size() >= 1}">
             <div class="table__row bg-brown" th:text="${order.needWorkers + ' PAX ' + order.startTime.toLocalTime() + '-' + order.finishTime.toLocalTime() + ' ' + order.object.name + ' ' + order.description}"></div>
             <div th:each="userOrder : ${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user)}">
               <div class="table__row bg-green" th:if="${userOrder.user != null}">
                 <span th:text="${userOrder.user.firstName + ' ' + userOrder.user.lastName}"></span>
               </div>
             </div>
+            </span>
           </div>
         </div>
         <div class="table__col">
           <div class="table__row table__row--title" th:text="${dates.get(1)}"></div>
           <div th:each="order : ${orderService.getByDate(dates.get(1))}">
+            <span th:if="${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user).size >= 1}">
             <div class="table__row bg-brown" th:text="${order.needWorkers + ' PAX ' + order.startTime.toLocalTime() + '-' + order.finishTime.toLocalTime() + ' ' + order.object.name + ' ' + order.description}"></div>
             <div th:each="userOrder : ${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user)}">
               <div class="table__row bg-green" th:if="${userOrder.user != null}">
                 <span th:text="${userOrder.user.firstName + ' ' + userOrder.user.lastName}"></span>
               </div>
             </div>
+            </span>
           </div>
         </div>
         <div class="table__col">
           <div class="table__row table__row--title" th:text="${dates.get(2)}"></div>
           <div th:each="order : ${orderService.getByDate(dates.get(2))}">
+            <span th:if="${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user).size() >= 1}">
             <div class="table__row bg-brown" th:text="${order.needWorkers + ' PAX ' + order.startTime.toLocalTime() + '-' + order.finishTime.toLocalTime() + ' ' + order.object.name + ' ' + order.description}"></div>
             <div th:each="userOrder : ${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user)}">
               <div class="table__row bg-green" th:if="${userOrder.user != null}">
                 <span th:text="${userOrder.user.firstName + ' ' + userOrder.user.lastName}"></span>
               </div>
             </div>
+            </span>
           </div>
         </div>
         <div class="table__col">
           <div class="table__row table__row--title" th:text="${dates.get(3)}"></div>
           <div th:each="order : ${orderService.getByDate(dates.get(3))}">
+            <span th:if="${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user).size() >= 1}">
             <div class="table__row bg-brown" th:text="${order.needWorkers + ' PAX ' + order.startTime.toLocalTime() + '-' + order.finishTime.toLocalTime() + ' ' + order.object.name + ' ' + order.description}"></div>
             <div th:each="userOrder : ${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user)}">
               <div class="table__row bg-green" th:if="${userOrder.user != null}">
                 <span th:text="${userOrder.user.firstName + ' ' + userOrder.user.lastName}"></span>
               </div>
             </div>
+            </span>
           </div>
         </div>
         <div class="table__col">
           <div class="table__row table__row--title" th:text="${dates.get(4)}"></div>
           <div th:each="order : ${orderService.getByDate(dates.get(4))}">
+            <span th:if="${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user).size() >= 1}">
             <div class="table__row bg-brown" th:text="${order.needWorkers + ' PAX ' + order.startTime.toLocalTime() + '-' + order.finishTime.toLocalTime() + ' ' + order.object.name + ' ' + order.description}"></div>
             <div th:each="userOrder : ${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user)}">
               <div class="table__row bg-green" th:if="${userOrder.user != null}">
                 <span th:text="${userOrder.user.firstName + ' ' + userOrder.user.lastName}"></span>
               </div>
             </div>
+            </span>
           </div>
         </div>
         <div class="table__col">
           <div class="table__row table__row--title" th:text="${dates.get(5)}"></div>
           <div th:each="order : ${orderService.getByDate(dates.get(5))}">
+            <span th:if="${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user).size >= 1}">
             <div class="table__row bg-brown" th:text="${order.needWorkers + ' PAX ' + order.startTime.toLocalTime() + '-' + order.finishTime.toLocalTime() + ' ' + order.object.name + ' ' + order.description}"></div>
             <div th:each="userOrder : ${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user)}">
               <div class="table__row bg-green" th:if="${userOrder.user != null}">
                 <span th:text="${userOrder.user.firstName + ' ' + userOrder.user.lastName}"></span>
               </div>
             </div>
+            </span>
           </div>
         </div>
         <div class="table__col">
           <div class="table__row table__row--title" th:text="${dates.get(6)}"></div>
           <div th:each="order : ${orderService.getByDate(dates.get(6))}">
+            <span th:if="${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user).size >= 1}">
             <div class="table__row bg-brown" th:text="${order.needWorkers + ' PAX ' + order.startTime.toLocalTime() + '-' + order.finishTime.toLocalTime() + ' ' + order.object.name + ' ' + order.description}"></div>
             <div th:each="userOrder : ${orderUserService.getByCoordinator(orderUserService.getByOrder(order), user)}">
               <div class="table__row bg-green" th:if="${userOrder.user != null}">
                 <span th:text="${userOrder.user.firstName + ' ' + userOrder.user.lastName}"></span>
               </div>
             </div>
+            </span>
           </div>
         </div>
       </div>

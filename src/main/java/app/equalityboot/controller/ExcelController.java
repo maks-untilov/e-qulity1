@@ -102,8 +102,8 @@ public class ExcelController {
         return body;
     }
 
-    @GetMapping("/object/{objectId}/{date}")
-    public ResponseEntity<Resource> getDownloadObject(@PathVariable String date, @PathVariable String objectId) throws IOException {
+    @GetMapping("/object/month/{objectId}/{date}")
+    public ResponseEntity<Resource> getDownloadObjectMonth(@PathVariable String date, @PathVariable String objectId) throws IOException {
         LocalDate localDate = LocalDate.parse(date);
         Objects objects = objectsService.get(Long.parseLong(objectId));
         LocalDateTime dateToExcelStartMonth = LocalDate.of(localDate.getYear(),
@@ -122,7 +122,50 @@ public class ExcelController {
                     orders.get(orders.size() - 1).getFinishTime()));
         }
         String fileName = "excel_" + objects.getName() + ".xlsx";
-        ByteArrayInputStream actualData = excelGeneratorService.dataFromObjectExcel(dataToExcel, objects);
+        ByteArrayInputStream actualData = excelGeneratorService.dataFromObjectExcelMonth(dataToExcel, objects);
+        InputStreamResource file = new InputStreamResource(actualData);
+        ResponseEntity<Resource> body = ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
+                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                .body(file);
+        return body;
+    }
+
+    @GetMapping("/object/week/{objectId}/{date}")
+    public ResponseEntity<Resource> getDownloadObjectWeek(@PathVariable String date, @PathVariable String objectId) throws IOException {
+        LocalDate localDate = LocalDate.parse(date);
+        Objects objects = objectsService.get(Long.parseLong(objectId));
+        LocalDateTime dateToExcelStartMonth = LocalDate.of(localDate.getYear(),
+                localDate.getMonth(), 1).atTime(0, 0);
+        LocalDateTime dateToExcelFinishMonth = LocalDate.of(localDate.getYear(),
+                localDate.getMonth(),
+                localDate.getMonth().length(localDate.isLeapYear())).atTime(23, 59, 59);
+        List<Order> orders = orderService.getOrderByDateBetween(dateToExcelStartMonth.toLocalDate(),
+                        dateToExcelFinishMonth.toLocalDate()).stream()
+                .filter(order -> order.getObject().equals(objects))
+                .toList();
+        List<UserWorkDetails> dataToExcel = new ArrayList<>();
+        for (Order order : orders) {
+            dataToExcel = (userWorkDetailsService.getUserWorkDetailsByOrderAndDate(order,
+                    orders.get(0).getStartTime(),
+                    orders.get(orders.size() - 1).getFinishTime()));
+        }
+        String fileName = "excel_" + objects.getName() + ".xlsx";
+        ByteArrayInputStream actualData = excelGeneratorService.dataFromObjectExcelWeek(dataToExcel, objects, localDate);
+        InputStreamResource file = new InputStreamResource(actualData);
+        ResponseEntity<Resource> body = ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
+                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                .body(file);
+        return body;
+    }
+
+    @GetMapping("/object/for/manager/{orderId}")
+    public ResponseEntity<Resource> getDownloadForManagers(@PathVariable String orderId) throws IOException {
+
+        Order order = orderService.getById(Long.parseLong(orderId));
+        String fileName = "excel_for_managers" + orderId + ".xlsx";
+        ByteArrayInputStream actualData = excelGeneratorService.dataForManager(order);
         InputStreamResource file = new InputStreamResource(actualData);
         ResponseEntity<Resource> body = ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)

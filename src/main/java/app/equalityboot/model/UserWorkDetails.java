@@ -23,6 +23,7 @@ public class UserWorkDetails {
     @Lob
     @Column(columnDefinition = "BLOB")
     private byte[] image;
+    private String imageName;
     private boolean isPaid;
     public enum Shift {
         DAY, NIGHT, NOT_WORKING, DAY_NIGHT;

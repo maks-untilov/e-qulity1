@@ -1,5 +1,6 @@
 package app.equalityboot.controller;
 
+import app.equalityboot.ImageUtil;
 import app.equalityboot.model.Order;
 import app.equalityboot.model.OrderUser;
 import app.equalityboot.model.User;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/graphics")
 public class GraphicsController {
     private int FIRST_DAY_OF_WEEK = 0;
     private int LAST_DAY_OF_WEEK = 6;
@@ -38,7 +38,7 @@ public class GraphicsController {
         this.orderUserService = orderUserService;
     }
 
-    @GetMapping()
+    @GetMapping("/graphics")
     public String get(Model model, @AuthenticationPrincipal User loggedUser) {
         LocalDateTime timeNow = LocalDateTime.now();
         // Проверяем, является ли startDate понедельником (DayOfWeek.MONDAY - 1)
@@ -63,6 +63,33 @@ public class GraphicsController {
         model.addAttribute("orderService", orderService);
         return "graphics";
     }
+
+    @GetMapping("/boss/graphics")
+    public String getForBoss(Model model, @AuthenticationPrincipal User loggedUser) {
+        LocalDateTime timeNow = LocalDateTime.now();
+        // Проверяем, является ли startDate понедельником (DayOfWeek.MONDAY - 1)
+        if (timeNow.getDayOfWeek().getValue() != DayOfWeek.MONDAY.getValue()) {
+            // Если нет, вычитаем соответствующее количество дней для получения предыдущего понедельника
+            int daysUntilPreviousMonday = timeNow.getDayOfWeek().getValue() - DayOfWeek.MONDAY.getValue();
+            timeNow = timeNow.minusDays(daysUntilPreviousMonday);
+        }
+        List<LocalDate> dates = timeNow.toLocalDate().datesUntil(timeNow.toLocalDate().plusDays(7)).toList();
+        List<Order> orderByDateBetween =
+                orderService.getOrderByDateBetween(dates.get(FIRST_DAY_OF_WEEK), dates.get(LAST_DAY_OF_WEEK));
+        List<OrderUser> orderUserList = new ArrayList<>();
+        for (Order order : orderByDateBetween) {
+            List<OrderUser> byOrder = orderUserService.getByOrder(order);
+            orderUserList.addAll(byOrder);
+        }
+        model.getAttribute("");
+        model.addAttribute("userWorkDetailService", userWorkDetailsService);
+        model.addAttribute("workers", orderUserList);
+        model.addAttribute("dates", dates);
+        model.addAttribute("imgUtil", new ImageUtil());
+        model.addAttribute("loggedUser", loggedUser);
+        model.addAttribute("orderService", orderService);
+        return "graphicsForBoss";
+    }
     @PostMapping()
     public String post(@RequestParam("time-from") String timeFrom,
                        @RequestParam("time-to") String timeTo,
@@ -70,16 +97,17 @@ public class GraphicsController {
         return "redirect:/graphics";
     }
 
-    @GetMapping("/edit/{userWorkDetailsId}/{orderId}")
+    @GetMapping("/graphics/edit/{userWorkDetailsId}/{orderId}")
     public String getEdit(Model model, @AuthenticationPrincipal User loggedUser, @PathVariable() String userWorkDetailsId,
                           @PathVariable String orderId) {
         UserWorkDetails userWorkDetails = userWorkDetailsService.getById(Long.parseLong(userWorkDetailsId));
         model.addAttribute("order", orderService.getById(Long.parseLong(orderId)));
         model.addAttribute("worker", userWorkDetails);
         model.addAttribute("loggedUser", loggedUser);
+        model.addAttribute("imgUtil", new ImageUtil());
         return "editGraphics";
     }
-    @PostMapping("/edit/{userWorkDetailsId}/{orderId}")
+    @PostMapping("/graphics/edit/{userWorkDetailsId}/{orderId}")
     public String postEdit(Model model, @AuthenticationPrincipal User loggedUser,
                            @PathVariable() String userWorkDetailsId,
                            @RequestParam("time-from") String timeFrom,

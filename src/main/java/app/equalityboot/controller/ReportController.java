@@ -65,8 +65,9 @@ public class ReportController {
             userWorkDetails.setFinishDateTime(timeTo.atDate(localDate));
         }
         if (!file.isEmpty()) {
-            BufferedImage compressedImage = ImageUtil.compressImage(file.getBytes(), 0.5);
+            BufferedImage compressedImage = ImageUtil.compressImage(file.getBytes(), 1.0);
             byte[] compressedImageData = ImageUtil.imageToByteArray(compressedImage);
+            userWorkDetails.setImageName(file.getOriginalFilename());
             userWorkDetails.setImage(compressedImageData);
         }
         userWorkDetailsService.save(userWorkDetails);

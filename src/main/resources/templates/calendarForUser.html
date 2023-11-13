@@ -135,15 +135,21 @@
                               <span th:if="${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)).paid == true}">Оплачено</span>
                               <span th:if="${userWorkDetailsService.getByUserBetweenTime(user, date.atTime(0, 0), date.atTime(23, 59)).paid == false}">Не оплачено</span>
                           </button>
-                              <span th:if="${orderUser.value == false}">
+                              <span th:if="${orderUser.value == false && orderUser.description == null}">
                                   <a th:href="'https://e-quality-work.eu/calendar/user/allow/' + ${orderUser.id}" class="schedule__allow-btn">Підтвердити</a>
+                                  <form method="post" th:action="@{/calendar/user/distinct}">
+                                      <label>Напишите причину отказа
+                                        <textarea name="description" class="uk-textarea" rows="1" required></textarea>
+                                        <input type="hidden" name="orderUserId" th:value="${orderUser.id}">
+                                        <button type="submit" name="submit" value="Submit" class="schedule__cancel-btn">Відхилити</button>
+                                      </label>
+                                  </form>
                               </span>
                           <br>
                         <button class="schedule__work-btn">робота</button>
-
                         <a th:href="@{'https://e-quality-work.eu/report/add/' + ${orderService.getByDate(date).get(0).id} + '/' + ${date}}" class="schedule__work-btn">звіт</a>
-                          </span>
-                                            </span>
+                      </span>
+                                        </span>
                                     </div>
                                 </span>
                             </div>
