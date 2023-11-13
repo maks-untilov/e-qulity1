@@ -42,7 +42,7 @@ button {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1rem;
   line-height: 1.5;
   background-color: #fff;
@@ -80,7 +80,7 @@ body {
 }
 
 .sidebar__logo {
-  font-family: 'Calistoga', cursive;
+  font-family: "Calistoga", cursive;
   color: var(--yellow-clr);
   text-align: center;
   position: relative;
@@ -264,7 +264,7 @@ body {
   align-items: center;
   justify-content: center;
   color: white;
-  font-family: 'Calistoga', cursive;
+  font-family: "Calistoga", cursive;
   height: 40px;
   width: 40px;
   font-size: 2rem;
@@ -312,6 +312,10 @@ body {
   flex-direction: column;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.popupe {
+  display: flex;
 }
 
 .footer {

@@ -15,4 +15,5 @@ public class OrderUser {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private User user;
     private boolean value;
+    private String description;
 }

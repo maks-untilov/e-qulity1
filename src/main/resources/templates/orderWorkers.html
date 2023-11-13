@@ -147,7 +147,7 @@
         <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-responsive">
           <div class="uk-width-1-1">
             <tr>
-              <span th:each="worker : ${orderUserService.getByOrder(order)}" th:if="${worker.user} != null">
+              <span th:each="worker : ${orderUserService.getByOrder(order)}" th:if="${worker.user != null && worker.value == true}">
                 <form method="post" th:action="@{'https://e-quality-work.eu/orders/delete/' + ${order.id + '/' + worker.user.id}}">
                   <td data-th="Працівник:" class="uk-text-bold"><p th:text="${worker.user.firstName}"><p th:text="${worker.user.lastName}"><div class="right">
                     <span class="code code-green"><p th:text="${worker.user.id}"></span>
@@ -155,6 +155,32 @@
                     <button type="submit" class="uk-button uk-button-xsmall">Видалити с замовлення</button>
                   </td>
                 </form>
+              </span>
+            </tr>
+          </div>
+        </table>
+      </div>
+    </div>
+    <div class="uk-width-1-1 uk-margin-medium-top add" >
+      <div data-uk-grid class="uk-grid-small">
+        <div class="uk-width-1-1"><hr></div>
+        <div class="uk-width-1-1">
+          <h3>Працівники ще не відомо</h3>
+        </div>
+        <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-responsive">
+          <div class="uk-width-1-1">
+            <tr>
+              <span th:each="worker : ${orderUserService.getByOrder(order)}" th:if="${worker.user != null && worker.value == false}">
+                  <td data-th="Працівник:" class="uk-text-bold">
+                    <p th:text="${worker.user.firstName}">
+                    <p th:text="${worker.user.lastName}">
+                    <div class="right">
+                    <span th:if="${worker.description != null}">
+                      <p  class="uk-text-bold" th:text="${worker.description}"></p>
+                    </span>
+                    <span class="code code-green"><p th:text="${worker.user.id}"></span>
+                  </div>
+                  </td>
               </span>
             </tr>
           </div>

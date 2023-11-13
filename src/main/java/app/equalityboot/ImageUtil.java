@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 
 public class ImageUtil {
 
@@ -23,5 +24,9 @@ public class ImageUtil {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "jpg", byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
+    }
+
+    public String getImgData(byte[] byteData) {
+        return Base64.getMimeEncoder().encodeToString(byteData);
     }
 }
