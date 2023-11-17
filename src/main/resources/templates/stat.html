@@ -172,12 +172,9 @@
       <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-border">
         <tr>
           <td>Координаторів</td>
-          <select name="coordinator" class="uk-select uk-width-1-1">
-            <option  th:each="user : ${users}" th:if="${user.role.getRoleName()==coordinatorRole}" th:value="${user.firstName}">
-              <input type="hidden" name="coordinatorId" th:value="${user.id}">
-              <a th:href="'https://e-quality-work.eu/excel/all/byCoordinator/' + ${dates.get(0)}" th:text="${user.firstName + ' ' + user.lastName}"></a>
-            </option>
-          </select>
+            <p class="uk-width-1-1" th:each="user : ${users}" th:if="${user.role.getRoleName()==coordinatorRole}">
+              <a th:href="'https://e-quality-work.eu/excel/all/byCoordinator/' + ${dates.get(0)} + '/' + ${user.id}" th:text="${user.firstName + ' ' + user.lastName}"></a>
+            </p>
           <td></td>
         </tr>
         <tr>

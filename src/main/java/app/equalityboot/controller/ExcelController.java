@@ -61,9 +61,9 @@ public class ExcelController {
         return body;
     }
 
-    @GetMapping("/all/byCoordinator/{date}")
+    @GetMapping("/all/byCoordinator/{date}/{coordinatorId}")
     public ResponseEntity<Resource> getDownloadAllByCoordinator(@PathVariable String date,
-                                                                @RequestParam String coordinatorId) throws IOException {
+                                                                @PathVariable String coordinatorId) throws IOException {
         LocalDate localDate = LocalDate.parse(date);
         User coordinator = userService.get(Long.parseLong(coordinatorId));
         LocalDateTime dateToExcelStartMonth = LocalDate.of(localDate.getYear(),
