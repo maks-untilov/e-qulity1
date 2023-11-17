@@ -174,11 +174,10 @@
           <td>Координаторів</td>
           <select name="coordinator" class="uk-select uk-width-1-1">
             <option  th:each="user : ${users}" th:if="${user.role.getRoleName()==coordinatorRole}" th:value="${user.firstName}">
-              <p th:text="${user.firstName + ' ' + user.lastName}">
-                <input type="hidden" name="coordinatorId" th:value="${user.id}">
+              <input type="hidden" name="coordinatorId" th:value="${user.id}">
+              <a th:href="'https://e-quality-work.eu/excel/all/byCoordinator/' + ${dates.get(0)}" th:text="${user.firstName + ' ' + user.lastName}"></a>
             </option>
           </select>
-          <a th:href="'https://e-quality-work.eu/excel/all/byCoordinator/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel Месяц</a>
           <td></td>
         </tr>
         <tr>
