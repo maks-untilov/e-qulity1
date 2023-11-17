@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -59,6 +61,28 @@ public class ExcelController {
         return body;
     }
 
+    @GetMapping("/all/byCoordinator/{date}")
+    public ResponseEntity<Resource> getDownloadAllByCoordinator(@PathVariable String date,
+                                                                @RequestParam String coordinatorId) throws IOException {
+        LocalDate localDate = LocalDate.parse(date);
+        User coordinator = userService.get(Long.parseLong(coordinatorId));
+        LocalDateTime dateToExcelStartMonth = LocalDate.of(localDate.getYear(),
+                localDate.getMonth(), 1).atTime(0, 0);
+        LocalDateTime dateToExcelFinishMonth = LocalDate.of(localDate.getYear(),
+                localDate.getMonth(),
+                localDate.getMonth().length(localDate.isLeapYear())).atTime(23, 59, 59);
+        String fileName = "excel_all_by_" + coordinator.getFirstName() + " " + coordinator.getLastName() + ".xlsx";
+        List<UserWorkDetails> userWorkDetailsList =
+                userWorkDetailsService.getAllGreaterThan(dateToExcelStartMonth, dateToExcelFinishMonth);
+        ByteArrayInputStream actualData = excelGeneratorService.dataToExcelByCoordinator(userWorkDetailsList, coordinator);
+        InputStreamResource file = new InputStreamResource(actualData);
+        ResponseEntity<Resource> body = ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
+                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                .body(file);
+        return body;
+    }
+
     @GetMapping("/all/passedDays/{date}")
     public ResponseEntity<Resource> getDownloadAllPassedDays(@PathVariable String date) throws IOException {
         LocalDate localDate = LocalDate.parse(date);
@@ -72,6 +96,38 @@ public class ExcelController {
                 userWorkDetailsService.getAllGreaterThan(dateToExcelStartMonth,
                         dateToExcelFinishMonth);
         ByteArrayInputStream actualData = excelGeneratorService.dataToExcelPassedDays(userWorkDetailsList);
+        InputStreamResource file = new InputStreamResource(actualData);
+        ResponseEntity<Resource> body = ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
+                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                .body(file);
+        return body;
+    }
+
+    @GetMapping("/object/byCoordinator/{objectId}/{date}")
+    public ResponseEntity<Resource> getDownloadObjectMonthForCoordinator(@PathVariable String date, @PathVariable String objectId,
+                                                                         @RequestParam String coordinatorId) throws IOException {
+        User coordinator = userService.get(Long.parseLong(coordinatorId));
+        LocalDate localDate = LocalDate.parse(date);
+        Objects objects = objectsService.get(Long.parseLong(objectId));
+        LocalDateTime dateToExcelStartMonth = LocalDate.of(localDate.getYear(),
+                localDate.getMonth(), 1).atTime(0, 0);
+        LocalDateTime dateToExcelFinishMonth = LocalDate.of(localDate.getYear(),
+                localDate.getMonth(),
+                localDate.getMonth().length(localDate.isLeapYear())).atTime(23, 59, 59);
+        List<Order> orders = orderService.getOrderByDateBetween(dateToExcelStartMonth.toLocalDate(),
+                        dateToExcelFinishMonth.toLocalDate()).stream()
+                .filter(order -> order.getObject().equals(objects))
+                .toList();
+        List<UserWorkDetails> dataToExcel = new ArrayList<>();
+        for (Order order : orders) {
+            dataToExcel = (userWorkDetailsService.getUserWorkDetailsByOrderAndDate(order,
+                    orders.get(0).getStartTime(),
+                    orders.get(orders.size() - 1).getFinishTime()));
+        }
+        String fileName = "excel_" + objects.getName() + ".xlsx";
+        ByteArrayInputStream actualData = excelGeneratorService.dataFromObjectExcelMonthByCoordinator(dataToExcel,
+                objects, coordinator);
         InputStreamResource file = new InputStreamResource(actualData);
         ResponseEntity<Resource> body = ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)

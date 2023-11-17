@@ -122,12 +122,10 @@
         >
           <div class="form__input">
             <div class="form__input--left">
-              <h3 class="form__input-title">ПОНЕДІЛОК</h3>
+              <h3 class="form__input-title" th:text="${dates.get(1).toString()}"></h3>
               <p
                       class="form__input-date"
-                      th:text="${dates.get(0).dayOfWeek.toString() + ' ' + dates.get(0).dayOfMonth + ' ' + dates.get(0).month.toString()}"
-              >
-                12 серпня
+                      th:text="${dates.get(0).dayOfWeek.toString() + ' ' + dates.get(0).dayOfMonth + ' ' + dates.get(0).month.toString()}">
               </p>
             </div>
 
@@ -165,16 +163,24 @@
               <label class="input block" for="monday-option3">
                 Нічна зміна
               </label>
+              <input
+                      id="monday-option4"
+                      name="zmina_0"
+                      th:value="${dates.get(0).toString() + '_3'}"
+                      class="uk-radio"
+                      type="radio"
+              />
+              <label class="input block" for="monday-option3">
+                Денна + Нічна зміна
+              </label>
             </div>
           </div>
           <div class="form__input">
             <div class="form__input--left">
-              <h3 class="form__input-title">Вівторок</h3>
+              <h3 class="form__input-title" th:text="${dates.get(1).toString()}"></h3>
               <p
                       class="form__input-date"
-                      th:text="${dates.get(1).dayOfWeek.toString() + ' ' + dates.get(1).dayOfMonth + ' ' + dates.get(1).month.toString()}"
-              >
-                14 серпня
+                      th:text="${dates.get(1).dayOfWeek.toString() + ' ' + dates.get(1).dayOfMonth + ' ' + dates.get(1).month.toString()}">
               </p>
             </div>
 
@@ -210,16 +216,24 @@
               <label class="input block" for="tuesday-option3">
                 Нічна зміна
               </label>
+              <input
+                      id="tuesday-option4"
+                      name="zmina_1"
+                      th:value="${dates.get(1).toString() + '_3'}"
+                      class="uk-radio"
+                      type="radio"
+              />
+              <label class="input block" for="tuesday-option3">
+                Денна + Нічна зміна
+              </label>
             </div>
           </div>
           <div class="form__input">
             <div class="form__input--left">
-              <h3 class="form__input-title">Середа</h3>
+              <h3 class="form__input-title" th:text="${dates.get(1).toString()}"></h3>
               <p
                       class="form__input-date"
-                      th:text="${dates.get(2).dayOfWeek.toString() + ' ' + dates.get(2).dayOfMonth + ' ' + dates.get(2).month.toString()}"
-              >
-                16 серпня
+                      th:text="${dates.get(2).dayOfWeek.toString() + ' ' + dates.get(2).dayOfMonth + ' ' + dates.get(2).month.toString()}">
               </p>
             </div>
 
@@ -255,16 +269,24 @@
               <label class="input block" for="wednesday-option3">
                 Нічна зміна
               </label>
+              <input
+                      id="wednesday-option4"
+                      name="zmina_2"
+                      th:value="${dates.get(2).toString() + '_3'}"
+                      class="uk-radio"
+                      type="radio"
+              />
+              <label class="input block" for="wednesday-option3">
+                Денна + Нічна зміна
+              </label>
             </div>
           </div>
           <div class="form__input">
             <div class="form__input--left">
-              <h3 class="form__input-title">Четвер</h3>
+              <h3 class="form__input-title" th:text="${dates.get(1).toString()}"></h3>
               <p
                       class="form__input-date"
-                      th:text="${dates.get(3).dayOfWeek.toString() + ' ' + dates.get(3).dayOfMonth + ' ' + dates.get(3).month.toString()}"
-              >
-                18 серпня
+                      th:text="${dates.get(3).dayOfWeek.toString() + ' ' + dates.get(3).dayOfMonth + ' ' + dates.get(3).month.toString()}">
               </p>
             </div>
 
@@ -300,16 +322,25 @@
               <label class="input block" for="thursday-option3">
                 Нічна зміна
               </label>
+              <input
+                      id="thursday-option4"
+                      name="zmina_3"
+                      th:value="${dates.get(3).toString() + '_3'}"
+                      class="uk-radio"
+                      type="radio"
+              />
+              <label class="input block" for="thursday-option3">
+                Денна + Нічна зміна
+              </label>
             </div>
           </div>
           <div class="form__input">
             <div class="form__input--left">
-              <h3 class="form__input-title">П'ЯТНИЦЯ</h3>
+              <h3 class="form__input-title" th:text="${dates.get(1).toString()}"></h3>
               <p
                       class="form__input-date"
                       th:text="${dates.get(4).dayOfWeek.toString() + ' ' + dates.get(4).dayOfMonth + ' ' + dates.get(4).month.toString()}"
               >
-                20 серпня
               </p>
             </div>
 
@@ -345,16 +376,24 @@
               <label class="input block" for="friday-option3">
                 Нічна зміна
               </label>
+              <input
+                      id="friday-option4"
+                      name="zmina_4"
+                      th:value="${dates.get(4).toString() + '_3'}"
+                      class="uk-radio"
+                      type="radio"
+              />
+              <label class="input block" for="friday-option3">
+                Денна + Нічна зміна
+              </label>
             </div>
           </div>
           <div class="form__input">
             <div class="form__input--left">
-              <h3 class="form__input-title">Субота</h3>
+              <h3 class="form__input-title" th:text="${dates.get(1).toString()}"></h3>
               <p
                       class="form__input-date"
-                      th:text="${dates.get(5).dayOfWeek.toString() + ' ' + dates.get(5).dayOfMonth + ' ' + dates.get(5).month.toString()}"
-              >
-                20 серпня
+                      th:text="${dates.get(5).dayOfWeek.toString() + ' ' + dates.get(5).dayOfMonth + ' ' + dates.get(5).month.toString()}">
               </p>
             </div>
 
@@ -390,16 +429,25 @@
               <label class="input block" for="saturday-option3">
                 Нічна зміна
               </label>
+              <input
+                      id="saturday-option4"
+                      name="zmina_5"
+                      th:value="${dates.get(5).toString() + '_3'}"
+                      class="uk-radio"
+                      type="radio"
+              />
+              <label class="input block" for="saturday-option3">
+                Денна + Нічна зміна
+              </label>
             </div>
           </div>
           <div class="form__input">
             <div class="form__input--left">
-              <h3 class="form__input-title">Неділя</h3>
+              <h3 class="form__input-title" th:text="${dates.get(1).toString()}"></h3>
               <p
                       class="form__input-date"
                       th:text="${dates.get(6).dayOfWeek.toString() + ' ' + dates.get(6).dayOfMonth + ' ' + dates.get(6).month.toString()}"
               >
-                22 серпня
               </p>
             </div>
 
@@ -430,10 +478,18 @@
                       name="zmina_6"
                       th:value="${dates.get(6).toString() + '_2'}"
                       class="uk-radio"
-                      type="radio"
-              />
+                      type="radio"/>
               <label class="input block" for="sunday-option3">
                 Нічна зміна
+              </label>
+              <input
+                      id="sunday-option4"
+                      name="zmina_6"
+                      th:value="${dates.get(6).toString() + '_3'}"
+                      class="uk-radio"
+                      type="radio"/>
+              <label class="input block" for="sunday-option3">
+                Денна + Нічна зміна
               </label>
             </div>
           </div>

@@ -33,8 +33,8 @@
   </ul>
   <ul class="nav-crm-bottom">
     <li class="lang uk-hidden@l">
-      <a href="/" class="active">Українська</a>
-      <a href="/" class="">Polski</a>
+      <a href="https://e-quality-work.eu/" class="active">Українська</a>
+      <a href="https://e-quality-work.eu/" class="">Polski</a>
     </li>
     <li class="profile">
       <a href="https://e-quality-work.eu/profile">
@@ -72,24 +72,24 @@
       <div data-uk-grid class="uk-grid-small">
         <div class="uk-width-auto">
           <div class="">
-            <a href="https://e-quality-work.eu/stat" class="uk-button uk-button-small">Робочі дні</a>
+            <a href="https://e-quality-work.eu/stat/coordinator" class="uk-button uk-button-small">Робочі дні</a>
           </div>
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a href="https://e-quality-work.eu/passedDays" class="uk-button uk-button-small">Пропуски</a>
+            <a href="https://e-quality-work.eu/stat/coordinator/passedDays" class="uk-button uk-button-small">Пропуски</a>
           </div>
         </div>
         <div class="uk-width-auto">
           <div class="">
-            <a href="https://e-quality-work.eu/stat/objects" class="uk-button uk-button-small">Об'єкти</a>
+            <a href="https://e-quality-work.eu/stat/coordinator/objects" class="uk-button uk-button-small">Об'єкти</a>
           </div>
         </div>
       </div>
     </div>
     <div class="uk-width-expand"><h3>Статистика відпрацьованих годин</h3></div>
     <div class="uk-width-auto@s">
-      <a th:href="'https://e-quality-work.eu/excel/all/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel Месяц</a>
+      <a th:href="'https://e-quality-work.eu/excel/all/passedDays/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel</a>
     </div>
     <div class="uk-width-1-1">
       <div data-uk-grid class="uk-grid-small uk-flex">
@@ -130,10 +130,10 @@
                     <span th:if="${workDetail.finishDateTime.minusHours(workDetail.startDateTime.hour).hour==0}">
                       <span>-</span>
                     </span>
-                  <span th:if="${workDetail.isMissed == true}">
+                  <span th:if="${workDetail.isMissed == false}">
                     <span>-</span>
                   </span>
-                  <span th:if="${workDetail.isMissed == false}">
+                  <span th:if="${workDetail.isMissed == true}">
                     <span th:if="${workDetail.finishDateTime.minusHours(workDetail.startDateTime.hour).hour!=0}">
                       <span th:text="${workDetail.finishDateTime.minusHours(workDetail.startDateTime.hour).hour + ' год ' + workDetail.finishDateTime.minusMinutes(workDetail.startDateTime.minute).minute + ' хв '}"></span>
                     </span>
@@ -172,13 +172,6 @@
       <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-border">
         <tr>
           <td>Координаторів</td>
-          <select name="coordinator" class="uk-select uk-width-1-1">
-            <option  th:each="user : ${users}" th:if="${user.role.getRoleName()==coordinatorRole}" th:value="${user.firstName}">
-              <p th:text="${user.firstName + ' ' + user.lastName}">
-                <input type="hidden" name="coordinatorId" th:value="${user.id}">
-            </option>
-          </select>
-          <a th:href="'https://e-quality-work.eu/excel/all/byCoordinator/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel Месяц</a>
           <td></td>
         </tr>
         <tr>

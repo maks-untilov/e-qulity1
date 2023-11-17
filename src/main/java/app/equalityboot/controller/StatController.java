@@ -1,6 +1,7 @@
 package app.equalityboot.controller;
 
 import app.equalityboot.model.Objects;
+import app.equalityboot.model.Role;
 import app.equalityboot.model.User;
 import app.equalityboot.model.UserWorkDetails;
 import app.equalityboot.service.ObjectsService;
@@ -23,6 +24,8 @@ public class StatController {
     private UserService userService;
     private UserWorkDetailsService userWorkDetailsService;
     private OrderService orderService;
+
+    private final Role.RoleName coordinator = Role.RoleName.MANAGER;
     private ObjectsService objectsService;
 
     public StatController(UserService userService, UserWorkDetailsService userWorkDetailsService,
@@ -48,6 +51,7 @@ public class StatController {
         model.addAttribute("dates", dates);
         model.addAttribute("loggedUser", loggedUser);
         model.addAttribute("users", users);
+        model.addAttribute("coordinatorRole", coordinator);
         model.addAttribute("userWorkDetailsService", userWorkDetailsService);
         model.addAttribute("workDetails", userWorkDetails);
         return "stat";
@@ -111,6 +115,52 @@ public class StatController {
         model.addAttribute("userWorkDetailsService", userWorkDetailsService);
         model.addAttribute("workDetails", userWorkDetailsByCoordinator);
         return "coordinatorStat";
+    }
+
+    @GetMapping("/stat/coordinator/objects")
+    public String getObjectsForCoordinator(Model model, @AuthenticationPrincipal User loggedUser) {
+        List<User> users = userService.getByCoordinator(loggedUser);
+        List<UserWorkDetails> userWorkDetails = userWorkDetailsService.getAll();
+        LocalDateTime timeNow = LocalDateTime.now();
+
+        // Проверяем, является ли startDate понедельником (DayOfWeek.MONDAY - 1)
+        if (timeNow.getDayOfWeek().getValue() != DayOfWeek.MONDAY.getValue()) {
+            // Если нет, вычитаем соответствующее количество дней для получения предыдущего понедельника
+            int daysUntilPreviousMonday = timeNow.getDayOfWeek().getValue() - DayOfWeek.MONDAY.getValue();
+            timeNow = timeNow.minusDays(daysUntilPreviousMonday);
+        }
+        List<Objects> objects = objectsService.gelAll();
+        List<LocalDate> dates = timeNow.toLocalDate().datesUntil(timeNow.toLocalDate().plusDays(7)).toList();
+        model.addAttribute("dates", dates);
+        model.addAttribute("loggedUser", loggedUser);
+        model.addAttribute("objects", objects);
+        model.addAttribute("users", users);
+        model.addAttribute("userWorkDetailsService", userWorkDetailsService);
+        model.addAttribute("workDetails", userWorkDetails);
+        return "statForCoordinatorObjects";
+    }
+
+    @GetMapping("/stat/coordinator/passedDays")
+    public String getPassedDaysForCoordinator(Model model, @AuthenticationPrincipal User loggedUser) {
+        List<User> users = userService.getByCoordinator(loggedUser);
+        List<UserWorkDetails> userWorkDetails = userWorkDetailsService.getAll();
+        LocalDateTime timeNow = LocalDateTime.now();
+
+        // Проверяем, является ли startDate понедельником (DayOfWeek.MONDAY - 1)
+        if (timeNow.getDayOfWeek().getValue() != DayOfWeek.MONDAY.getValue()) {
+            // Если нет, вычитаем соответствующее количество дней для получения предыдущего понедельника
+            int daysUntilPreviousMonday = timeNow.getDayOfWeek().getValue() - DayOfWeek.MONDAY.getValue();
+            timeNow = timeNow.minusDays(daysUntilPreviousMonday);
+        }
+        List<Objects> objects = objectsService.gelAll();
+        List<LocalDate> dates = timeNow.toLocalDate().datesUntil(timeNow.toLocalDate().plusDays(7)).toList();
+        model.addAttribute("dates", dates);
+        model.addAttribute("loggedUser", loggedUser);
+        model.addAttribute("objects", objects);
+        model.addAttribute("users", users);
+        model.addAttribute("userWorkDetailsService", userWorkDetailsService);
+        model.addAttribute("workDetails", userWorkDetails);
+        return "statForCoordinatorPassedDays";
     }
 
     @GetMapping("/stat/objects")
