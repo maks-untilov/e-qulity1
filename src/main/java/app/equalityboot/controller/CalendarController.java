@@ -356,7 +356,7 @@ public class CalendarController {
         model.addAttribute("userWorkDetailsService", userWorkDetailsService);
         model.addAttribute("dates", dates);
         model.addAttribute("loggedUser", user);
-        return "redirect:calendar/coordinator/" + user.getId();
+        return "redirect:users/byCoordinator";
     }
 
     @GetMapping("/coordinator")

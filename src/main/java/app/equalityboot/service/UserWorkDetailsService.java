@@ -23,4 +23,5 @@ public interface UserWorkDetailsService {
                                                    LocalDateTime finish);
 
     List<UserWorkDetails> getUserWorkDetailsByOrderAndDate(Order order, LocalDateTime start, LocalDateTime finish);
+
 }

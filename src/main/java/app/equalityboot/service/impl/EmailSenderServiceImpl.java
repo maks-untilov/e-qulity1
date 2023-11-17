@@ -28,15 +28,15 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     }
 
     public String getSubjectToAcceptationEmail(String username) {
-        String text = "Привіт, " + username +"\n" +
-                "Дякуємо за реєстрацію.\n";
+        String text = "Cześć, " + username +"\n" +
+                "Dziękuję za rejestrację.\n";
         return text;
     }
 
     public String getBodyToAcceptationEmail(User user) {
         String text =
-                "Щоб завершити реєстрацію, вам потрібно підтвердити свій Email.\n" +
-                "Підтвердити Email " + "https://e-quality-work.eu/confirm/" + user.getConfirmationToken();
+                "Zakończ rejestrację, potwierdź swój e-mail.\n" +
+                        "Potwierdź Email " + "https://e-quality-work.eu/confirm/" + user.getConfirmationToken();
         return text;
     }
 }

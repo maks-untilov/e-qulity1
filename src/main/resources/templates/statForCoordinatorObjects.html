@@ -25,16 +25,15 @@
     <li class="logo-container"><a href="https://e-quality-work.eu/index" class="logo-text">
       <span>Quality Work</span>In the right place at the right time        </a></li>
     <li class="divider">Меню</li>
-    <li><a href="https://e-quality-work.eu/index" class=" icon icon-dashboard">Стартова панель</a></li>
-    <li><a href="https://e-quality-work.eu/objects" class=" icon icon-objects">Об'єкти</a></li>
-    <li><a href="https://e-quality-work.eu/orders" class=" icon icon-orders">Замовлення</a></li>
-    <li><a href="https://e-quality-work.eu/users" class=" icon icon-users">Працівникі</a></li>
-    <li><a href="https://e-quality-work.eu/stat" class="active icon icon-stat">Статистика</a></li>
+    <li><a href="https://e-quality-work.eu/panel/coordinator" class="icon icon-dashboard">Стартова панель</a></li>
+    <li><a href="https://e-quality-work.eu/calendar/coordinator" class=" icon icon-objects">Календар</a></li>
+    <li><a href="https://e-quality-work.eu/users/byCoordinator" class="active icon icon-users"><i class="fa-solid fa-fire"></i><span>Працівники</span></a></li>
+    <li><a href="https://e-quality-work.eu/stat/coordinator" class=" icon icon-stat">Статистика</a></li>
   </ul>
   <ul class="nav-crm-bottom">
     <li class="lang uk-hidden@l">
-      <a href="/" class="active">Українська</a>
-      <a href="/" class="">Polski</a>
+      <a href="https://e-quality-work.eu/" class="active">Українська</a>
+      <a href="https://e-quality-work.eu/" class="">Polski</a>
     </li>
     <li class="profile">
       <a href="https://e-quality-work.eu/profile">
@@ -71,25 +70,29 @@
     <div class="uk-width-1-1">
       <div data-uk-grid class="uk-grid-small">
         <div class="uk-width-auto">
-          <div class="">
-            <a href="https://e-quality-work.eu/stat" class="uk-button uk-button-small">Робочі дні</a>
-          </div>
+      <div class="">
+        <a href="https://e-quality-work.eu/stat/coordinator" class="uk-button uk-button-small">Робочі дні</a>
+      </div>
+    </div>
+      <div class="uk-width-auto">
+        <div class="">
+          <a href="https://e-quality-work.eu/stat/coordinator/passedDays" class="uk-button uk-button-small">Пропуски</a>
         </div>
-        <div class="uk-width-auto">
-          <div class="">
-            <a href="https://e-quality-work.eu/passedDays" class="uk-button uk-button-small">Пропуски</a>
-          </div>
-        </div>
-        <div class="uk-width-auto">
-          <div class="">
-            <a href="https://e-quality-work.eu/stat/objects" class="uk-button uk-button-small">Об'єкти</a>
-          </div>
+      </div>
+      <div class="uk-width-auto">
+        <div class="">
+          <a href="https://e-quality-work.eu/stat/coordinator/objects" class="uk-button uk-button-small">Об'єкти</a>
         </div>
       </div>
     </div>
+    </div>
     <div class="uk-width-expand"><h3>Статистика відпрацьованих годин</h3></div>
     <div class="uk-width-auto@s">
-      <a th:href="'https://e-quality-work.eu/excel/all/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel Месяц</a>
+      <select name="object" class="uk-select uk-width-1-1">
+        <option>не зазначено</option>
+        <option  th:each="object : ${objects}" th:value="${object.name}"><p th:text="${object.name}"></option>
+      </select>
+      <a th:href="'https://e-quality-work.eu/excel/object/byCoordinator/' + ${objects.get(0).id} + '/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel Месяц</a>
     </div>
     <div class="uk-width-1-1">
       <div data-uk-grid class="uk-grid-small uk-flex">
@@ -117,7 +120,7 @@
         <tr th:each="user : ${users}">
           <td data-th="Працівник" class="uk-text-bold">
             <div class="right">
-              <a th:href="@{/stat/{userId}(userId = ${user.id})}">
+              <a th:href="@{https://e-quality-work.eu/stat/{userId}(userId = ${user.id})}">
                 <p th:text="${user.firstName}"></p>
                 <p th:text="${user.lastName}"></p>
               </a>
@@ -172,13 +175,6 @@
       <table class="uk-table uk-table-xsmall uk-table-divider uk-table-middle table-border">
         <tr>
           <td>Координаторів</td>
-          <select name="coordinator" class="uk-select uk-width-1-1">
-            <option  th:each="user : ${users}" th:if="${user.role.getRoleName()==coordinatorRole}" th:value="${user.firstName}">
-              <p th:text="${user.firstName + ' ' + user.lastName}">
-                <input type="hidden" name="coordinatorId" th:value="${user.id}">
-            </option>
-          </select>
-          <a th:href="'https://e-quality-work.eu/excel/all/byCoordinator/' + ${dates.get(0)}" target="_blank" class="uk-button uk-button-green uk-button-small">Експорт в Excel Месяц</a>
           <td></td>
         </tr>
         <tr>
